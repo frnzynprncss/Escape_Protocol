@@ -36,6 +36,12 @@ public class GhostAI : MonoBehaviour
         // custom function on what the ghost reacts when collided with the trap
     }
 
+
+    public virtual void light_collided()
+    {
+        // custom function on what the ghost reacts when the player flashes their light on them
+    }
+
     public bool near_target()
     {
         return Vector3.Distance(transform.position, ai_destination.target.position) < attack_range;
@@ -45,5 +51,8 @@ public class GhostAI : MonoBehaviour
     {
         // if collides with a trap
         // if (collision.CompareTag("TargetName")) trap_collided;
+
+        // if collides with the flashlight
+        // if (collision.CompareTag("Flashlight")) light_collided();
     }
 }

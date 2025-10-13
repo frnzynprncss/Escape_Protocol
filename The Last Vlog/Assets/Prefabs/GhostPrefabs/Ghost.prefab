@@ -210,5 +210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai_destination: {fileID: 6222596657806027169}
+  trap_layers: []
   sight_range: 0
   attack_range: 0
