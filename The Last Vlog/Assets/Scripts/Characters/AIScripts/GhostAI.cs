@@ -10,11 +10,17 @@ public enum GhostState
 public class GhostAI : MonoBehaviour
 {
     [SerializeField] private AIDestinationSetter ai_destination;
+    [SerializeField] private string[] trap_layers;
 
     public float sight_range;
     public float attack_range;
 
     private void Update()
+    {
+        ai_behavior();
+    }
+
+    public virtual void ai_behavior()
     {
         /* TODO:
             if Raycast sees player, enter CHASING State
@@ -25,6 +31,11 @@ public class GhostAI : MonoBehaviour
         */
     }
 
+    public virtual void trap_collided()
+    {
+        // custom function on what the ghost reacts when collided with the trap
+    }
+
     public bool near_target()
     {
         return Vector3.Distance(transform.position, ai_destination.target.position) < attack_range;
@@ -33,6 +44,6 @@ public class GhostAI : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // if collides with a trap
-        // if (collision.CompareTag("TargetName")) queue_free();
+        // if (collision.CompareTag("TargetName")) trap_collided;
     }
 }
