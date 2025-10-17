@@ -1,6 +1,6 @@
 using Pathfinding;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum GhostState
 {
@@ -14,20 +14,20 @@ public class GhostAI : MonoBehaviour
     [SerializeField] private string[] trap_layers;
 
     public GhostState current_state { get; private set; } = GhostState.WANDERING;
-    public Transform player;
 
     public float sight_range;
     public float chase_duration;
     public float attack_range;
 
+    public Transform player;
+    public LayerMask player_layer;
+    public Jumpscare jumpscare;
+
     private float player_seen_time;
 
     private void Start()
     {
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        }
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
@@ -37,7 +37,14 @@ public class GhostAI : MonoBehaviour
             player_seen_time += Time.deltaTime;
         }
 
-        ai_behavior();
+        //ai_behavior();
+
+        if (Vector3.Distance(transform.position, player.position) < attack_range)
+        {
+            print("JumpScare!");
+            jumpscare.ShowJumpscare();
+            Destroy(transform.parent.gameObject);
+        }
     }
 
     private bool sees_player()
@@ -45,24 +52,22 @@ public class GhostAI : MonoBehaviour
         if (player == null) return false;
 
         Vector3 dir = player.position - transform.position;
-        RaycastHit raycast;
 
-        if (Physics.Raycast(transform.position, dir, out raycast, sight_range))
+        if (Physics.Raycast(transform.position, dir.normalized, out RaycastHit hit, sight_range, player_layer))
         {
-            if (raycast.transform == player)
-            {
-                transform.LookAt(player);
-                return true;
-            }
+            Debug.DrawRay(transform.position, dir.normalized * sight_range, Color.green);
+            return true;
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, dir.normalized * sight_range, Color.red);
         }
 
         return false;
     }
-
+    
     private void move_to_target()
     {
-        if (player == null) return;
-
         ai_destination.target = player;
     }
 

@@ -77,19 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 1
-  height: 1
+  radius: 0.64
+  height: 0.64
   canMove: 1
-  maxSpeed: 1
-  gravity: {x: NaN, y: NaN, z: NaN}
+  maxSpeed: 2
+  gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
   centerOffsetCompatibility: NaN
   repathRateCompatibility: NaN
   canSearchCompability: 0
-  orientation: 0
-  enableRotation: 1
+  orientation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
@@ -212,8 +212,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ai_destination: {fileID: 6222596657806027169}
   trap_layers: []
-  sight_range: 0
-  attack_range: 0
+  sight_range: 10
+  chase_duration: 5
+  attack_range: 1
+  player: {fileID: 0}
+  player_layer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &7795284936785944169
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 7795284936785944169}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

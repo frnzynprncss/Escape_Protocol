@@ -7,18 +7,15 @@ public class Jumpscare : MonoBehaviour
     [SerializeField] public GameObject jumpscarePanel;
     public float displayDuration = 5f; // Duration to display the jumpscare
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void ShowJumpscare()
     {
-        if (other.CompareTag("Player"))
-        {
-            StartCoroutine(ShowJumpscare());
-        }
+        StartCoroutine(scare());
     }
 
-    public IEnumerator ShowJumpscare()
+    private IEnumerator scare()
     {
-        jumpscarePanel.SetActive(true); // Show the jumpscare image
-        yield return new WaitForSeconds(displayDuration); // Wait for the specified duration
-        jumpscarePanel.SetActive(false); // Hide the jumpscare image
+        jumpscarePanel.SetActive(true);
+        yield return new WaitForSeconds(displayDuration);
+        jumpscarePanel.SetActive(false);
     }
 }
