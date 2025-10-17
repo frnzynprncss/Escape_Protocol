@@ -91,4 +91,12 @@ public class PlayerMovement : MonoBehaviour
         // MovePosition provides smooth, interpolation-friendly movement when using Rigidbody2D
         rb.MovePosition(targetPos);
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.CompareTag("Ghost"))
+        {
+            print("Ghost touched");
+        }
+    }
 }
