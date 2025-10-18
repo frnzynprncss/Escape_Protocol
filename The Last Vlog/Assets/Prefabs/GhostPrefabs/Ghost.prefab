@@ -211,14 +211,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai_destination: {fileID: 6222596657806027169}
-  trap_layers: []
+  trap_tags: []
   sight_range: 10
   chase_duration: 5
-  attack_range: 1
+  attack_range: 2
   player: {fileID: 0}
-  player_layer:
+  collision_layer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 192
+  jumpscare: {fileID: 0}
+  time_until_activation: 10
+  looking_for_player: 1
+  hide_position: {fileID: 0}
+  spawn_points: []
+  idle_points: []
 --- !u!1 &7795284936785944169
 GameObject:
   m_ObjectHideFlags: 0
