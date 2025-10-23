@@ -10,8 +10,8 @@ public enum GhostState
 
 public class GhostAI : MonoBehaviour
 {
-    [SerializeField] private AIDestinationSetter ai_destination;
-    [SerializeField] private string[] trap_tags;
+    public AIDestinationSetter ai_destination;
+    public string[] trap_tags;
 
     public GhostState current_state { get; private set; } = GhostState.WANDERING;
 
