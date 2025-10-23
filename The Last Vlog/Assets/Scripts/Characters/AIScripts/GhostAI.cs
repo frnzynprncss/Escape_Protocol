@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Linq;
 using Pathfinding;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public enum GhostState
 {
@@ -126,8 +123,6 @@ public class GhostAI : MonoBehaviour
     public IEnumerator jumpscare_player()
     {
         jumpscare.ShowJumpscare();
-        
-        looking_for_player = false;
         de_activate();
 
         yield return new WaitForSeconds(time_until_activation);
@@ -140,7 +135,7 @@ public class GhostAI : MonoBehaviour
     {
         looking_for_player = false;
 
-        transform.position = hide_position.position;
+        transform.parent.position = hide_position.position;
     }
 
     public void activate()
@@ -148,7 +143,7 @@ public class GhostAI : MonoBehaviour
         looking_for_player = true;
         
         int rand_spawn = Random.Range(0, spawn_points.Length);
-        transform.position = spawn_points[rand_spawn].position;
+        transform.parent.position = spawn_points[rand_spawn].position;
     }
     
     public void set_state(GhostState state)
