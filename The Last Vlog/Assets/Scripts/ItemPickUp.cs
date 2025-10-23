@@ -3,14 +3,14 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     [SerializeField] PlayerInventory inventory;
-    [SerializeField] string item_name;
-    [SerializeField] int amount;
+    [SerializeField] ItemComponent item;
+    [SerializeField] int amount = 1;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
 
-        inventory.add_item(item_name, amount);
+        inventory.add_item(item, amount);
         Destroy(gameObject);
     }
 }

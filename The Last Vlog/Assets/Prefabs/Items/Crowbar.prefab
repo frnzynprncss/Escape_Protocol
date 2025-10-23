@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: bfb80640a1983804e860a229ba6ee2a5, type: 2}
-  item_name: Crowbar
+  item: {fileID: 11400000, guid: 57e80b023096c844b8ff84991a30cdb1, type: 2}
   amount: 1
 --- !u!58 &4132851957471041020
 CircleCollider2D:
