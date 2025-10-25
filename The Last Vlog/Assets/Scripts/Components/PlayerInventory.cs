@@ -50,4 +50,8 @@ public class PlayerInventory : ScriptableObject
     {
         inventory.Clear();
     }
+      public bool HasItem(string item_name)
+    {
+        return inventory.ContainsKey(item_name);
+    }
 }
