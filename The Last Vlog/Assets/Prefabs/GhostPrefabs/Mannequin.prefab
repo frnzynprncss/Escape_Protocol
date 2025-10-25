@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3867854957594731802}
   - component: {fileID: 4044685853576712405}
   - component: {fileID: 7386304902664564546}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &8685162274509521385
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4461166879895323327}
   - component: {fileID: 4459508770378394110}
   - component: {fileID: 6324949686190810470}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mannequin
   m_TagString: Ghost
   m_Icon: {fileID: 0}

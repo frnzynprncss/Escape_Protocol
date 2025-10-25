@@ -6,7 +6,7 @@ public class InventoryScreen : MonoBehaviour
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Image[] item_slot;
 
-    private int item_index;
+    private int item_index = 0;
 
     private void Start()
     {

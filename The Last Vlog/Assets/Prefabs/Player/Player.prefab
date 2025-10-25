@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1565604921100162366}
   - component: {fileID: 3448497085225903549}
+  - component: {fileID: 6913932330496113149}
   m_Layer: 3
   m_Name: Flashlight
-  m_TagString: Untagged
+  m_TagString: Flashlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,6 +45,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4970398c6bb48744ca0f914915cd3304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collision_layers:
+    serializedVersion: 2
+    m_Bits: 192
+  flashlight_range: 12
+  flashlight_angle: 60
+  ray_count: 10
+--- !u!114 &6913932330496113149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756953026220986651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4825b9204b3ba3353981711e32a9993c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  look_speed: 15
 --- !u!1 &3393507920439793658
 GameObject:
   m_ObjectHideFlags: 0

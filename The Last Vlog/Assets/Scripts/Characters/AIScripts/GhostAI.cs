@@ -45,7 +45,11 @@ public class GhostAI : MonoBehaviour
 
     public virtual void ai_behavior()
     {
-        if (!looking_for_player) return;
+        if (!looking_for_player)
+        {
+            ai_destination.target = transform;
+            return;
+        }
 
         if (Vector3.Distance(player.position, transform.position) < attack_range)
         {
@@ -127,7 +131,6 @@ public class GhostAI : MonoBehaviour
 
         yield return new WaitForSeconds(time_until_activation);
         activate();
-        looking_for_player = true;
     }
 
 
@@ -158,12 +161,6 @@ public class GhostAI : MonoBehaviour
         de_activate();
     }
 
-
-    public virtual void light_collided()
-    {
-        // custom function on what the ghost reacts when the player flashes their light on them
-    }
-
     public bool near_target()
     {
         return Vector3.Distance(transform.position, ai_destination.target.position) < attack_range;
@@ -182,9 +179,6 @@ public class GhostAI : MonoBehaviour
             }
         }
 
-        if (collision.CompareTag("Flashlight"))
-        {
-            light_collided();
-        }
+        print($"{transform.parent.name} collided with something");
     }
 }

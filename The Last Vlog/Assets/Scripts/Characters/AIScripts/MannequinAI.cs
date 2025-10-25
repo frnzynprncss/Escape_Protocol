@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MannequinAI : GhostAI
 {
+    [Header("Mannequin")]
+    public bool is_flashlighted = false;
+
     private void Start()
     {
         if (player == null) player = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -17,11 +20,16 @@ public class MannequinAI : GhostAI
         ai_behavior();
     }
 
+    private void LateUpdate()
+    {
+        is_flashlighted = false;
+    }
+
     public override void ai_behavior()
     {
         if (player == null) return;
 
-        if (!looking_for_player)
+        if (!looking_for_player || is_flashlighted)
         {
             ai_destination.target = transform;
         }
@@ -30,15 +38,9 @@ public class MannequinAI : GhostAI
             ai_destination.target = player.transform;
         }
 
-
         if (Vector3.Distance(player.position, transform.position) < attack_range)
         {
             StartCoroutine(jumpscare_player());
         }
-    }
-
-    public override void light_collided()
-    {
-        looking_for_player = false;
     }
 }
