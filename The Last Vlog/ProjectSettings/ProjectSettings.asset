@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 1a85bf110898b9f44a8fa753f526852a
+  productGUID: 388f51eeba9ba6e4c87a419c153970f8
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -709,13 +709,13 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 95eca67c-bbf6-4705-82dc-0e7b9f7e252e
+  cloudProjectId: bcc3cd3b-ad75-4c1c-bf51-b8358b099465
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: The Last Vlog 2025-10-12_22-40-17
-  organizationId: lushengshin
+  projectName: The Last Vlog
+  organizationId: frpbgimeno
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
