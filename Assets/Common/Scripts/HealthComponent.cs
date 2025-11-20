@@ -1,0 +1,47 @@
+using System;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class HealthComponent : MonoBehaviour
+{
+    public UnityEvent on_death;
+    public UnityEvent<AttackComponent> on_damage_recieved;
+    public UnityEvent<float> on_health_changed;
+
+    public int max_health;
+    public int health { get; private set; }
+
+    private void Awake()
+    {
+        health = max_health;
+    }
+
+    public void take_damage(AttackComponent attack)
+    {
+        if (health <= 0 ) return;
+
+        health -= attack.attack_damage;
+        health = Math.Max(health, 0);
+
+        on_health_changed.Invoke(health);
+        on_damage_recieved.Invoke(attack);
+
+        if (health <= 0)
+        {
+            kill();
+        }
+    }
+
+    public void heal(int heal_power)
+    {
+        health += heal_power;
+        health = Math.Min(health, max_health);
+        on_health_changed.Invoke(health);
+    }
+
+    public void kill()
+    {
+        on_death.Invoke();
+        Destroy(gameObject);
+    }
+}
