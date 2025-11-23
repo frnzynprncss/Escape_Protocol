@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Game-Physics---Group-Project.sln"
+    "dotnet.defaultSolution": "Escape-Protocol.sln"
 }
