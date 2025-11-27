@@ -40,7 +40,12 @@ public class AIBehaviour : MonoBehaviour
     private IEnumerator attack_target()
     {
         is_attacking = true;
-
+        if (Vector2.Distance(transform.parent.position, target.position) > attack_range)
+        {
+            is_attacking = false;
+            yield break;
+        }
+            
         // Attack Target Here
         print("Attacking Target");
 

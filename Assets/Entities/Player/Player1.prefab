@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move_inputs: {fileID: 8774105488949742841, guid: 8cebe7db1803da802ae03c06eac6ebaa, type: 3}
-  moveSpeed: 360
+  moveSpeed: 5
 --- !u!50 &2898543483902687762
 Rigidbody2D:
   serializedVersion: 4

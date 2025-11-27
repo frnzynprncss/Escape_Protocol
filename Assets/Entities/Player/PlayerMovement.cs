@@ -21,6 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = input * moveSpeed * Time.deltaTime;
+        rb.velocity = input * moveSpeed;
     }
 }

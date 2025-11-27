@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2986774578660669674}
   - component: {fileID: 5549214529834114862}
-  - component: {fileID: 2004396466977735247}
+  - component: {fileID: 1513281296360056604}
   m_Layer: 0
   m_Name: Ai
   m_TagString: Untagged
@@ -51,8 +51,8 @@ MonoBehaviour:
   attack_damage: 1
   attack_cooldown: 1
   attack_range: 1
---- !u!70 &2004396466977735247
-CapsuleCollider2D:
+--- !u!58 &1513281296360056604
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -84,8 +84,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
-  m_Direction: 0
+  serializedVersion: 2
+  m_Radius: 5.03
 --- !u!1 &4222450437585741188
 GameObject:
   m_ObjectHideFlags: 0
