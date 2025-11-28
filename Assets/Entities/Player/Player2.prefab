@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7019428591895448641}
   - component: {fileID: 1575845741184901436}
   - component: {fileID: 707287004937099447}
+  - component: {fileID: 6815852704247531740}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Player2
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,6 +144,28 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &6815852704247531740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715340936342460830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caede520fb99b481eb6fb85f370a28c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  on_death:
+    m_PersistentCalls:
+      m_Calls: []
+  on_damage_recieved:
+    m_PersistentCalls:
+      m_Calls: []
+  on_health_changed:
+    m_PersistentCalls:
+      m_Calls: []
+  max_health: 100
 --- !u!1 &6204694026977274115
 GameObject:
   m_ObjectHideFlags: 0

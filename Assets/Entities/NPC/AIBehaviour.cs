@@ -80,14 +80,14 @@ public class AIBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")||collision.gameObject.CompareTag("Player2") ) return;
+        if (!collision.gameObject.CompareTag("Player")) return;
         target = collision.gameObject.transform;
         current_state = AIState.CHASING;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")||collision.gameObject.CompareTag("Player2")) return;
+        if (!collision.gameObject.CompareTag("Player")) return;
         target = null;
         current_state = AIState.IDLE;
     }
