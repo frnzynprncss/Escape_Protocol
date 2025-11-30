@@ -45,11 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6200c058b7bdb0ebb36ef66a0593e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game_camera: {fileID: 0}
+  game_camera: {fileID: 8932338402963059118}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  default_cam_position: {fileID: 0}
+  default_zoom: 5
   smooth_speed: 10
   zoom_margin: 0
-  max_zoom: 0
   min_zoom: 0
+  max_zoom: 0
+  follow_players: 1
 --- !u!1 &2253796488357917401
 GameObject:
   m_ObjectHideFlags: 0
