@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 7611744526087961460}
   - component: {fileID: 2898543483902687762}
   - component: {fileID: 2680573822089445008}
+  - component: {fileID: 177642872109323784}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move_inputs: {fileID: 8774105488949742841, guid: 8cebe7db1803da802ae03c06eac6ebaa, type: 3}
-  moveSpeed: 360
+  moveSpeed: 5
 --- !u!50 &2898543483902687762
 Rigidbody2D:
   serializedVersion: 4
@@ -143,6 +144,40 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &177642872109323784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427048564078456942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caede520fb99b481eb6fb85f370a28c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  on_death:
+    m_PersistentCalls:
+      m_Calls: []
+  on_damage_recieved:
+    m_PersistentCalls:
+      m_Calls: []
+  on_health_changed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  max_health: 100
 --- !u!1 &7878304954551529363
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 7878304954551529363}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.492, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
