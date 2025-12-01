@@ -13,6 +13,7 @@ public class AIBehaviour : MonoBehaviour
     [Header("AI Behaviour")]
     public AIState current_state;
     public Transform target;
+
     public float move_speed = 10f;
 
     [Header("Attack Properties")]
@@ -21,56 +22,43 @@ public class AIBehaviour : MonoBehaviour
     public float attack_range = 1f;
     public bool is_attacking { get; private set; } = false;
 
-    private AttackComponent attackComp;
-
-    private void Awake()
-    {
-        attackComp = GetComponentInParent<AttackComponent>();
-    }
-
     private void FixedUpdate()
     {
         switch (current_state)
         {
-            case AIState.ATTACKING:
+            case AIState.ATTACKING: 
                 if (is_attacking) return;
-                StartCoroutine(attack_target());
-                break;
-            case AIState.CHASING:
-                move_towards_target();
-                break;
-            case AIState.IDLE:
-                break;
+                StartCoroutine(attack_target()); break;
+            case AIState.CHASING: move_towards_target(); break;
+            case AIState.IDLE: break;
         }
     }
 
     private IEnumerator attack_target()
     {
-        if (attackComp == null || target == null) yield break;
         is_attacking = true;
 
-        attackComp.set_attack(attack_damage).set_attack_pos(target.position);
-
-        HealthComponent targetHealth = target.GetComponent<HealthComponent>();
-        if (targetHealth != null)
-        {
-            targetHealth.take_damage(attackComp);
-        }
+        // Attack Target Here
+        print("Attacking Target");
 
         yield return new WaitForSeconds(attack_cooldown);
         is_attacking = false;
 
         if (!near_target())
+        {
             current_state = AIState.CHASING;
+        }
     }
 
     private void move_towards_target()
     {
         if (target == null) return;
         if (near_target())
+        {
             current_state = AIState.ATTACKING;
+        }
 
-        transform.parent.position = Vector3.MoveTowards(transform.parent.position, target.position, move_speed * Time.deltaTime);
+        transform.parent.position = Vector3.MoveTowards(transform.position, target.position, move_speed * Time.deltaTime);
     }
 
     private bool near_target()
@@ -81,6 +69,7 @@ public class AIBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+
         target = collision.gameObject.transform;
         current_state = AIState.CHASING;
     }
@@ -88,6 +77,7 @@ public class AIBehaviour : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+
         target = null;
         current_state = AIState.IDLE;
     }
