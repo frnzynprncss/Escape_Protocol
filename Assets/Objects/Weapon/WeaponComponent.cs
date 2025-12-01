@@ -64,6 +64,11 @@ public class WeaponComponent : MonoBehaviour
         }
     }
 
+    private void shoot_bullet_projectile()
+    {
+        
+    }
+
     private void shoot_bullet_raycast(Quaternion spread)
     {
         Vector3 direction = spread * transform.right;

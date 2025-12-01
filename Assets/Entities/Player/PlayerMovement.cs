@@ -21,14 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         rb.velocity = input * moveSpeed;
-
-        
-        if (input.sqrMagnitude > 0.001f)
-        {
-            float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-        }
     }
 }
