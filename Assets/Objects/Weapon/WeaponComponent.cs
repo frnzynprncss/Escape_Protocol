@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class WeaponComponent : MonoBehaviour
 {
     public WeaponData weapon_data;
+    public GameObject BulletPrefab;
 
     [SerializeField] private InputActionReference shoot_input;
     [SerializeField] private SpriteRenderer weapon_sprite;
@@ -56,7 +57,7 @@ public class WeaponComponent : MonoBehaviour
                 float spread = Random.Range(-weapon_data.weapon_spread, weapon_data.weapon_spread);
                 Quaternion spread_rotation = transform.rotation * Quaternion.Euler(0, 0, spread);
 
-                shoot_bullet_raycast(spread_rotation);
+                shoot_bullet_projectile(spread_rotation);
             }
 
             yield return new WaitForSeconds(weapon_data.fire_rate);
@@ -64,23 +65,24 @@ public class WeaponComponent : MonoBehaviour
         }
     }
 
-    private void shoot_bullet_projectile()
+    private void shoot_bullet_projectile(Quaternion spread)
     {
-        
-    }
-
-    private void shoot_bullet_raycast(Quaternion spread)
-    {
-        Vector3 direction = spread * transform.right;
+         Vector3 direction = spread * transform.right;
+        Instantiate(BulletPrefab, transform.position, transform.rotation);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 999f, target_layers);
         Debug.DrawRay(transform.position, direction, Color.green);
         if (hit.collider == null) return;
         Debug.DrawRay(transform.position, direction, Color.red);
-        
+
         HealthComponent hit_health = hit.collider.gameObject.GetComponent<HealthComponent>();
         if (hit_health == null) return;
 
         hit_health.take_damage(attack);
+    }
+
+    private void shoot_bullet_raycast()
+    {
+       
     }
 }

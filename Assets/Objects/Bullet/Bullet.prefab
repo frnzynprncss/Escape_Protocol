@@ -129,6 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44a007583706129c9da6c924833338a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: 
+  target: Enemy
   bullet_speed: 156
   direction: {x: 1, y: 0, z: 0}
