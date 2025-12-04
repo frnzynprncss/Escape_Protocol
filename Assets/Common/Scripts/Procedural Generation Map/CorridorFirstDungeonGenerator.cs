@@ -145,8 +145,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 //Add a single cell in the direction + 90 degrees
                 Vector2Int newCorridorTileOffset
                     = GetDirection90From(directionFromCell);
-                newCorridor.Add(corridor[i - 1]);
-                newCorridor.Add(corridor[i - 1] + newCorridorTileOffset);
+                newCorridor.Add(corridor[i - 5]);
+                newCorridor.Add(corridor[i - 5] + newCorridorTileOffset);
             }
         }
         return newCorridor;
