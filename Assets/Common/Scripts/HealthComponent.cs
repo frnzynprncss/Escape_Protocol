@@ -6,7 +6,7 @@ public class HealthComponent : MonoBehaviour
 {
     public UnityEvent on_death;
     public UnityEvent<AttackComponent> on_damage_recieved;
-    public UnityEvent<float> on_health_changed;
+    public UnityEvent<int> on_health_changed;
 
     public int max_health;
     public int health { get; private set; }
@@ -28,7 +28,7 @@ public class HealthComponent : MonoBehaviour
 
         if (health <= 0)
         {
-            kill();
+            on_death.Invoke();
         }
     }
 
@@ -41,7 +41,6 @@ public class HealthComponent : MonoBehaviour
 
     public void kill()
     {
-        on_death.Invoke();
         Destroy(gameObject);
     }
 }

@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 public class WeaponComponent : MonoBehaviour
 {
     public WeaponData weapon_data;
-    public GameObject BulletPrefab;
+    public BulletScript BulletPrefab;
+    [SerializeField] private AttackComponent attack;
 
     [SerializeField] private InputActionReference shoot_input;
     [SerializeField] private SpriteRenderer weapon_sprite;
     [SerializeField] private LayerMask target_layers;
 
-    private AttackComponent attack = new AttackComponent();
     private bool can_fire = true;
     private bool is_shooting = false;
 
@@ -67,11 +67,18 @@ public class WeaponComponent : MonoBehaviour
 
     private void shoot_bullet_projectile(Quaternion spread)
     {
-         Vector3 direction = spread * transform.right;
-        Instantiate(BulletPrefab, transform.position, transform.rotation);
+        BulletScript bullet = Instantiate(BulletPrefab, transform.position, transform.rotation);
+        bullet.set_attack_component(attack);
+        bullet.set_direction(spread);
+    }
+
+    private void shoot_bullet_raycast(Quaternion spread)
+    {
+        Vector3 direction = spread * transform.right;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 999f, target_layers);
         Debug.DrawRay(transform.position, direction, Color.green);
+
         if (hit.collider == null) return;
         Debug.DrawRay(transform.position, direction, Color.red);
 
@@ -79,10 +86,5 @@ public class WeaponComponent : MonoBehaviour
         if (hit_health == null) return;
 
         hit_health.take_damage(attack);
-    }
-
-    private void shoot_bullet_raycast()
-    {
-       
     }
 }

@@ -13,6 +13,7 @@ public class AIBehaviour : MonoBehaviour
     [Header("AI Behaviour")]
     public AIState current_state;
     public Transform target;
+    public Collider2D target_detector;
 
     public float move_speed = 10f;
 
@@ -63,11 +64,18 @@ public class AIBehaviour : MonoBehaviour
 
     private bool near_target()
     {
+        if (target == null) return false;
         return Vector2.Distance(transform.parent.position, target.position) < attack_range;
+    }
+
+    private void check_for_targets()
+    {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (target != null) return;
         if (!collision.gameObject.CompareTag("Player")) return;
 
         target = collision.gameObject.transform;

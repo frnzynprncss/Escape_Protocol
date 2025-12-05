@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1116088969820127442}
   - component: {fileID: 8075089658088013550}
+  - component: {fileID: 6260304842194997615}
   - component: {fileID: 1942647753702146580}
   m_Layer: 0
   m_Name: WeaponPrefab
@@ -46,12 +47,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon_data: {fileID: 11400000, guid: 9a598531c6566fae5a2b5bfe08932aac, type: 2}
-  BulletPrefab: {fileID: 1287968334426904080, guid: f33abbb7391f2f1b79f1f25b7c410843, type: 3}
+  BulletPrefab: {fileID: 2562843616453949759, guid: f33abbb7391f2f1b79f1f25b7c410843, type: 3}
+  attack: {fileID: 6260304842194997615}
   shoot_input: {fileID: -2864160145406553686, guid: 8cebe7db1803da802ae03c06eac6ebaa, type: 3}
   weapon_sprite: {fileID: 1942647753702146580}
   target_layers:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6260304842194997615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5423478078382222130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 0
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!212 &1942647753702146580
 SpriteRenderer:
   m_ObjectHideFlags: 0

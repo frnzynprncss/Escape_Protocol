@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class AttackComponent : MonoBehaviour
 {
-    public int attack_damage { get; private set; }
-    public Vector3 attack_position { get; private set; }
+    public int attack_damage;
+    public Vector3 attack_position;
 
     public AttackComponent set_attack(int value)
     {

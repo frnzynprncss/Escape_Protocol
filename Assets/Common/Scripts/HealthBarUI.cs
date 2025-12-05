@@ -12,7 +12,7 @@ public class HealthBarUI : MonoBehaviour
         playerHealth.on_health_changed.AddListener(UpdateHealthBar);
     }
 
-    private void UpdateHealthBar(float currentHealth)
+    private void UpdateHealthBar(int currentHealth)
     {
         healthImage.fillAmount = currentHealth / playerHealth.max_health;
     }
