@@ -18,6 +18,11 @@ public class HealthComponent : MonoBehaviour
 
     public void take_damage(AttackComponent attack)
     {
+        if (attack == null)
+        {
+            Debug.LogWarning($"[{gameObject.transform.parent.name} Health Component] No AttackComponent Provided!");
+            return;
+        }
         if (health <= 0 ) return;
 
         health -= attack.attack_damage;

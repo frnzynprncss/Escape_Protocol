@@ -9,7 +9,8 @@ public class HealthBarUI : MonoBehaviour
 
     private void Start()
     {
-        playerHealth.on_health_changed.AddListener(UpdateHealthBar);
+        if (playerHealth != null)
+            playerHealth.on_health_changed.AddListener(UpdateHealthBar);
     }
 
     private void UpdateHealthBar(int currentHealth)
