@@ -230,6 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4721827595708804281}
   - component: {fileID: 7382434309582900224}
+  - component: {fileID: 8160214171195092623}
   - component: {fileID: 4337569417589279513}
   m_Layer: 0
   m_Name: AI
@@ -268,9 +269,23 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 5
-  attack_damage: 1
+  attack_data: {fileID: 8160214171195092623}
   attack_cooldown: 1
   attack_range: 1
+--- !u!114 &8160214171195092623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406195929022542915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 10
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!58 &4337569417589279513
 CircleCollider2D:
   m_ObjectHideFlags: 0

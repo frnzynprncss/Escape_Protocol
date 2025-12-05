@@ -8,24 +8,12 @@ public class WeaponComponent : MonoBehaviour
     public BulletScript BulletPrefab;
     [SerializeField] private AttackComponent attack;
 
-    [SerializeField] private InputActionReference shoot_input;
+    [SerializeField] private PlayerControl shoot_input;
     [SerializeField] private SpriteRenderer weapon_sprite;
     [SerializeField] private LayerMask target_layers;
 
     private bool can_fire = true;
     private bool is_shooting = false;
-
-    private void OnEnable()
-    {
-        shoot_input.action.performed += (InputAction.CallbackContext context) => is_shooting = true;
-        shoot_input.action.canceled += (InputAction.CallbackContext context) => is_shooting = false;
-    }
-
-    private void OnDisable()
-    {
-        shoot_input.action.performed -= (InputAction.CallbackContext context) => is_shooting = true;
-        shoot_input.action.canceled -= (InputAction.CallbackContext context) => is_shooting = false;
-    }
 
     private void Start()
     {
@@ -34,6 +22,9 @@ public class WeaponComponent : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(shoot_input.shoot)) is_shooting = true;
+        else is_shooting = false;
+
         if (is_shooting) fire();
     }
 

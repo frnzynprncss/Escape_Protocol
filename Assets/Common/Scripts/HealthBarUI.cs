@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class HealthBarUI : MonoBehaviour
 {
     public Image healthImage;
@@ -10,7 +9,10 @@ public class HealthBarUI : MonoBehaviour
     private void Start()
     {
         if (playerHealth != null)
+        {
             playerHealth.on_health_changed.AddListener(UpdateHealthBar);
+            UpdateHealthBar(playerHealth.health);
+        }
     }
 
     private void UpdateHealthBar(int currentHealth)

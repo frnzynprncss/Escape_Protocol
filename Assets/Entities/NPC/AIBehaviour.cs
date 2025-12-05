@@ -13,12 +13,11 @@ public class AIBehaviour : MonoBehaviour
     [Header("AI Behaviour")]
     public AIState current_state;
     public Transform target;
-    public Collider2D target_detector;
 
     public float move_speed = 10f;
 
     [Header("Attack Properties")]
-    public int attack_damage = 1;
+    public AttackComponent attack_data;
     public float attack_cooldown = 1f;
     public float attack_range = 1f;
     public bool is_attacking { get; private set; } = false;
@@ -40,7 +39,7 @@ public class AIBehaviour : MonoBehaviour
         is_attacking = true;
 
         // Attack Target Here
-        print("Attacking Target");
+        target.GetComponent<HealthComponent>()?.take_damage(attack_data);
 
         yield return new WaitForSeconds(attack_cooldown);
         is_attacking = false;
@@ -66,11 +65,6 @@ public class AIBehaviour : MonoBehaviour
     {
         if (target == null) return false;
         return Vector2.Distance(transform.parent.position, target.position) < attack_range;
-    }
-
-    private void check_for_targets()
-    {
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
