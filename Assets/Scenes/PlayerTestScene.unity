@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_damage: 0
+  attack_damage: 1
   attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &56062635
 GameObject:
@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 119100191}
   - component: {fileID: 119100193}
   - component: {fileID: 119100192}
+  - component: {fileID: 119100194}
   m_Layer: 0
   m_Name: Ai
   m_TagString: Untagged
@@ -348,9 +349,23 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 10
-  attack_data: {fileID: 0}
+  attack_data: {fileID: 119100194}
   attack_cooldown: 1
   attack_range: 1
+--- !u!114 &119100194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119100190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 10
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &140959759
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +445,7 @@ GameObject:
   - component: {fileID: 156248916}
   - component: {fileID: 156248918}
   - component: {fileID: 156248917}
+  - component: {fileID: 156248919}
   m_Layer: 0
   m_Name: Ai
   m_TagString: Untagged
@@ -502,9 +518,23 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 10
-  attack_data: {fileID: 0}
+  attack_data: {fileID: 119100194}
   attack_cooldown: 1
   attack_range: 1
+--- !u!114 &156248919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156248915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 10
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!1001 &167533431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -515,7 +545,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_damage_recieved.m_PersistentCalls.m_Calls.Array.size
@@ -523,12 +553,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2116414915}
+      objectReference: {fileID: 2116414917}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -539,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: set_fillAmount
       objectReference: {fileID: 0}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -547,7 +577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 177642872109323784, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1075,7 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_damage: 0
+  attack_damage: 1
   attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &421341321
 GameObject:
@@ -1186,7 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_damage: 0
+  attack_damage: 1
   attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &490908891
 GameObject:
@@ -13939,7 +13969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_damage: 0
+  attack_damage: 1
   attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &979203000
 GameObject:
@@ -13952,6 +13982,7 @@ GameObject:
   - component: {fileID: 979203001}
   - component: {fileID: 979203003}
   - component: {fileID: 979203002}
+  - component: {fileID: 979203004}
   m_Layer: 0
   m_Name: Ai
   m_TagString: Untagged
@@ -14024,9 +14055,23 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 10
-  attack_data: {fileID: 0}
+  attack_data: {fileID: 119100194}
   attack_cooldown: 1
   attack_range: 1
+--- !u!114 &979203004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979203000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 10
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &994456129
 GameObject:
   m_ObjectHideFlags: 0
@@ -14403,6 +14448,7 @@ GameObject:
   - component: {fileID: 1219773957}
   - component: {fileID: 1219773959}
   - component: {fileID: 1219773958}
+  - component: {fileID: 1219773960}
   m_Layer: 0
   m_Name: Ai
   m_TagString: Untagged
@@ -14475,9 +14521,23 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 10
-  attack_data: {fileID: 0}
+  attack_data: {fileID: 119100194}
   attack_cooldown: 1
   attack_range: 1
+--- !u!114 &1219773960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219773956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 10
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &1244606716
 GameObject:
   m_ObjectHideFlags: 0
@@ -14489,6 +14549,7 @@ GameObject:
   - component: {fileID: 1244606717}
   - component: {fileID: 1244606719}
   - component: {fileID: 1244606718}
+  - component: {fileID: 1244606720}
   m_Layer: 0
   m_Name: Ai
   m_TagString: Untagged
@@ -14561,9 +14622,23 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 10
-  attack_data: {fileID: 0}
+  attack_data: {fileID: 119100194}
   attack_cooldown: 1
   attack_range: 1
+--- !u!114 &1244606720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244606716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 10
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!1001 &1280551101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14691,7 +14766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_damage: 0
+  attack_damage: 1
   attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &1397351524
 GameObject:
@@ -59152,7 +59227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_damage: 0
+  attack_damage: 1
   attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &1763555911
 GameObject:
@@ -59165,6 +59240,7 @@ GameObject:
   - component: {fileID: 1763555912}
   - component: {fileID: 1763555914}
   - component: {fileID: 1763555913}
+  - component: {fileID: 1763555915}
   m_Layer: 0
   m_Name: Ai
   m_TagString: Untagged
@@ -59237,9 +59313,23 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 10
-  attack_data: {fileID: 0}
+  attack_data: {fileID: 119100194}
   attack_cooldown: 1
   attack_range: 1
+--- !u!114 &1763555915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763555911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 10
+  attack_position: {x: 0, y: 0, z: 0}
 --- !u!1 &1816632901
 GameObject:
   m_ObjectHideFlags: 0
@@ -59381,7 +59471,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
       propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 256081075}
+    - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_fillAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 177642872109323784, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: on_health_changed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3235683981572824779, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
       propertyPath: shoot_input
