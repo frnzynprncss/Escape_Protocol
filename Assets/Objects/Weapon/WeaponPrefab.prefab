@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1116088969820127442}
   - component: {fileID: 8075089658088013550}
   - component: {fileID: 1942647753702146580}
+  - component: {fileID: 8100292218801137877}
   m_Layer: 0
   m_Name: WeaponPrefab
   m_TagString: Untagged
@@ -46,7 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon_data: {fileID: 11400000, guid: 9a598531c6566fae5a2b5bfe08932aac, type: 2}
-  shoot_input: {fileID: -2864160145406553686, guid: 8cebe7db1803da802ae03c06eac6ebaa, type: 3}
+  BulletPrefab: {fileID: 0}
+  attack: {fileID: 0}
+  shoot_input: {fileID: 0}
   weapon_sprite: {fileID: 1942647753702146580}
   target_layers:
     serializedVersion: 2
@@ -103,3 +106,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8100292218801137877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5423478078382222130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack_damage: 1
+  attack_position: {x: 10, y: 0, z: 0}

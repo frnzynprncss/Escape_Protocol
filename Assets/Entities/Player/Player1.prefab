@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2734011268303905318}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.63, y: -3, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controls: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
-  weapon_pivot: {fileID: 0}
-  moveSpeed: 12
+  weapon_pivot: {fileID: 2734011268303905318}
+  moveSpeed: 360
 --- !u!50 &2898543483902687762
 Rigidbody2D:
   serializedVersion: 4
@@ -235,8 +235,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0051846504, y: -0.10628605}
-  m_Size: {x: 0.9769926, y: 1.9695415}
+  m_Offset: {x: 0.0051846504, y: -0.47373402}
+  m_Size: {x: 0.9769926, y: 1.9874661}
   m_Direction: 0
 --- !u!114 &177642872109323784
 MonoBehaviour:
@@ -366,11 +366,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1116088969820127442, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1116088969820127442, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1116088969820127442, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
       propertyPath: m_LocalPosition.z
@@ -408,11 +408,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 8075089658088013550, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+      propertyPath: attack
+      value: 
+      objectReference: {fileID: 3214737707646666992}
+    - target: {fileID: 8075089658088013550, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+      propertyPath: shoot_input
+      value: 
+      objectReference: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
+    - target: {fileID: 8075089658088013550, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 7095903469615937777, guid: f33abbb7391f2f1b79f1f25b7c410843, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+--- !u!114 &3214737707646666992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8100292218801137877, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+  m_PrefabInstance: {fileID: 6698838581614862373}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09108bf5bba428162afe29fe7e455395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6019671352242970871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1116088969820127442, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
