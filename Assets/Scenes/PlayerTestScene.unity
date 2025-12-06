@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 33319640}
   m_Layer: 0
   m_Name: Mob(Clone)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,6 +669,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3235683981572824779, guid: ce1116a1166938ccdac07295645d817c, type: 3}
+      propertyPath: shoot_input
+      value: 
+      objectReference: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
+    - target: {fileID: 3235683981572824779, guid: ce1116a1166938ccdac07295645d817c, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 7095903469615937777, guid: f33abbb7391f2f1b79f1f25b7c410843, type: 3}
     - target: {fileID: 3309084141679566758, guid: ce1116a1166938ccdac07295645d817c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.3
@@ -1025,7 +1033,7 @@ GameObject:
   - component: {fileID: 373430019}
   m_Layer: 0
   m_Name: Mob(Clone)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1136,7 +1144,7 @@ GameObject:
   - component: {fileID: 465459892}
   m_Layer: 0
   m_Name: Mob(Clone)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13889,7 +13897,7 @@ GameObject:
   - component: {fileID: 868515970}
   m_Layer: 0
   m_Name: Mob(Clone)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14641,7 +14649,7 @@ GameObject:
   - component: {fileID: 1291784921}
   m_Layer: 0
   m_Name: Mob(Clone)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59102,7 +59110,7 @@ GameObject:
   - component: {fileID: 1629425286}
   m_Layer: 0
   m_Name: Mob(Clone)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59371,6 +59379,10 @@ PrefabInstance:
       propertyPath: shoot_input
       value: 
       objectReference: {fileID: 11400000, guid: 6de015f1ab32befe4acbbdd30bc28101, type: 2}
+    - target: {fileID: 3235683981572824779, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 7095903469615937777, guid: f33abbb7391f2f1b79f1f25b7c410843, type: 3}
     - target: {fileID: 3309084141679566758, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.93

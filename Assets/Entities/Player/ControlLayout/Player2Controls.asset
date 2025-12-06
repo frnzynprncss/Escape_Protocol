@@ -16,5 +16,5 @@ MonoBehaviour:
   move_down: 274
   move_left: 276
   move_right: 275
-  shoot: 13
-  interact: 39
+  shoot: 256
+  interact: 257
