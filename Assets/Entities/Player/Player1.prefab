@@ -141,7 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e19690ea8b1aba12aa0b14430652b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move_inputs: {fileID: 8774105488949742841, guid: 8cebe7db1803da802ae03c06eac6ebaa, type: 3}
+  controls: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
+  weapon_pivot: {fileID: 0}
   moveSpeed: 12
 --- !u!50 &2898543483902687762
 Rigidbody2D:
