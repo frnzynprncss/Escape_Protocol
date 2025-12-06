@@ -5,26 +5,15 @@ using UnityEngine.InputSystem;
 public class WeaponComponent : MonoBehaviour
 {
     public WeaponData weapon_data;
+    public BulletScript BulletPrefab;
+    [SerializeField] private AttackComponent attack;
 
-    [SerializeField] private InputActionReference shoot_input;
+    [SerializeField] private PlayerControl shoot_input;
     [SerializeField] private SpriteRenderer weapon_sprite;
     [SerializeField] private LayerMask target_layers;
 
-    private AttackComponent attack = new AttackComponent();
     private bool can_fire = true;
     private bool is_shooting = false;
-
-    private void OnEnable()
-    {
-        shoot_input.action.performed += (InputAction.CallbackContext context) => is_shooting = true;
-        shoot_input.action.canceled += (InputAction.CallbackContext context) => is_shooting = false;
-    }
-
-    private void OnDisable()
-    {
-        shoot_input.action.performed -= (InputAction.CallbackContext context) => is_shooting = true;
-        shoot_input.action.canceled -= (InputAction.CallbackContext context) => is_shooting = false;
-    }
 
     private void Start()
     {
@@ -33,6 +22,9 @@ public class WeaponComponent : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(shoot_input.shoot)) is_shooting = true;
+        else is_shooting = false;
+
         if (is_shooting) fire();
     }
 
@@ -56,12 +48,19 @@ public class WeaponComponent : MonoBehaviour
                 float spread = Random.Range(-weapon_data.weapon_spread, weapon_data.weapon_spread);
                 Quaternion spread_rotation = transform.rotation * Quaternion.Euler(0, 0, spread);
 
-                shoot_bullet_raycast(spread_rotation);
+                shoot_bullet_projectile(spread_rotation);
             }
 
             yield return new WaitForSeconds(weapon_data.fire_rate);
             can_fire = true;
         }
+    }
+
+    private void shoot_bullet_projectile(Quaternion spread)
+    {
+        BulletScript bullet = Instantiate(BulletPrefab, transform.position, transform.rotation);
+        bullet.set_attack_component(attack);
+        bullet.set_direction(spread);
     }
 
     private void shoot_bullet_raycast(Quaternion spread)
@@ -70,9 +69,10 @@ public class WeaponComponent : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 999f, target_layers);
         Debug.DrawRay(transform.position, direction, Color.green);
+
         if (hit.collider == null) return;
         Debug.DrawRay(transform.position, direction, Color.red);
-        
+
         HealthComponent hit_health = hit.collider.gameObject.GetComponent<HealthComponent>();
         if (hit_health == null) return;
 

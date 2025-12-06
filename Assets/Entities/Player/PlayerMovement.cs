@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private InputActionReference move_inputs;
+    [Header("Control Layout")]
+    public PlayerControl controls;
+    public GameObject weapon_pivot;
     public float moveSpeed = 5f;
 
     private Rigidbody2D rb;
@@ -16,19 +17,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        input = move_inputs.action.ReadValue<Vector2>();
+        input = get_input();
+        rotate_weapon();
     }
 
     private void FixedUpdate()
     {
+        rb.velocity = input * moveSpeed * Time.deltaTime;
+    }
 
-        rb.velocity = input * moveSpeed;
+    private void rotate_weapon()
+    {
+        if (input == Vector2.zero) return;
 
+        float angle_radians = Mathf.Atan2(input.y, input.x);
+        float angle_degrees = angle_radians * Mathf.Rad2Deg;
         
-        if (input.sqrMagnitude > 0.001f)
-        {
-            float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-        }
+        Quaternion weapon_rotation = Quaternion.Euler(0f, 0f, angle_degrees);
+        weapon_pivot.transform.rotation = weapon_rotation;
+    }
+
+    private Vector2 get_input()
+    {
+        float x_input = 0f;
+        float y_input = 0f;
+
+        if (Input.GetKey(controls.move_right)) x_input = 1f;
+        if (Input.GetKey(controls.move_left)) x_input = -1f;
+        if (Input.GetKey(controls.move_up)) y_input = 1f;
+        if (Input.GetKey(controls.move_down)) y_input = -1f;
+
+        return new Vector2(x_input, y_input).normalized;
     }
 }
