@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44a007583706129c9da6c924833338a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: Enemy
+  target: Mob
   bullet_speed: 1000
   body: {fileID: 6644078446422249835}
   attack: {fileID: 7673788545427096215}
