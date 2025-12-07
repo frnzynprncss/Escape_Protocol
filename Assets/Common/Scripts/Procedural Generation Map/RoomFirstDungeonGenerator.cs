@@ -41,6 +41,19 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     // Event for notifying when players are spawned
     public static event Action<Transform, Transform> OnPlayersSpawned;
 
+    private void Start()
+    {
+        RunProceduralGeneration();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RunProceduralGeneration();
+        }
+    }
+
     protected override void RunProceduralGeneration()
     {
         CreateRooms();
@@ -48,10 +61,18 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void CreateRooms()
     {
+        // Cleanup (Fixes the crash/hierarchy mess)
         ClearOldGeneratedObjects();
+
+        // Clear Tilemaps (Prevents overlapping tiles)
+        if (tilemapVisualizer != null)
+            tilemapVisualizer.Clear();
+
+        // Clear Internal Data
         cachedRooms.Clear();
         corridorPositions.Clear();
 
+        // Algorithm
         var roomsListBounds = ProceduralGenerationAlgorithms.BinarySpacePartitioning(
             new BoundsInt((Vector3Int)startPosition, new Vector3Int(dungeonWidth, dungeonHeight, 0)),
             minRoomWidth, minRoomHeight
@@ -64,13 +85,17 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         corridorPositions = corridors;
         floor.UnionWith(corridors);
 
+        // Logic & Spawning
         ProcessRoomTypes();
         SpawnObjectsInRooms();
 
+        // Visualization
         tilemapVisualizer.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualizer);
 
+        // Camera Integration
 #if UNITY_EDITOR
+        // Wrapped in try-catch or null check to ensure it doesn't break if GameCamera is missing
         var cam = FindObjectOfType<GameCamera>();
         if (cam != null)
         {
@@ -82,8 +107,18 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void ClearOldGeneratedObjects()
     {
-        if (dungeonContainer != null)
-            DestroyImmediate(dungeonContainer);
+        // Find by NAME to ensure we catch it even if the variable reference is lost
+        var existingContainer = GameObject.Find("GeneratedDungeonContent");
+
+        if (existingContainer != null)
+        {
+            // Use Destroy for runtime, DestroyImmediate for editor to prevent errors
+            if (Application.isPlaying)
+                Destroy(existingContainer);
+            else
+                DestroyImmediate(existingContainer);
+        }
+
         dungeonContainer = new GameObject("GeneratedDungeonContent");
     }
 
@@ -300,6 +335,9 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     public (Transform p1, Transform p2) GetSpawnedPlayers()
     {
+        // Safety check to avoid null reference if this is called before generation
+        if (dungeonContainer == null) return (null, null);
+
         Transform p1 = dungeonContainer.transform.Find(player1Prefab.name + "(Clone)");
         Transform p2 = dungeonContainer.transform.Find(player2Prefab.name + "(Clone)");
         return (p1, p2);
