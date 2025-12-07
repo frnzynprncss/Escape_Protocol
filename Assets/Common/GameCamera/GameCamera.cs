@@ -10,99 +10,98 @@ public class GameCamera : MonoBehaviour
 
     [Header("Zoom Values")]
     [SerializeField] private float default_zoom = 5f;
-    [SerializeField] private float smooth_speed;
-    [SerializeField] private float zoom_margin;
-    [SerializeField] private float min_zoom;
-    [SerializeField] private float max_zoom;
+    [SerializeField] private float smooth_speed = 5f;
+    [SerializeField] private float zoom_margin = 2f;
+    [SerializeField] private float min_zoom = 3f;
+    [SerializeField] private float max_zoom = 10f;
 
-    public bool follow_players;
+    public bool follow_players = true;
     private Coroutine current_shake;
 
-    private void Start()
+    private void OnEnable()
     {
-        game_camera.orthographicSize = default_zoom;
+        RoomFirstDungeonGenerator.OnPlayersSpawned += SetPlayers;
+    }
+
+    private void OnDisable()
+    {
+        RoomFirstDungeonGenerator.OnPlayersSpawned -= SetPlayers;
     }
 
     private void LateUpdate()
     {
         if (follow_players && player1 != null && player2 != null)
         {
-            Vector3 center_point = get_center(player1, player2);
-            move_camera(center_point);
-            dual_zoom(player1, player2);
+            Vector3 center = (player1.position + player2.position) / 2f;
+            center.z = transform.position.z;
+            MoveCamera(center);
+            DualZoom(player1, player2);
         }
-        else if (follow_players && player1 != null && player2 == null)
+        else if (follow_players && player1 != null)
         {
-            move_camera(player1.position);
-            zoom_camera(default_zoom);
+            MoveCamera(player1.position);
+            ZoomCamera(default_zoom);
         }
-        else if (follow_players && player1 == null && player2 != null)
+        else if (follow_players && player2 != null)
         {
-            move_camera(player2.position);
-            zoom_camera(default_zoom);
+            MoveCamera(player2.position);
+            ZoomCamera(default_zoom);
         }
         else
         {
-            move_camera(default_cam_position.position);
-            zoom_camera(default_zoom);
+            MoveCamera(default_cam_position.position);
+            ZoomCamera(default_zoom);
         }
     }
 
-    private Vector3 get_center(Transform target1, Transform target2)
+    private void MoveCamera(Vector3 target)
     {
-        Vector3 center = (target1.position + target2.position) / 2f;
-        center.z = transform.position.z;
-
-        return center;
+        target.z = transform.position.z;
+        transform.position = Vector3.Lerp(transform.position, target, smooth_speed * Time.deltaTime);
     }
 
-    private void move_camera(Vector3 target_position)
+    private void ZoomCamera(float zoom)
     {
-        target_position.z = transform.position.z;
-
-        Vector3 smoothed_pos = Vector3.Lerp(transform.position, target_position, smooth_speed * Time.deltaTime);
-        transform.position = smoothed_pos;
+        game_camera.orthographicSize = Mathf.Lerp(game_camera.orthographicSize, zoom, smooth_speed * Time.deltaTime);
     }
 
-    private void zoom_camera(float zoom_level)
+    private void DualZoom(Transform t1, Transform t2)
     {
-        game_camera.orthographicSize = Mathf.Lerp(game_camera.orthographicSize, zoom_level, smooth_speed * Time.deltaTime);
-    }
-
-    private void dual_zoom(Transform target1, Transform target2)
-    {
-        float distance = Vector3.Distance(target1.position, target2.position);
+        float distance = Vector3.Distance(t1.position, t2.position);
         float size = distance / 2f + zoom_margin;
-        float target_size = Mathf.Clamp(size, min_zoom, max_zoom);
-
-        zoom_camera(target_size);
+        float targetSize = Mathf.Clamp(size, min_zoom, max_zoom);
+        ZoomCamera(targetSize);
     }
 
-    public void shake_camera(float duration, float magnitude)
+    public void SetPlayers(Transform p1, Transform p2)
+    {
+        player1 = p1;
+        player2 = p2;
+    }
+
+    public void ShakeCamera(float duration, float magnitude)
     {
         if (current_shake != null)
-        {
             StopCoroutine(current_shake);
-        }
-
         current_shake = StartCoroutine(ShakeCoroutine());
+
         IEnumerator ShakeCoroutine()
         {
-            float elapsed_time = 0f;
+            float elapsed = 0f;
+            Vector3 originalPos = transform.position;
 
-            while (elapsed_time < duration)
+            while (elapsed < duration)
             {
-                float decay_rate = 1f - (elapsed_time / duration);
-                float x = Random.Range(-magnitude, magnitude) * decay_rate;
-                float y = Random.Range(-magnitude, magnitude) * decay_rate;
+                float decay = 1f - (elapsed / duration);
+                float x = Random.Range(-magnitude, magnitude) * decay;
+                float y = Random.Range(-magnitude, magnitude) * decay;
 
-                game_camera.transform.position = transform.position + new Vector3(x, y, transform.position.z);
-
-                elapsed_time += Time.deltaTime;
+                game_camera.transform.position = originalPos + new Vector3(x, y, originalPos.z);
+                elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            game_camera.transform.position = transform.position;
+            game_camera.transform.position = originalPos;
             current_shake = null;
         }
     }
