@@ -231,7 +231,6 @@ GameObject:
   - component: {fileID: 4721827595708804281}
   - component: {fileID: 7382434309582900224}
   - component: {fileID: 8160214171195092623}
-  - component: {fileID: 4337569417589279513}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -269,6 +268,7 @@ MonoBehaviour:
   current_state: 0
   target: {fileID: 0}
   move_speed: 5
+  search_radius: 10
   attack_data: {fileID: 8160214171195092623}
   attack_cooldown: 1
   attack_range: 1
@@ -286,38 +286,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack_damage: 10
   attack_position: {x: 0, y: 0, z: 0}
---- !u!58 &4337569417589279513
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8406195929022542915}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 10
