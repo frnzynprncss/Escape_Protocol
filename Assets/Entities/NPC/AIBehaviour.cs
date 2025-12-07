@@ -15,6 +15,7 @@ public class AIBehaviour : MonoBehaviour
     public Transform target;
 
     public float move_speed = 10f;
+    public float search_radius = 10f;
 
     [Header("Attack Properties")]
     public AttackComponent attack_data;
@@ -30,7 +31,7 @@ public class AIBehaviour : MonoBehaviour
                 if (is_attacking) return;
                 StartCoroutine(attack_target()); break;
             case AIState.CHASING: move_towards_target(); break;
-            case AIState.IDLE: break;
+            case AIState.IDLE: search_players(); break;
         }
     }
 
@@ -38,7 +39,6 @@ public class AIBehaviour : MonoBehaviour
     {
         is_attacking = true;
 
-        // Attack Target Here
         target.GetComponent<HealthComponent>()?.take_damage(attack_data);
 
         yield return new WaitForSeconds(attack_cooldown);
@@ -50,13 +50,26 @@ public class AIBehaviour : MonoBehaviour
         }
     }
 
+    private void search_players()
+    {
+        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, search_radius);
+
+        foreach (Collider2D objects in hit)
+        {
+            if (objects.gameObject.CompareTag("Player"))
+            {
+                target = objects.gameObject.transform;
+                current_state = AIState.CHASING;
+            }
+        }
+    }
+
     private void move_towards_target()
     {
+        // If target is far away from search radius, they switch to the Idle State
         if (target == null) return;
-        if (near_target())
-        {
-            current_state = AIState.ATTACKING;
-        }
+        if (Vector2.Distance(transform.position, target.position) > search_radius) current_state = AIState.IDLE;
+        if (near_target()) current_state = AIState.ATTACKING;
 
         transform.parent.position = Vector3.MoveTowards(transform.position, target.position, move_speed * Time.deltaTime);
     }
@@ -65,22 +78,5 @@ public class AIBehaviour : MonoBehaviour
     {
         if (target == null) return false;
         return Vector2.Distance(transform.parent.position, target.position) < attack_range;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (target != null) return;
-        if (!collision.gameObject.CompareTag("Player")) return;
-
-        target = collision.gameObject.transform;
-        current_state = AIState.CHASING;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
-
-        target = null;
-        current_state = AIState.IDLE;
     }
 }

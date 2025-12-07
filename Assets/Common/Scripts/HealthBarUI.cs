@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class HealthBarUI : MonoBehaviour
 {
     public Image healthImage;
@@ -9,10 +8,14 @@ public class HealthBarUI : MonoBehaviour
 
     private void Start()
     {
-        playerHealth.on_health_changed.AddListener(UpdateHealthBar);
+        if (playerHealth != null)
+        {
+            playerHealth.on_health_changed.AddListener(UpdateHealthBar);
+            UpdateHealthBar(playerHealth.health);
+        }
     }
 
-    private void UpdateHealthBar(float currentHealth)
+    private void UpdateHealthBar(int currentHealth)
     {
         healthImage.fillAmount = currentHealth / playerHealth.max_health;
     }
