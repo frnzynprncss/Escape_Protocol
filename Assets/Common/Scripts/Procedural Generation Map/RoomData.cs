@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum RoomType { Normal, Spawn, Boss, Hidden }
+public enum RoomType { Normal, Spawn, Boss, Hidden, Fuel }
 
 public class Room
 {

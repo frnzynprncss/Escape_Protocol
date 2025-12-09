@@ -26,8 +26,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private GameObject player1Prefab;
     [SerializeField] private GameObject player2Prefab;
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private GameObject spaceshipPartPrefab; // Replaces Boss Prefab
-    [SerializeField] private GameObject accessCardPrefab; // Replaces Boss Prefab
+    [SerializeField] private GameObject spaceshipPartPrefab;
+    [SerializeField] private GameObject accessCardPrefab;
     [SerializeField] private GameObject fuelItemPrefab;
 
     [Header("Spawn Settings")]
@@ -38,6 +38,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private List<Room> cachedRooms = new List<Room>();
     private HashSet<Vector2Int> corridorPositions = new HashSet<Vector2Int>();
     private GameObject dungeonContainer;
+
+    private List<Room> dedicatedFuelRooms = new List<Room>();
 
     // --- ADDED THIS: Reliable references for the spawned players ---
     private Transform _spawnedP1;
@@ -129,33 +131,52 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         dungeonContainer = new GameObject("GeneratedDungeonContent");
     }
 
-    private void ProcessRoomTypes()
+    // --- CORRECTED PROCESS ROOM TYPES ---
+    private void ProcessRoomTypes()
     {
+        dedicatedFuelRooms.Clear();
+
         if (cachedRooms.Count == 0) return;
 
         Vector2Int startPoint = Vector2Int.zero;
-        Room spawnRoom = cachedRooms.OrderBy(x => Vector2.Distance(x.RoomCenterPos, startPoint)).First();
+        // 1. Spawn Room
+        Room spawnRoom = cachedRooms.OrderBy(x => Vector2.Distance(x.RoomCenterPos, startPoint)).First();
         spawnRoom.Type = RoomType.Spawn;
 
-        Room accessCardRoom = cachedRooms.OrderByDescending(x => Vector2.Distance(x.RoomCenterPos, spawnRoom.RoomCenterPos)).First();
+        // 2. Access Card Room (Boss)
+        Room accessCardRoom = cachedRooms.OrderByDescending(x => Vector2.Distance(x.RoomCenterPos, spawnRoom.RoomCenterPos)).First();
         accessCardRoom.Type = RoomType.Boss;
 
         List<Room> availableRooms = cachedRooms.Where(x => x != spawnRoom && x != accessCardRoom).ToList();
+
+        // 3. Assign Spaceship Parts (RoomType.Hidden)
         int partsToSpawn = Mathf.Min(availableRooms.Count, 3);
         List<Room> spaceshipPartRooms = availableRooms.OrderBy(x => Guid.NewGuid()).Take(partsToSpawn).ToList();
 
         foreach (var room in spaceshipPartRooms)
             room.Type = RoomType.Hidden;
+
+        // 4. Assign Fuel Item (Using exactFuelCount)
+        // Only consider rooms that aren't already Spawn, Boss, or Hidden (Parts)
+        List<Room> fuelAvailableRooms = availableRooms.Except(spaceshipPartRooms).ToList();
+        int fuelsToSpawn = Mathf.Min(fuelAvailableRooms.Count, exactFuelCount);
+
+        // Select random rooms for fuel
+        dedicatedFuelRooms = fuelAvailableRooms.OrderBy(x => Guid.NewGuid()).Take(fuelsToSpawn).ToList();
+
+        // NOTE: Fuel rooms will remain RoomType.Normal by default, 
+        // and we check the dedicatedFuelRooms list in SpawnObjectsInRooms
     }
+    // ------------------------------------------
 
-    private void SpawnObjectsInRooms()
+    // --- CORRECTED SPAWN OBJECTS IN ROOMS ---
+    private void SpawnObjectsInRooms()
     {
-        // --- ADDED THIS: Reset the references at the start of spawning ---
-        _spawnedP1 = null;
+        // Reset the references at the start of spawning
+        _spawnedP1 = null;
         _spawnedP2 = null;
-        // -----------------------------------------------------------------
 
-        if (player1Prefab == null || accessCardPrefab == null || spaceshipPartPrefab == null)
+        if (player1Prefab == null || accessCardPrefab == null || spaceshipPartPrefab == null)
         {
             Debug.LogError("Please assign Player/AccessCard/SpaceshipPart prefabs in the Inspector!");
             return;
@@ -173,28 +194,33 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 case RoomType.Spawn:
                     spawnedObject = Instantiate(player1Prefab, roomCenterWorld + Vector2.left, Quaternion.identity);
                     spawnedObject.transform.SetParent(dungeonContainer.transform);
-                    // --- SAVE REFERENCE DIRECTLY ---
-                    _spawnedP1 = spawnedObject.transform;
-                    // -------------------------------
+                    _spawnedP1 = spawnedObject.transform;
 
-                    var secondPlayer = Instantiate(player2Prefab, roomCenterWorld + Vector2.right, Quaternion.identity);
+                    var secondPlayer = Instantiate(player2Prefab, roomCenterWorld + Vector2.right, Quaternion.identity);
                     secondPlayer.transform.SetParent(dungeonContainer.transform);
-                    // --- SAVE REFERENCE DIRECTLY ---
-                    _spawnedP2 = secondPlayer.transform;
-                    // -------------------------------
-                    break;
+                    _spawnedP2 = secondPlayer.transform;
+                    break;
 
                 case RoomType.Boss:
                     spawnedObject = Instantiate(accessCardPrefab, roomCenterWorld, Quaternion.identity);
                     break;
 
                 case RoomType.Hidden:
-                    spawnedObject = Instantiate(spaceshipPartPrefab, roomCenterWorld, Quaternion.identity);
+                    // Spawns Spaceship Part in RoomType.Hidden rooms
+                    spawnedObject = Instantiate(spaceshipPartPrefab, roomCenterWorld, Quaternion.identity);
                     break;
 
                 case RoomType.Normal:
-                    if (Random.value < enemySpawnChance)
+                    // Priority check 1: If this room is dedicated to fuel
+                    if (dedicatedFuelRooms.Contains(room))
+                    {
+                        spawnedObject = Instantiate(fuelItemPrefab, roomCenterWorld, Quaternion.identity);
+                    }
+                    // Priority check 2: Otherwise, randomly spawn an enemy
+                    else if (Random.value < enemySpawnChance)
+                    {
                         spawnedObject = Instantiate(enemyPrefab, roomCenterWorld, Quaternion.identity);
+                    }
                     break;
             }
 
@@ -350,8 +376,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     public (Transform p1, Transform p2) GetSpawnedPlayers()
     {
-        // --- FIXED THIS: Now returns the reliable, saved references ---
         return (_spawnedP1, _spawnedP2);
-        // -----------------------------------------------------------
     }
 }
