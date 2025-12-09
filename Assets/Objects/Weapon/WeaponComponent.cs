@@ -1,13 +1,14 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class WeaponComponent : MonoBehaviour
 {
     public WeaponData weapon_data;
     public BulletScript BulletPrefab;
-    [SerializeField] private AttackComponent attack;
+    public GameObject weapon_pivot;
 
+    [SerializeField] private AttackComponent attack;
+    [SerializeField] private PlayerMovement controller;
     [SerializeField] private PlayerControl shoot_input;
     [SerializeField] private SpriteRenderer weapon_sprite;
     [SerializeField] private LayerMask target_layers;
@@ -26,6 +27,8 @@ public class WeaponComponent : MonoBehaviour
         else is_shooting = false;
 
         if (is_shooting) fire();
+
+        rotate_weapon();
     }
 
     public void equip_weapon(WeaponData weapon)
@@ -77,5 +80,19 @@ public class WeaponComponent : MonoBehaviour
         if (hit_health == null) return;
 
         hit_health.take_damage(attack);
+    }
+
+    private void rotate_weapon()
+    {
+        if (controller.get_input() == Vector2.zero) return;
+
+        float angle_radians = Mathf.Atan2(controller.get_input().y, controller.get_input().x);
+        float angle_degrees = angle_radians * Mathf.Rad2Deg;
+        
+        Quaternion weapon_rotation = Quaternion.Euler(0f, 0f, angle_degrees);
+        weapon_pivot.transform.rotation = weapon_rotation;
+
+        if (angle_degrees > 90f || angle_degrees < -90f) weapon_sprite.flipY = true;
+        else weapon_sprite.flipY = false;
     }
 }

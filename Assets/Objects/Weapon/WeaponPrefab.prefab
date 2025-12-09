@@ -49,7 +49,7 @@ MonoBehaviour:
   weapon_data: {fileID: 11400000, guid: 9a598531c6566fae5a2b5bfe08932aac, type: 2}
   BulletPrefab: {fileID: 2562843616453949759, guid: f33abbb7391f2f1b79f1f25b7c410843, type: 3}
   attack: {fileID: 6260304842194997615}
-  shoot_input: {fileID: -2864160145406553686, guid: 8cebe7db1803da802ae03c06eac6ebaa, type: 3}
+  shoot_input: {fileID: 0}
   weapon_sprite: {fileID: 1942647753702146580}
   target_layers:
     serializedVersion: 2

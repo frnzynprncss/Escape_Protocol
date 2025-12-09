@@ -406,10 +406,10 @@ MonoBehaviour:
   wallFull: {fileID: 11400000, guid: 7819602f560c7f642b7bc8b348bb4a5f, type: 2}
   wallInnerCornerDownLeft: {fileID: 11400000, guid: 19a9f2806e6607446a1207be94a02398, type: 2}
   wallInnerCornerDownRight: {fileID: 11400000, guid: 892ff95dd70553a42bd44f822ddaab5a, type: 2}
-  wallDiagonalCornerDownRight: {fileID: 11400000, guid: f27c914ed5a9b4b419a40e63cc769683, type: 2}
-  wallDiagonalCornerDownLeft: {fileID: 11400000, guid: 976c2aa82fae76b448abc98c353c3fa0, type: 2}
-  wallDiagonalCornerUpRight: {fileID: 11400000, guid: bded4210799bab843b9e474e583e0b16, type: 2}
-  wallDiagonalCornerUpLeft: {fileID: 11400000, guid: 6841deac073c0684585bda31c6778512, type: 2}
+  wallDiagonalCornerDownRight: {fileID: 0}
+  wallDiagonalCornerDownLeft: {fileID: 0}
+  wallDiagonalCornerUpRight: {fileID: 0}
+  wallDiagonalCornerUpLeft: {fileID: 0}
 --- !u!4 &421341323
 Transform:
   m_ObjectHideFlags: 0
@@ -13523,7 +13523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: min_zoom
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: player1Tag
@@ -13535,7 +13535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: zoom_margin
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: follow_players

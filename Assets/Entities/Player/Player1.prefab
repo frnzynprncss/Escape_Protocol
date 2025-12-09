@@ -83,7 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controls: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
-  weapon_pivot: {fileID: 2619899610412135930}
   moveSpeed: 360
 --- !u!114 &177642872109323784
 MonoBehaviour:
@@ -318,9 +317,17 @@ PrefabInstance:
       value: WeaponPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 8075089658088013550, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 7611744526087961460}
+    - target: {fileID: 8075089658088013550, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
       propertyPath: shoot_input
       value: 
       objectReference: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
+    - target: {fileID: 8075089658088013550, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+      propertyPath: weapon_pivot
+      value: 
+      objectReference: {fileID: 2619899610412135930}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

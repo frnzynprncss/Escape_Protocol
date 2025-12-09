@@ -28,14 +28,14 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject spaceshipPartPrefab;
     [SerializeField] private GameObject accessCardPrefab;
-    [SerializeField] private GameObject fuelItemPrefab;
+    [SerializeField] private GameObject fuelItemPrefab;
 
     [Header("Spawn Settings")]
     [Range(0, 1)][SerializeField] private float enemySpawnChance = 0.5f;
     [SerializeField] private int exactFuelCount = 3;
 
-    // Internal Data
-    private List<Room> cachedRooms = new List<Room>();
+    // Internal Data
+    private List<Room> cachedRooms = new List<Room>();
     private HashSet<Vector2Int> corridorPositions = new HashSet<Vector2Int>();
     private GameObject dungeonContainer;
 
@@ -46,8 +46,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private Transform _spawnedP2;
     // ---------------------------------------------------------------
 
-    // Event for notifying when players are spawned
-    public static event Action<Transform, Transform> OnPlayersSpawned;
+    // Event for notifying when players are spawned
+    public static event Action<Transform, Transform> OnPlayersSpawned;
 
     private void Start()
     {
@@ -69,19 +69,19 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void CreateRooms()
     {
-        // Cleanup (Fixes the crash/hierarchy mess)
-        ClearOldGeneratedObjects();
+        // Cleanup (Fixes the crash/hierarchy mess)
+        ClearOldGeneratedObjects();
 
-        // Clear Tilemaps (Prevents overlapping tiles)
-        if (tilemapVisualizer != null)
+        // Clear Tilemaps (Prevents overlapping tiles)
+        if (tilemapVisualizer != null)
             tilemapVisualizer.Clear();
 
-        // Clear Internal Data
-        cachedRooms.Clear();
+        // Clear Internal Data
+        cachedRooms.Clear();
         corridorPositions.Clear();
 
-        // Algorithm
-        var roomsListBounds = ProceduralGenerationAlgorithms.BinarySpacePartitioning(
+        // Algorithm
+        var roomsListBounds = ProceduralGenerationAlgorithms.BinarySpacePartitioning(
       new BoundsInt((Vector3Int)startPosition, new Vector3Int(dungeonWidth, dungeonHeight, 0)),
       minRoomWidth, minRoomHeight
     );
@@ -93,36 +93,36 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         corridorPositions = corridors;
         floor.UnionWith(corridors);
 
-        // Logic & Spawning
-        ProcessRoomTypes();
+        // Logic & Spawning
+        ProcessRoomTypes();
         SpawnObjectsInRooms();
 
-        // Visualization
-        tilemapVisualizer.PaintFloorTiles(floor);
+        // Visualization
+        tilemapVisualizer.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualizer);
 
-        // Camera Integration
+        // Camera Integration
 #if UNITY_EDITOR
-        // Wrapped in try-catch or null check to ensure it doesn't break if GameCamera is missing
-        var cam = FindObjectOfType<GameCamera>();
+        // Wrapped in try-catch or null check to ensure it doesn't break if GameCamera is missing
+        var cam = FindObjectOfType<GameCamera>();
         if (cam != null)
         {
             // Uses the new GetSpawnedPlayers()
-            var players = GetSpawnedPlayers();
+            var players = GetSpawnedPlayers();
             cam.SetPlayers(players.p1, players.p2);
         }
 #endif
-    }
+}
 
     private void ClearOldGeneratedObjects()
     {
-        // Find by NAME to ensure we catch it even if the variable reference is lost
-        var existingContainer = GameObject.Find("GeneratedDungeonContent");
+        // Find by NAME to ensure we catch it even if the variable reference is lost
+        var existingContainer = GameObject.Find("GeneratedDungeonContent");
 
         if (existingContainer != null)
         {
-            // Use Destroy for runtime, DestroyImmediate for editor to prevent errors
-            if (Application.isPlaying)
+        // Use Destroy for runtime, DestroyImmediate for editor to prevent errors
+        if (Application.isPlaying)
                 Destroy(existingContainer);
             else
                 DestroyImmediate(existingContainer);
@@ -132,7 +132,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     }
 
     // --- CORRECTED PROCESS ROOM TYPES ---
-    private void ProcessRoomTypes()
+    private void ProcessRoomTypes()
     {
         dedicatedFuelRooms.Clear();
 
@@ -140,11 +140,11 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         Vector2Int startPoint = Vector2Int.zero;
         // 1. Spawn Room
-        Room spawnRoom = cachedRooms.OrderBy(x => Vector2.Distance(x.RoomCenterPos, startPoint)).First();
+        Room spawnRoom = cachedRooms.OrderBy(x => Vector2.Distance(x.RoomCenterPos, startPoint)).First();
         spawnRoom.Type = RoomType.Spawn;
 
         // 2. Access Card Room (Boss)
-        Room accessCardRoom = cachedRooms.OrderByDescending(x => Vector2.Distance(x.RoomCenterPos, spawnRoom.RoomCenterPos)).First();
+        Room accessCardRoom = cachedRooms.OrderByDescending(x => Vector2.Distance(x.RoomCenterPos, spawnRoom.RoomCenterPos)).First();
         accessCardRoom.Type = RoomType.Boss;
 
         List<Room> availableRooms = cachedRooms.Where(x => x != spawnRoom && x != accessCardRoom).ToList();
@@ -158,7 +158,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         // 4. Assign Fuel Item (Using exactFuelCount)
         // Only consider rooms that aren't already Spawn, Boss, or Hidden (Parts)
-        List<Room> fuelAvailableRooms = availableRooms.Except(spaceshipPartRooms).ToList();
+        List<Room> fuelAvailableRooms = availableRooms.Except(spaceshipPartRooms).ToList();
         int fuelsToSpawn = Mathf.Min(fuelAvailableRooms.Count, exactFuelCount);
 
         // Select random rooms for fuel
@@ -170,10 +170,10 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     // ------------------------------------------
 
     // --- CORRECTED SPAWN OBJECTS IN ROOMS ---
-    private void SpawnObjectsInRooms()
+    private void SpawnObjectsInRooms()
     {
-        // Reset the references at the start of spawning
-        _spawnedP1 = null;
+        // Reset the references at the start of spawning
+        _spawnedP1 = null;
         _spawnedP2 = null;
 
         if (player1Prefab == null || accessCardPrefab == null || spaceshipPartPrefab == null)
@@ -206,8 +206,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                     break;
 
                 case RoomType.Hidden:
-                    // Spawns Spaceship Part in RoomType.Hidden rooms
-                    spawnedObject = Instantiate(spaceshipPartPrefab, roomCenterWorld, Quaternion.identity);
+                    // Spawns Spaceship Part in RoomType.Hidden rooms
+                    spawnedObject = Instantiate(spaceshipPartPrefab, roomCenterWorld, Quaternion.identity);
                     break;
 
                 case RoomType.Normal:
@@ -228,8 +228,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 spawnedObject.transform.SetParent(dungeonContainer.transform);
         }
 
-        // Fire the event after spawning players using the reliable private fields
-        if (_spawnedP1 != null && _spawnedP2 != null)
+        // Fire the event after spawning players using the reliable private fields
+        if (_spawnedP1 != null && _spawnedP2 != null)
             OnPlayersSpawned?.Invoke(_spawnedP1, _spawnedP2);
     }
 
@@ -376,6 +376,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     public (Transform p1, Transform p2) GetSpawnedPlayers()
     {
-        return (_spawnedP1, _spawnedP2);
-    }
+        return (_spawnedP1, _spawnedP2);
+    }
 }
