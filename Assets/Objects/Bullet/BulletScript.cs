@@ -28,12 +28,18 @@ public class BulletScript : MonoBehaviour
         transform.rotation = dir;
     }
 
+    public void on_impact()
+    {
+        // Add Effects Here on Impact
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag(target)) return;
-
         // REMINDER: Make sure that the Hitbox object is a child of the game object for this to work
-        collision.gameObject.GetComponentInParent<HealthComponent>()?.take_damage(attack);
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag(target))
+            collision.gameObject.GetComponentInParent<HealthComponent>()?.take_damage(attack);
+
+        on_impact();
     }
 }
