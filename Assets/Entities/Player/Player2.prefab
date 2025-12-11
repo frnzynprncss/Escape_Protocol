@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 177642872109323784}
   - component: {fileID: 2898543483902687762}
   - component: {fileID: 2680573822089445008}
+  - component: {fileID: 4625752065695307117}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -85,7 +86,6 @@ MonoBehaviour:
   controls: {fileID: 11400000, guid: 6de015f1ab32befe4acbbdd30bc28101, type: 2}
   weapon_pivot: {fileID: 464420267222812438}
   moveSpeed: 360
-  animator: {fileID: 0}
 --- !u!114 &177642872109323784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +182,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4625752065695307117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427048564078456942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd52a3a5a676e84999a4b4e03a0433b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
 --- !u!1 &7878304954551529363
 GameObject:
   m_ObjectHideFlags: 0
