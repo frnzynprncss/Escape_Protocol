@@ -86,7 +86,6 @@ MonoBehaviour:
   controls: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
   weapon_pivot: {fileID: 2619899610412135930}
   moveSpeed: 360
-  animator: {fileID: 0}
 --- !u!114 &177642872109323784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,8 +274,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1510682897
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 10ca1bd081f309b49a11e0fdc7d1c772, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -387,6 +386,10 @@ PrefabInstance:
     - target: {fileID: 1533043193350284290, guid: ed72b97d5de15bdb2a772fed65465cb2, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2278100941592199040, guid: ed72b97d5de15bdb2a772fed65465cb2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 114389125
       objectReference: {fileID: 0}
     - target: {fileID: 4127146062653584900, guid: ed72b97d5de15bdb2a772fed65465cb2, type: 3}
       propertyPath: character

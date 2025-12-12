@@ -49,6 +49,9 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     // Event for notifying when players are spawned
     public static event Action<Transform, Transform> OnPlayersSpawned;
 
+    //added for base
+    [SerializeField] private GameObject escapeBasePrefab;
+
     private void Start()
     {
         RunProceduralGeneration();
@@ -172,13 +175,12 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     // --- CORRECTED SPAWN OBJECTS IN ROOMS ---
     private void SpawnObjectsInRooms()
     {
-        // Reset the references at the start of spawning
-        _spawnedP1 = null;
+        _spawnedP1 = null;
         _spawnedP2 = null;
 
-        if (player1Prefab == null || accessCardPrefab == null || spaceshipPartPrefab == null)
+        if (player1Prefab == null || escapeBasePrefab == null) // Check base prefab here
         {
-            Debug.LogError("Please assign Player/AccessCard/SpaceshipPart prefabs in the Inspector!");
+            Debug.LogError("Assign all Prefabs!");
             return;
         }
 
@@ -192,13 +194,20 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             switch (room.Type)
             {
                 case RoomType.Spawn:
-                    spawnedObject = Instantiate(player1Prefab, roomCenterWorld + Vector2.left, Quaternion.identity);
-                    spawnedObject.transform.SetParent(dungeonContainer.transform);
-                    _spawnedP1 = spawnedObject.transform;
+                    // 1. Spawn the Base exactly in the center
+                    var baseObj = Instantiate(escapeBasePrefab, roomCenterWorld, Quaternion.identity);
+                    baseObj.transform.SetParent(dungeonContainer.transform);
 
-                    var secondPlayer = Instantiate(player2Prefab, roomCenterWorld + Vector2.right, Quaternion.identity);
-                    secondPlayer.transform.SetParent(dungeonContainer.transform);
-                    _spawnedP2 = secondPlayer.transform;
+                    // 2. Spawn Players slightly to the left and right
+                    var p1Obj = Instantiate(player1Prefab, roomCenterWorld + Vector2.left * 2, Quaternion.identity);
+                    p1Obj.name = "Player1"; // Ensure name matches logic
+                    p1Obj.transform.SetParent(dungeonContainer.transform);
+                    _spawnedP1 = p1Obj.transform;
+
+                    var p2Obj = Instantiate(player2Prefab, roomCenterWorld + Vector2.right * 2, Quaternion.identity);
+                    p2Obj.name = "Player2"; // Ensure name matches logic
+                    p2Obj.transform.SetParent(dungeonContainer.transform);
+                    _spawnedP2 = p2Obj.transform;
                     break;
 
                 case RoomType.Boss:

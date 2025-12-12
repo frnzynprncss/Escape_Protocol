@@ -352,6 +352,7 @@ MonoBehaviour:
   fuelItemPrefab: {fileID: 5694955517181414242, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
   enemySpawnChance: 1
   exactFuelCount: 3
+  escapeBasePrefab: {fileID: 7120345863241824947, guid: 5990975d30791da4583bfc713ee57498, type: 3}
 --- !u!4 &274450589
 Transform:
   m_ObjectHideFlags: 0
