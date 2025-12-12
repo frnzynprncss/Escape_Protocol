@@ -25,9 +25,10 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private GameObject player1Prefab;
     [SerializeField] private GameObject player2Prefab;
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private GameObject spaceshipPartPrefab;
+    [SerializeField] private GameObject[] spaceshipPartPrefabs = new GameObject[3];
     [SerializeField] private GameObject accessCardPrefab;
     [SerializeField] private GameObject fuelItemPrefab;
+    [SerializeField] private GameObject spaceshipPrefab; // SINGLE prefab with both visuals
 
     [Header("Spawn Settings")]
     [Range(0, 1)][SerializeField] private float enemySpawnChance = 0.5f;
@@ -44,6 +45,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private Transform _spawnedP2;
 
     public static event Action<Transform, Transform> OnPlayersSpawned;
+
+    private SpaceShipInteraction spaceshipManager;
 
     private void Start()
     {
@@ -119,11 +122,15 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         Room spawnRoom = cachedRooms.OrderBy(x => Vector2.Distance(x.RoomCenterPos, startPoint)).First();
         spawnRoom.Type = RoomType.Spawn;
 
-        Room accessCardRoom = cachedRooms.OrderByDescending(x => Vector2.Distance(x.RoomCenterPos, spawnRoom.RoomCenterPos)).First();
+        Room spaceshipRoom = cachedRooms.OrderByDescending(x => Vector2.Distance(x.RoomCenterPos, spawnRoom.RoomCenterPos)).First();
+        spaceshipRoom.Type = RoomType.Ship;
+
+        Room accessCardRoom = cachedRooms.Except(new List<Room> { spawnRoom, spaceshipRoom })
+                                         .OrderByDescending(x => Guid.NewGuid()).First();
         accessCardRoom.Type = RoomType.Boss;
 
-        List<Room> availableRooms = cachedRooms.Where(x => x != spawnRoom && x != accessCardRoom).ToList();
-        int partsToSpawn = Mathf.Min(availableRooms.Count, 3);
+        List<Room> availableRooms = cachedRooms.Except(new List<Room> { spawnRoom, accessCardRoom, spaceshipRoom }).ToList();
+        int partsToSpawn = Mathf.Min(availableRooms.Count, Math.Max(1, spaceshipPartPrefabs.Length));
         List<Room> spaceshipPartRooms = availableRooms.OrderBy(x => Guid.NewGuid()).Take(partsToSpawn).ToList();
         foreach (var room in spaceshipPartRooms) room.Type = RoomType.Hidden;
 
@@ -134,69 +141,84 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void SpawnObjectsInRooms()
     {
-       _spawnedP1 = null;
-    _spawnedP2 = null;
+        _spawnedP1 = null;
+        _spawnedP2 = null;
+        if (player1Prefab == null || accessCardPrefab == null || spaceshipPartPrefabs == null || spaceshipPartPrefabs.Length == 0) return;
 
-    if (player1Prefab == null || accessCardPrefab == null || spaceshipPartPrefab == null) return;
+        GameObject spawnedObject = null;
 
-    GameObject spawnedObject = null;
+        int hiddenPartIndex = 0;
 
-    // Clear previous inventory
-    if (InventoryUI.Instance != null && InventoryUI.Instance.playerInventory != null)
-    {
-        InventoryUI.Instance.playerInventory.clear_items();
-        InventoryUI.Instance.RefreshAllSlots();
-    }
-
-    foreach (Room room in cachedRooms)
-    {
-        Vector2 roomCenterWorld = (Vector2)room.RoomCenterPos + new Vector2(0.5f, 0.5f);
-        spawnedObject = null;
-
-        switch (room.Type)
+        foreach (Room room in cachedRooms)
         {
-            case RoomType.Spawn:
-                spawnedObject = Instantiate(player1Prefab, roomCenterWorld + Vector2.left, Quaternion.identity);
+            Vector2 roomCenterWorld = (Vector2)room.RoomCenterPos + new Vector2(0.5f, 0.5f);
+            spawnedObject = null;
+
+            switch (room.Type)
+            {
+                case RoomType.Spawn:
+                    spawnedObject = Instantiate(player1Prefab, roomCenterWorld + Vector2.left, Quaternion.identity);
+                    spawnedObject.transform.SetParent(dungeonContainer.transform);
+                    _spawnedP1 = spawnedObject.transform;
+
+                    var secondPlayer = Instantiate(player2Prefab, roomCenterWorld + Vector2.right, Quaternion.identity);
+                    secondPlayer.transform.SetParent(dungeonContainer.transform);
+                    _spawnedP2 = secondPlayer.transform;
+                    break;
+
+                case RoomType.Ship:
+                    if (spaceshipPrefab != null)
+                    {
+                        spawnedObject = Instantiate(spaceshipPrefab, roomCenterWorld, Quaternion.identity, dungeonContainer.transform);
+
+                        spaceshipManager = spawnedObject.GetComponent<SpaceShipInteraction>();
+                        if (spaceshipManager != null)
+                        {
+                            // Assign broken and complete ship visuals
+                            spaceshipManager.partsVisualInstance = spawnedObject;
+                            spaceshipManager.completeVisualInstance = spaceshipManager.completedSpaceshipVisual;
+                            if (spaceshipManager.completeVisualInstance != null)
+                                spaceshipManager.completeVisualInstance.SetActive(false);
+                        }
+                    }
+                    break;
+
+                case RoomType.Boss:
+                    spawnedObject = Instantiate(accessCardPrefab, roomCenterWorld, Quaternion.identity);
+                    break;
+
+                case RoomType.Hidden:
+                    if (hiddenPartIndex < spaceshipPartPrefabs.Length)
+                        spawnedObject = Instantiate(spaceshipPartPrefabs[hiddenPartIndex], roomCenterWorld, Quaternion.identity);
+                    else
+                        spawnedObject = Instantiate(spaceshipPartPrefabs[spaceshipPartPrefabs.Length - 1], roomCenterWorld, Quaternion.identity);
+                    hiddenPartIndex++;
+                    break;
+
+                case RoomType.Normal:
+                    if (dedicatedFuelRooms.Contains(room))
+                        spawnedObject = Instantiate(fuelItemPrefab, roomCenterWorld, Quaternion.identity);
+                    else if (Random.value < enemySpawnChance)
+                        spawnedObject = Instantiate(enemyPrefab, roomCenterWorld, Quaternion.identity);
+                    break;
+            }
+
+            if (spawnedObject != null)
                 spawnedObject.transform.SetParent(dungeonContainer.transform);
-                _spawnedP1 = spawnedObject.transform;
-
-                var secondPlayer = Instantiate(player2Prefab, roomCenterWorld + Vector2.right, Quaternion.identity);
-                secondPlayer.transform.SetParent(dungeonContainer.transform);
-                _spawnedP2 = secondPlayer.transform;
-                break;
-
-            case RoomType.Boss:
-                spawnedObject = Instantiate(accessCardPrefab, roomCenterWorld, Quaternion.identity);
-                break;
-
-            case RoomType.Hidden:
-                spawnedObject = Instantiate(spaceshipPartPrefab, roomCenterWorld, Quaternion.identity);
-                break;
-
-            case RoomType.Normal:
-                if (dedicatedFuelRooms.Contains(room))
-                    spawnedObject = Instantiate(fuelItemPrefab, roomCenterWorld, Quaternion.identity);
-                else if (Random.value < enemySpawnChance)
-                    spawnedObject = Instantiate(enemyPrefab, roomCenterWorld, Quaternion.identity);
-                break;
         }
 
-        if (spawnedObject != null)
-            spawnedObject.transform.SetParent(dungeonContainer.transform);
-    }
+        if (_spawnedP1 != null && _spawnedP2 != null)
+            OnPlayersSpawned?.Invoke(_spawnedP1, _spawnedP2);
 
-    if (_spawnedP1 != null && _spawnedP2 != null)
-        OnPlayersSpawned?.Invoke(_spawnedP1, _spawnedP2);
-
-    if (_spawnedP1 != null && InventoryUI.Instance != null)
-    {
-        var holder = _spawnedP1.GetComponent<PlayerInventoryHolder>();
-        if (holder != null)
+        if (_spawnedP1 != null && InventoryUI.Instance != null)
         {
-            InventoryUI.Instance.playerInventory = holder.inventory;
-            InventoryUI.Instance.RefreshAllSlots();
+            var holder = _spawnedP1.GetComponent<PlayerInventoryHolder>();
+            if (holder != null)
+            {
+                InventoryUI.Instance.playerInventory = holder.inventory;
+                InventoryUI.Instance.RefreshAllSlots();
+            }
         }
-    }
     }
 
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)
@@ -322,6 +344,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                     case RoomType.Spawn: Gizmos.color = Color.green; break;
                     case RoomType.Boss: Gizmos.color = Color.red; break;
                     case RoomType.Hidden: Gizmos.color = Color.blue; break;
+                    case RoomType.Ship: Gizmos.color = Color.cyan; break;
                     case RoomType.Normal: Gizmos.color = Color.white; break;
                 }
                 foreach (var pos in room.FloorTiles)

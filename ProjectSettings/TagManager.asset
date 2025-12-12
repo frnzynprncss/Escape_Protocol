@@ -8,6 +8,7 @@ TagManager:
   - Mob
   - Enemy
   - Wall
+  - CollectibleItem
   layers:
   - Default
   - TransparentFX
