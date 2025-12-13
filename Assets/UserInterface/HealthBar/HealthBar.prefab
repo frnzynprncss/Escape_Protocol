@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629c091edffc3d92da17ed7b035bf6b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 0}
   health_slider: {fileID: 5017705770265886950}
 --- !u!223 &2278100941592199040
 Canvas:
@@ -250,7 +251,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6160227130533068
 MonoBehaviour:
   m_ObjectHideFlags: 0
