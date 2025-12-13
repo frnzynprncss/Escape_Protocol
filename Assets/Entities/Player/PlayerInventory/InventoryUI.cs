@@ -12,75 +12,49 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        Instance = this;
     }
 
     private void OnEnable()
     {
         if (playerInventory != null)
-        {
-            playerInventory.item_added.AddListener(UpdateInventoryUI); 
-            playerInventory.item_removed.AddListener(RemoveItemFromUI); 
-        }
+            playerInventory.item_added.AddListener(UpdateInventoryUI);
     }
 
     private void OnDisable()
     {
         if (playerInventory != null)
-        {
             playerInventory.item_added.RemoveListener(UpdateInventoryUI);
-            playerInventory.item_removed.RemoveListener(RemoveItemFromUI);
-        }
     }
 
     private void Start()
     {
-        RefreshAllSlots(); 
+        RefreshAllSlots();
     }
 
     public void UpdateInventoryUI(ItemComponent item)
     {
+        // Try to stack in an existing slot
         foreach (var slot in slots)
         {
             if (!slot.IsEmpty() && slot.CanStack(item))
             {
-                slot.SetAmount(item.amount); 
+                slot.SetAmount(item.amount); // Fix: set exact amount
                 return;
             }
         }
 
-        if (item.amount > 0)
-        {
-            foreach (var slot in slots)
-            {
-                if (slot.IsEmpty())
-                {
-                    ItemComponent clone = ScriptableObject.CreateInstance<ItemComponent>();
-                    clone.set_name(item.item_name)
-                        .set_sprite(item.image)
-                        .set_amount(item.amount);
-
-                    slot.SetItem(clone);
-                    return;
-                }
-            }
-        }
-    }
-
-    public void RemoveItemFromUI(ItemComponent item)
-    {
+        // Find an empty slot
         foreach (var slot in slots)
         {
-            if (!slot.IsEmpty() && slot.GetItemName() == item.item_name) 
+            if (slot.IsEmpty())
             {
-                slot.ClearSlot();
+                ItemComponent clone = ScriptableObject.CreateInstance<ItemComponent>();
+                clone.set_name(item.item_name)
+                     .set_sprite(item.image)
+                     .set_amount(item.amount);
+
+                slot.SetItem(clone);
                 return;
             }
         }
@@ -89,7 +63,7 @@ public class InventoryUI : MonoBehaviour
     public void RefreshAllSlots()
     {
         foreach (var slot in slots)
-            slot.ClearSlot();
+            slot.ClearSlot(); // placeholder sprite remains visible
 
         if (playerInventory == null) return;
 

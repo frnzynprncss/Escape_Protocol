@@ -13888,6 +13888,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &635999817
 GameObject:
   m_ObjectHideFlags: 0
@@ -13967,6 +13968,8 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
 --- !u!1 &669276895
 GameObject:
   m_ObjectHideFlags: 0
@@ -14101,6 +14104,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669276895}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &676598880
 GameObject:
   m_ObjectHideFlags: 0
@@ -14383,6 +14387,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753607682}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
 --- !u!1 &773253110
 GameObject:
   m_ObjectHideFlags: 0
@@ -14838,8 +14844,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 229830451}
+<<<<<<< HEAD
   - {fileID: 635999820}
   - {fileID: 2127005727}
+=======
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14893,6 +14902,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+<<<<<<< HEAD
 --- !u!1 &1280142887
 GameObject:
   m_ObjectHideFlags: 0
@@ -15027,6 +15037,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280142887}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
 --- !u!1001 &1280551101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15116,6 +15128,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
+<<<<<<< HEAD
 --- !u!1 &1297134856
 GameObject:
   m_ObjectHideFlags: 0
@@ -15264,6 +15277,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetScale: {x: 1.1, y: 1.1, z: 1.1}
   animationSpeed: 0.08
+=======
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
 --- !u!1 &1418530513
 GameObject:
   m_ObjectHideFlags: 0
@@ -62440,6 +62455,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+<<<<<<< HEAD
 --- !u!1 &1442602316
 GameObject:
   m_ObjectHideFlags: 0
@@ -62929,6 +62945,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashSpeed: 1.5
+=======
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
 --- !u!1 &1816632901
 GameObject:
   m_ObjectHideFlags: 0
@@ -63152,6 +63170,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &2127005726
 GameObject:
   m_ObjectHideFlags: 0
@@ -63401,6 +63420,125 @@ PrefabInstance:
 --- !u!1001 &8987756145818536058
 PrefabInstance:
   m_ObjectHideFlags: 0
+=======
+--- !u!1001 &2365484833794087403
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 34.969223
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 26.26221
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764011789033241531, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777946631156966208, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+      propertyPath: m_Name
+      value: AccessCard
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
+--- !u!1001 &6770621865473834678
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224501950164243903, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694955517181414242, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+      propertyPath: m_Name
+      value: Fuel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+--- !u!1001 &8987756145818536058
+PrefabInstance:
+  m_ObjectHideFlags: 0
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
@@ -63472,4 +63610,7 @@ SceneRoots:
   - {fileID: 8987756145818536058}
   - {fileID: 2365484833794087403}
   - {fileID: 2079855086}
+<<<<<<< HEAD
   - {fileID: 1443233134}
+=======
+>>>>>>> parent of 3546716 (fixed player inventory and added win condition)
