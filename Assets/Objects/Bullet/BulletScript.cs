@@ -17,7 +17,6 @@ public class BulletScript : MonoBehaviour
         body.velocity = transform.right * bullet_speed * Time.deltaTime;
     }
 
-    // These set functions are set on the WeaponComponent Script on Instantiation
     public void set_attack_component(AttackComponent attack_data)
     {
         attack = attack_data;
@@ -30,10 +29,17 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag(target)) return;
+        // Check if the bullet hit a wall
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        // REMINDER: Make sure that the Hitbox object is a child of the game object for this to work
-        collision.gameObject.GetComponentInParent<HealthComponent>()?.take_damage(attack);
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag(target))
+        {
+            collision.gameObject.GetComponentInParent<HealthComponent>()?.take_damage(attack);
+            Destroy(gameObject);
+        }
     }
 }
