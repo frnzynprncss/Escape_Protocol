@@ -54,6 +54,9 @@ TagManager:
   - name: FloorUI
     uniqueID: 4127547803
     locked: 0
+  - name: Enemy
+    uniqueID: 1009727481
+    locked: 0
   - name: Player
     uniqueID: 2784284399
     locked: 0
