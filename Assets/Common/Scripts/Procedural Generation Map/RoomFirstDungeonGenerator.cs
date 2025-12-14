@@ -10,6 +10,8 @@ using UnityEditor;
 
 public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
+    [Header("escape Prefab")]
+    [SerializeField] private GameObject escapeBasePrefab;
     [Header("Room First Parameters")]
     [SerializeField] private int minRoomWidth = 4, minRoomHeight = 4;
     [SerializeField] private int dungeonWidth = 20, dungeonHeight = 20;
@@ -157,11 +159,17 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             switch (room.Type)
             {
                 case RoomType.Spawn:
-                    spawnedObject = Instantiate(player1Prefab, roomCenterWorld + Vector2.left, Quaternion.identity);
+                    if (escapeBasePrefab != null)
+                    {
+                        var baseObj = Instantiate(escapeBasePrefab, roomCenterWorld, Quaternion.identity);
+                        baseObj.transform.SetParent(dungeonContainer.transform);
+                    }
+
+                    spawnedObject = Instantiate(player1Prefab, roomCenterWorld + Vector2.left * 2f, Quaternion.identity);
                     spawnedObject.transform.SetParent(dungeonContainer.transform);
                     _spawnedP1 = spawnedObject.transform;
 
-                    var secondPlayer = Instantiate(player2Prefab, roomCenterWorld + Vector2.right, Quaternion.identity);
+                    var secondPlayer = Instantiate(player2Prefab, roomCenterWorld + Vector2.right * 2f, Quaternion.identity);
                     secondPlayer.transform.SetParent(dungeonContainer.transform);
                     _spawnedP2 = secondPlayer.transform;
                     break;
