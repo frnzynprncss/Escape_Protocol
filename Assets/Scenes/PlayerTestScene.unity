@@ -1165,7 +1165,7 @@ MonoBehaviour:
   tilemapVisualizer: {fileID: 421341322}
   startPosition: {x: 0, y: 0}
   randomWalkParameters: {fileID: 11400000, guid: c3e83ae67547d744086b0f33ceca1cca, type: 2}
-  escapeBasePrefab: {fileID: 3658013647755238018, guid: e9f017a560a581646adf77cb79d4a02b, type: 3}
+  escapeBasePrefab: {fileID: 9189351342723870710, guid: badfe761481755b4d98901a2c343506d, type: 3}
   minRoomWidth: 15
   minRoomHeight: 10
   dungeonWidth: 100
@@ -14570,50 +14570,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573701276}
   m_CullTransparentMesh: 1
---- !u!1 &580294044
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 580294046}
-  - component: {fileID: 580294045}
-  m_Layer: 0
-  m_Name: CorridorFirstDungeonGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &580294045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580294044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb18ac101ce0d142afdad6360690fba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &580294046
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580294044}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 391.0799, y: 141.83197, z: -2.1788375}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &597889704
 GameObject:
   m_ObjectHideFlags: 0
@@ -59450,53 +59406,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   max_health: 1
---- !u!1 &1816632901
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1816632903}
-  - component: {fileID: 1816632902}
-  m_Layer: 0
-  m_Name: SimpleRandomWalkDungeonGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1816632902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816632901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 240313edb13fdbc43af246daf30e7b61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemapVisualizer: {fileID: 421341322}
-  startPosition: {x: 0, y: 0}
-  randomWalkParameters: {fileID: 11400000, guid: c3e83ae67547d744086b0f33ceca1cca, type: 2}
---- !u!4 &1816632903
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816632901}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 391.0799, y: 141.83197, z: -2.1788375}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1845217354
 GameObject:
   m_ObjectHideFlags: 0
@@ -61148,8 +61057,6 @@ SceneRoots:
   - {fileID: 140959762}
   - {fileID: 1130036708}
   - {fileID: 421341323}
-  - {fileID: 1816632903}
-  - {fileID: 580294046}
   - {fileID: 274450589}
   - {fileID: 2079855086}
   - {fileID: 433240890}
