@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: -2872142596200147749}
   - component: {fileID: 6510737306342359438}
   - component: {fileID: 3697992864353720638}
+  - component: {fileID: 8934606307403977974}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -136,9 +137,9 @@ MonoBehaviour:
   on_death:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 177642872109323784}
-        m_TargetAssemblyTypeName: HealthComponent, Assembly-CSharp
-        m_MethodName: kill
+      - m_Target: {fileID: 8934606307403977974}
+        m_TargetAssemblyTypeName: PlayerRespawn, Assembly-CSharp
+        m_MethodName: StartRespawnProcess
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -333,6 +334,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8934606307403977974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427048564078456942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839de480baa31014d82064ec165dfff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 15
+  spawnRadius: 3
 --- !u!1001 &6698838581614862373
 PrefabInstance:
   m_ObjectHideFlags: 0
