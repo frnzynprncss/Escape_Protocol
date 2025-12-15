@@ -1,5 +1,8 @@
 using System.Collections;
+
 using UnityEngine;
+
+
 
 public enum AIState
 {
@@ -8,12 +11,13 @@ public enum AIState
     ATTACKING
 }
 
+
+
 public class AIBehaviour : MonoBehaviour
 {
     [Header("AI Behaviour")]
     public AIState current_state;
     public Transform target;
-
     public float move_speed = 10f;
     public float search_radius = 10f;
 
@@ -27,21 +31,26 @@ public class AIBehaviour : MonoBehaviour
     {
         switch (current_state)
         {
-            case AIState.ATTACKING: 
+            case AIState.ATTACKING:
+
                 if (is_attacking) return;
+
                 StartCoroutine(attack_target()); break;
+
             case AIState.CHASING: move_towards_target(); break;
+
             case AIState.IDLE: search_players(); break;
         }
     }
 
+
     private IEnumerator attack_target()
     {
         is_attacking = true;
-
         target.GetComponent<HealthComponent>()?.take_damage(attack_data);
 
         yield return new WaitForSeconds(attack_cooldown);
+
         is_attacking = false;
 
         if (!near_target())

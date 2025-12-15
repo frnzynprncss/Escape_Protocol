@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: START
+  m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef4bc3c8cfa332b4cacacf764ccd70f9, type: 2}
   m_sharedMaterial: {fileID: 5233438540952907525, guid: ef4bc3c8cfa332b4cacacf764ccd70f9, type: 2}
@@ -256,7 +256,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7162707367974893147}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4612065062092863664
 MonoBehaviour:
   m_ObjectHideFlags: 0
