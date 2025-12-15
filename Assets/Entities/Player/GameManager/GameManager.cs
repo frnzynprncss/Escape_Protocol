@@ -5,37 +5,44 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerInventory playerInventory; 
-    public TextMeshProUGUI returnIndicatorText;
+    // Ensure this is assigned to the PlayerInventoryHolder component!
+    public PlayerInventory playerInventory;
 
-    // List of all critical items needed for the goal
-    public string[] requiredItemNames = { "Fuel", "Wheel", "EnginePart", "Screen" }; 
-    
+    public TextMeshProUGUI returnIndicatorText;
+    public GameObject WinPanel;
+    // --- REMOVED: public GameObject LosePanel; ---
+
+    // This list is now only used for initial collection check if needed, 
+    // but the main goal check is moved to SpaceShipInteraction.
+    // public string[] requiredItemNames = { "Fuel", "Wheel", "EnginePart", "Screen" }; 
+
     private bool goalAchieved = false;
 
     private void Start()
     {
+        // Set all UI panels and indicators to inactive at start
+        if (WinPanel != null) WinPanel.SetActive(false);
+        // --- REMOVED: if (LosePanel != null) LosePanel.SetActive(false); ---
         if (returnIndicatorText != null)
             returnIndicatorText.gameObject.SetActive(false);
     }
 
-    public void CheckCompletionStatus()
-    {
-        if (goalAchieved || playerInventory == null) return;
+    // NOTE: CheckCompletionStatus is no longer called/needed here.
 
-        foreach (string requiredItem in requiredItemNames)
+    public void WinGame()
+    {
+        if (goalAchieved) return;
+
+        goalAchieved = true;
+
+        if (WinPanel != null)
         {
-            if (!playerInventory.ContainsItem(requiredItem))
-            {
-                return; // Missing at least one item, exit early
-            }
+            WinPanel.SetActive(true);
         }
 
-        // All items are collected
-        goalAchieved = true;
-        if (returnIndicatorText != null)
-            returnIndicatorText.gameObject.SetActive(true);
+        Debug.Log("Congratulations! You won the game!");
 
-        Debug.Log("Goal achieved! Return to the ship.");
+        // Optional: Stop time or disable player movement here
+        // Time.timeScale = 0f;
     }
 }

@@ -5,6 +5,10 @@ using TMPro;
 
 public class SpaceShipInteraction : MonoBehaviour
 {
+    // --- NEW REFERENCE ADDED ---
+    public GameManager gameManager;
+    // ---------------------------
+
     public PlayerInventory playerInventory;
 
     public string fuelItemName = "Fuel";
@@ -22,7 +26,7 @@ public class SpaceShipInteraction : MonoBehaviour
     public ItemComponent spacePart3Definition;
     public ItemComponent accessCardDefinition;
 
-    public GameObject completedSpaceshipVisual;   // Prefab for completed ship
+    public GameObject completedSpaceshipVisual;  // Prefab for completed ship
 
     [HideInInspector] public GameObject partsVisualInstance;       // Assigned by generator
     [HideInInspector] public GameObject completeVisualInstance;    // Assigned by generator
@@ -76,19 +80,24 @@ public class SpaceShipInteraction : MonoBehaviour
 
     private void Update()
     {
+        // CheckCompletionStatus is used to trigger the "Return" text, not the win state.
         CheckCompletionStatus();
 
         if (Input.GetKeyDown(KeyCode.E) && !isRepaired)
         {
+            // Priority 1: Add Fuel (if missing fuel and has fuel)
             if (currentFuel < fuelCapacity && playerInventory.ContainsItem(fuelItemName))
                 AddFuel();
-            else if (!allPartsAttached)
+            // Priority 2: Add Parts (if missing parts and has parts)
+            else if (!allPartsAttached && (playerInventory.ContainsItem(spacePart1Name) || playerInventory.ContainsItem(spacePart2Name) || playerInventory.ContainsItem(spacePart3Name)))
                 AddParts();
+            // Priority 3: Final step (only if everything is done and has the access card)
             else if (currentFuel >= fuelCapacity && allPartsAttached && playerInventory.ContainsItem(accessCardName))
             {
                 playerInventory.remove_item(accessCardName, 1);
                 FinishSpaceship();
             }
+            // Priority 4: Give feedback
             else
                 CheckStatusFeedback();
         }
@@ -96,9 +105,10 @@ public class SpaceShipInteraction : MonoBehaviour
 
     private void CheckCompletionStatus()
     {
-        if (allGoalItemsCollected) return;
+        if (allGoalItemsCollected || playerInventory == null) return;
 
-        if (playerInventory.ContainsItem(fuelItemName) &&
+        // Check if player has *all* required items in inventory to signal return
+        if (playerInventory.ContainsItem(fuelItemName) && // NOTE: Assumes player needs at least 1 fuel to start return signal
             playerInventory.ContainsItem(spacePart1Name) &&
             playerInventory.ContainsItem(spacePart2Name) &&
             playerInventory.ContainsItem(spacePart3Name) &&
@@ -108,9 +118,9 @@ public class SpaceShipInteraction : MonoBehaviour
             if (returnIndicatorText != null)
             {
                 returnIndicatorText.gameObject.SetActive(true);
-                returnIndicatorText.text = "Go back to your spawn point!";
+                returnIndicatorText.text = "Go back to your spawn point (Spaceship)!";
             }
-            Debug.Log("Goal achieved! Return to the ship.");
+            Debug.Log("All items collected! Return to the ship to repair.");
         }
     }
 
@@ -147,7 +157,7 @@ public class SpaceShipInteraction : MonoBehaviour
             partUsed = true;
         }
 
-        // Check if all parts are now attached
+        // Check if all parts are now attached (meaning they are NOT in the inventory)
         if (!playerInventory.ContainsItem(spacePart1Name) &&
             !playerInventory.ContainsItem(spacePart2Name) &&
             !playerInventory.ContainsItem(spacePart3Name))
@@ -160,12 +170,14 @@ public class SpaceShipInteraction : MonoBehaviour
 
     private void CheckStatusFeedback()
     {
-        if (currentFuel < fuelCapacity)
+        if (!allPartsAttached)
+            Debug.Log("Spaceship needs remaining parts before fueling.");
+        else if (currentFuel < fuelCapacity)
             Debug.Log($"Spaceship needs {fuelCapacity - currentFuel} more fuel units.");
-        else if (!allPartsAttached)
-            Debug.Log("Spaceship needs remaining parts before activation.");
         else if (!playerInventory.ContainsItem(accessCardName))
             Debug.Log("Spaceship is ready! Final step requires Access Card.");
+        else
+            Debug.Log("Spaceship is ready for launch. Press 'E' again to initiate!");
     }
 
     private void FinishSpaceship()
@@ -181,6 +193,17 @@ public class SpaceShipInteraction : MonoBehaviour
         if (returnIndicatorText != null)
             returnIndicatorText.gameObject.SetActive(false);
 
-        Debug.Log("Spaceship completed and activated! You win!");
+        Debug.Log("Spaceship completed and activated! Calling WinGame...");
+
+        // --- FINAL CALL TO WIN GAME ---
+        if (gameManager != null)
+        {
+            gameManager.WinGame();
+        }
+        else
+        {
+            Debug.LogError("GameManager reference is missing in SpaceShipInteraction!");
+        }
+        // ------------------------------
     }
 }
