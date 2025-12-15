@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+// Removed UIElements to prevent conflicts with standard UI
 
 public class HealthBarScript : MonoBehaviour
 {
@@ -12,9 +13,10 @@ public class HealthBarScript : MonoBehaviour
         {
             health_slider.maxValue = character.max_health;
             health_slider.value = character.health;
-            
+
             character.on_health_changed.AddListener(update_health);
 
+            // Initial update
             update_health(character.health);
         }
     }
