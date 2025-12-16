@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6682070888850144297}
   - component: {fileID: 1475284763092199974}
   m_Layer: 0
-  m_Name: Mob
+  m_Name: Mob2
   m_TagString: Mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,8 +224,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 13dfa59a111798b41abd564e6730d6da, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 2cb6b3a53ab1a2d48affd6a0b0f1b194, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
