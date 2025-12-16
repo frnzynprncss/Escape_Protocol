@@ -9,21 +9,15 @@ public class HealthComponent : MonoBehaviour
     public UnityEvent<AttackComponent> on_damage_recieved;
     public UnityEvent<int> on_health_changed;
 
-    [Header("UI Settings")]
-    [Tooltip("If true, this component will search for the Player's HUD. Keep false for Enemies.")]
     public bool isPlayer = false;
     public Image health_bar_fill;
 
-    [Header("Blood Effect Settings")]
-    [Tooltip("Optional: assign a ParticleSystem prefab to spawn when taking damage.")]
     public ParticleSystem bloodEffectPrefab;
-    [Tooltip("Offset from the object position to spawn blood.")]
     public Vector3 bloodSpawnOffset = Vector3.zero;
 
     public int max_health;
     public int health { get; private set; }
 
-    [Header("Multiplayer Settings")]
     public int playerID = 1;
 
     private void Awake()
@@ -52,15 +46,13 @@ public class HealthComponent : MonoBehaviour
         health -= attack.attack_damage;
         health = Math.Max(health, 0);
 
-        // 🔥 Spawn blood particle
-        spawn_blood();
-
         update_ui();
         on_health_changed.Invoke(health);
         on_damage_recieved.Invoke(attack);
 
         if (health <= 0)
         {
+            spawn_blood();
             on_death.Invoke();
         }
     }

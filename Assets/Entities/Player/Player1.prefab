@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 6510737306342359438}
   - component: {fileID: 3697992864353720638}
   - component: {fileID: 8934606307403977974}
+  - component: {fileID: -374215332457850411}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -223,6 +224,8 @@ MonoBehaviour:
       m_Calls: []
   isPlayer: 1
   health_bar_fill: {fileID: 0}
+  bloodEffectPrefab: {fileID: 7065208528202726076, guid: cd5dd126cc8b0e14fb1212c5d3ad4314, type: 3}
+  bloodSpawnOffset: {x: 0, y: 0, z: 0}
   max_health: 100
   playerID: 1
 --- !u!50 &2898543483902687762
@@ -248,9 +251,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &550026251616848792
 CapsuleCollider2D:
@@ -416,6 +419,20 @@ MonoBehaviour:
   gameOverPanel: {fileID: 0}
   respawnTime: 20
   spawnRadius: 3
+--- !u!114 &-374215332457850411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427048564078456942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357d200e2765a8c4f922761044b7ed7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 8
+  cooldown: 0.15
 --- !u!1001 &6698838581614862373
 PrefabInstance:
   m_ObjectHideFlags: 0

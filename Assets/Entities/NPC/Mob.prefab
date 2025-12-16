@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5529616452335003909}
   - component: {fileID: 3408049520590173207}
   - component: {fileID: 6682070888850144297}
+  - component: {fileID: 1475284763092199974}
   m_Layer: 0
   m_Name: Mob
   m_TagString: Mob
@@ -70,7 +71,12 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  isPlayer: 0
+  health_bar_fill: {fileID: 0}
+  bloodEffectPrefab: {fileID: 0}
+  bloodSpawnOffset: {x: 0, y: 0, z: 0}
   max_health: 1
+  playerID: 1
 --- !u!50 &3408049520590173207
 Rigidbody2D:
   serializedVersion: 4
@@ -97,7 +103,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!70 &6682070888850144297
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -107,7 +113,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 4222450437585741188}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 08a2c077363bec647a4099f0f121e3da, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -133,6 +139,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.022996008, y: -0.06218803}
   m_Size: {x: 0.5202193, y: 0.8285246}
   m_Direction: 0
+--- !u!225 &1475284763092199974
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222450437585741188}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5639888777385718901
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +313,8 @@ GameObject:
   - component: {fileID: 4721827595708804281}
   - component: {fileID: 7382434309582900224}
   - component: {fileID: 8160214171195092623}
+  - component: {fileID: 8990502505471755876}
+  - component: {fileID: 6824311752210343801}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -350,3 +370,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack_damage: 10
   attack_position: {x: 0, y: 0, z: 0}
+--- !u!54 &8990502505471755876
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406195929022542915}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6824311752210343801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406195929022542915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a5cca163049ff446965e4254c05dbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 6
+  cooldown: 0.15
