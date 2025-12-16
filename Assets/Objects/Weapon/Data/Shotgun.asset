@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded2f985c07156469aa51a2e45f73758, type: 3}
-  m_Name: SMG
+  m_Name: Shotgun
   m_EditorClassIdentifier: 
-  weapon_sprite: {fileID: 21300000, guid: 51e58df5ddaa77943a53ffb0614efb2f, type: 3}
-  weapon_damage: 10
-  weapon_spread: 3
-  bullet_amount: 1
+  weapon_sprite: {fileID: 0}
+  weapon_damage: 50
+  weapon_spread: 5
+  bullet_amount: 3
   max_ammo: 100
-  fire_rate: 0.5
+  fire_rate: 1

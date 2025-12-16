@@ -1,5 +1,14 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
+public class PlayerSpriteSet
+{
+    public Sprite[] walkFront = new Sprite[6];
+    public Sprite[] walkBack = new Sprite[6];
+    public Sprite[] walkLeft = new Sprite[8];
+    public Sprite[] walkRight = new Sprite[8];
+}
+
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Control Layout")]
@@ -7,12 +16,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject weapon_pivot;
     public float moveSpeed = 5f;
 
-    [Header("Movement Animation Sprites")]
-    public Sprite[] walkFront = new Sprite[6];
-    public Sprite[] walkBack = new Sprite[6];
+    [Header("Sprite Sets")]
+    public PlayerSpriteSet pistolSprites;
+    public PlayerSpriteSet shotgunSprites;
+    public PlayerSpriteSet rifleSprites;
 
-    public Sprite[] walkLeft = new Sprite[8];
-    public Sprite[] walkRight = new Sprite[8];
+    private PlayerSpriteSet activeSprites;
 
     [Header("Animation Settings")]
     public float animationSpeedFPS = 12f;
@@ -24,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float frameTimer;
     private int currentFrameIndex;
-    private Sprite[] lastAnimation; 
+    private Sprite[] lastAnimation;
 
     private void Awake()
     {
@@ -35,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("PlayerMovement requires a SpriteRenderer component on this GameObject OR one of its children to display sprites.");
         }
+
+        activeSprites = pistolSprites; // default weapon
     }
 
     private void Update()
@@ -85,18 +96,16 @@ public class PlayerMovement : MonoBehaviour
 
             if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
             {
-                currentAnimation = (input.x > 0) ? walkRight : walkLeft;
+                currentAnimation = (input.x > 0) ? activeSprites.walkRight : activeSprites.walkLeft;
             }
             else
             {
-                currentAnimation = (input.y > 0) ? walkBack : walkFront;
+                currentAnimation = (input.y > 0) ? activeSprites.walkBack : activeSprites.walkFront;
             }
 
-            // 🔒 SAFETY
             if (currentAnimation == null || currentAnimation.Length == 0)
                 return;
 
-            // 🔁 RESET FRAME WHEN ANIMATION CHANGES
             if (currentAnimation != lastAnimation)
             {
                 currentFrameIndex = 0;
@@ -110,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
             if (frameTimer <= 0f)
             {
                 currentFrameIndex++;
-
                 if (currentFrameIndex >= currentAnimation.Length)
                     currentFrameIndex = 0;
 
@@ -128,16 +136,42 @@ public class PlayerMovement : MonoBehaviour
 
             if (Mathf.Abs(lastDirection.x) > Mathf.Abs(lastDirection.y))
             {
-                Sprite[] idleAnim = (lastDirection.x > 0) ? walkRight : walkLeft;
-                if (idleAnim.Length > 0)
-                    spriteRenderer.sprite = idleAnim[0];
+                Sprite[] idleAnim = (lastDirection.x > 0) ? activeSprites.walkRight : activeSprites.walkLeft;
+                if (idleAnim.Length > 0) spriteRenderer.sprite = idleAnim[0];
             }
             else
             {
-                Sprite[] idleAnim = (lastDirection.y > 0) ? walkBack : walkFront;
-                if (idleAnim.Length > 0)
-                    spriteRenderer.sprite = idleAnim[0];
+                Sprite[] idleAnim = (lastDirection.y > 0) ? activeSprites.walkBack : activeSprites.walkFront;
+                if (idleAnim.Length > 0) spriteRenderer.sprite = idleAnim[0];
             }
         }
+    }
+
+    public enum WeaponType
+    {
+        Pistol,
+        Shotgun,
+        Rifle
+    }
+
+    public void SetWeaponSprites(WeaponType weapon)
+    {
+        switch (weapon)
+        {
+            case WeaponType.Pistol:
+                activeSprites = pistolSprites;
+                break;
+            case WeaponType.Shotgun:
+                activeSprites = shotgunSprites;
+                break;
+            case WeaponType.Rifle:
+                activeSprites = rifleSprites;
+                break;
+        }
+
+        // Reset animation safely
+        currentFrameIndex = 0;
+        frameTimer = 0f;
+        lastAnimation = null;
     }
 }
