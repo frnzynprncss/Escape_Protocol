@@ -1992,7 +1992,7 @@ MonoBehaviour:
   fuelItemPrefab: {fileID: 5694955517181414242, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
   spaceshipPrefab: {fileID: 2938143223505291926, guid: ede5db378e038074cae45223d6f21f6c, type: 3}
   enemySpawnChance: 1
-  exactFuelCount: 3
+  exactFuelCount: 2
   dungeonParent: {fileID: 274450589}
   player1UI: {fileID: 1552988215}
   player2UI: {fileID: 1194226913}
@@ -2920,18 +2920,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 433240889}
-  playerInventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
+  playerInventory: {fileID: 0}
   fuelItemName: Fuel
-  fuelCapacity: 3
+  fuelCapacity: 2
   spacePart1Name: SP1
   spacePart2Name: SP2
   spacePart3Name: SP3
   accessCardName: AccessCard
-  fuelDefinition: {fileID: 11400000, guid: 26376192978b6dd4193ee9b3c663deea, type: 2}
-  spacePart1Definition: {fileID: 11400000, guid: 261d555ffc6dacf4a880595401b56e44, type: 2}
-  spacePart2Definition: {fileID: 11400000, guid: 7e915fc2237141f40a9b2db7fd9e370e, type: 2}
-  spacePart3Definition: {fileID: 11400000, guid: 2f4f16103a36dcd459a985afacf2532b, type: 2}
-  accessCardDefinition: {fileID: 11400000, guid: 3c3ba5cf75deec14a9fffef520bcc638, type: 2}
+  fuelDefinition: {fileID: 0}
+  spacePart1Definition: {fileID: 0}
+  spacePart2Definition: {fileID: 0}
+  spacePart3Definition: {fileID: 0}
+  accessCardDefinition: {fileID: 0}
   completedSpaceshipVisual: {fileID: 2064117297958696271, guid: ab494e0730397834bb4856fd07f3b529, type: 3}
   partsVisualInstance: {fileID: 0}
   completeVisualInstance: {fileID: 0}
@@ -2948,8 +2948,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b107d293347989488fab06af7a66b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
-  returnIndicatorText: {fileID: 1239421607}
+  playerInventory: {fileID: 0}
+  returnIndicatorText: {fileID: 0}
   WinPanel: {fileID: 267937257}
 --- !u!4 &433240890
 Transform:
@@ -70041,18 +70041,6 @@ PrefabInstance:
     - target: {fileID: 5868908368948498855, guid: 99e04163f5c80714c919eb2c4aa9af6a, type: 3}
       propertyPath: m_SizeDelta.y
       value: 456
-      objectReference: {fileID: 0}
-    - target: {fileID: 5868908368948498855, guid: 99e04163f5c80714c919eb2c4aa9af6a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.28739884
-      objectReference: {fileID: 0}
-    - target: {fileID: 5868908368948498855, guid: 99e04163f5c80714c919eb2c4aa9af6a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.28739884
-      objectReference: {fileID: 0}
-    - target: {fileID: 5868908368948498855, guid: 99e04163f5c80714c919eb2c4aa9af6a, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.28739884
       objectReference: {fileID: 0}
     - target: {fileID: 5868908368948498855, guid: 99e04163f5c80714c919eb2c4aa9af6a, type: 3}
       propertyPath: m_LocalPosition.x
