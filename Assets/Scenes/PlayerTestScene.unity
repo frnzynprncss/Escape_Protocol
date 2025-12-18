@@ -293,7 +293,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &51107357
@@ -444,7 +444,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &65455784
@@ -606,7 +606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5c3a43e062d0940a8d02404efb79dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managerScript: {fileID: 0}
 --- !u!70 &65455790
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1378,9 +1377,6 @@ MonoBehaviour:
   attack_data: {fileID: 181173543}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!20 &205546380 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8932338402963059118, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
@@ -1858,7 +1854,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &267937257
@@ -1983,7 +1979,7 @@ MonoBehaviour:
   showCorridorsGizmo: 0
   player1Prefab: {fileID: 5427048564078456942, guid: ce1116a1166938ccdac07295645d817c, type: 3}
   player2Prefab: {fileID: 5427048564078456942, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
-  enemyPrefab: {fileID: 4222450437585741188, guid: 9f3a36f8165063eb983817f7bd1d199b, type: 3}
+  enemyPrefab: {fileID: 688994771}
   spaceshipPartPrefabs:
   - {fileID: 7718085398620346769, guid: f76a165a44b04b547a7afbef2d050165, type: 3}
   - {fileID: 7718085398620346769, guid: bc1cd4a27599eea41872b14aad47f123, type: 3}
@@ -2648,7 +2644,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &396757386
@@ -2732,7 +2728,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &417689998
@@ -2919,23 +2915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed3f262f5c19e64f9a030893d7af8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 433240889}
-  playerInventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
-  fuelItemName: Fuel
-  fuelCapacity: 3
-  spacePart1Name: SP1
-  spacePart2Name: SP2
-  spacePart3Name: SP3
-  accessCardName: AccessCard
-  fuelDefinition: {fileID: 11400000, guid: 26376192978b6dd4193ee9b3c663deea, type: 2}
-  spacePart1Definition: {fileID: 11400000, guid: 261d555ffc6dacf4a880595401b56e44, type: 2}
-  spacePart2Definition: {fileID: 11400000, guid: 7e915fc2237141f40a9b2db7fd9e370e, type: 2}
-  spacePart3Definition: {fileID: 11400000, guid: 2f4f16103a36dcd459a985afacf2532b, type: 2}
-  accessCardDefinition: {fileID: 11400000, guid: 3c3ba5cf75deec14a9fffef520bcc638, type: 2}
-  completedSpaceshipVisual: {fileID: 2064117297958696271, guid: ab494e0730397834bb4856fd07f3b529, type: 3}
-  partsVisualInstance: {fileID: 0}
-  completeVisualInstance: {fileID: 0}
-  returnIndicatorText: {fileID: 1239421607}
 --- !u!114 &433240889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2948,9 +2927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b107d293347989488fab06af7a66b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
-  returnIndicatorText: {fileID: 1239421607}
-  WinPanel: {fileID: 267937257}
 --- !u!4 &433240890
 Transform:
   m_ObjectHideFlags: 0
@@ -3032,9 +3008,6 @@ MonoBehaviour:
   attack_data: {fileID: 456712662}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &465420202
 GameObject:
   m_ObjectHideFlags: 0
@@ -16178,7 +16151,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &572556399
@@ -16698,7 +16671,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &593036241
@@ -16782,7 +16755,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &593564763
@@ -16999,7 +16972,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &666330583
@@ -17142,7 +17115,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &669276895
@@ -17279,6 +17252,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669276895}
   m_CullTransparentMesh: 1
+--- !u!1 &688994771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 688994772}
+  m_Layer: 0
+  m_Name: EnemySpawnLocation
+  m_TagString: EnemySpawnLocation
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &688994772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688994771}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &700051787
 GameObject:
   m_ObjectHideFlags: 0
@@ -17906,7 +17910,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &785788886
@@ -18370,9 +18374,6 @@ MonoBehaviour:
   attack_data: {fileID: 897753698}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &927825441
 GameObject:
   m_ObjectHideFlags: 0
@@ -19385,7 +19386,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1148321520
@@ -19984,7 +19985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5c3a43e062d0940a8d02404efb79dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managerScript: {fileID: 0}
 --- !u!114 &1217559824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20529,9 +20529,6 @@ MonoBehaviour:
   attack_data: {fileID: 1242916812}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &1247658162
 GameObject:
   m_ObjectHideFlags: 0
@@ -20792,6 +20789,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
+--- !u!4 &1280551102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1364882872709756824, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
+  m_PrefabInstance: {fileID: 1280551101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1285270907
 GameObject:
   m_ObjectHideFlags: 0
@@ -20941,7 +20943,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1286951403
@@ -65973,7 +65975,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1475753561
@@ -66904,7 +66906,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1668664512
@@ -67122,7 +67124,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1785534937
@@ -67191,9 +67193,6 @@ MonoBehaviour:
   attack_data: {fileID: 1785534939}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &1785546066
 GameObject:
   m_ObjectHideFlags: 0
@@ -67260,9 +67259,6 @@ MonoBehaviour:
   attack_data: {fileID: 1785546068}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &1787104061
 GameObject:
   m_ObjectHideFlags: 0
@@ -67479,7 +67475,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1812221294
@@ -68031,7 +68027,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1898829007
@@ -68178,9 +68174,6 @@ MonoBehaviour:
   attack_data: {fileID: 1909066036}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &1922605915
 GameObject:
   m_ObjectHideFlags: 0
@@ -68577,9 +68570,6 @@ MonoBehaviour:
   attack_data: {fileID: 1991278672}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &2035144617
 GameObject:
   m_ObjectHideFlags: 0
@@ -69192,9 +69182,6 @@ MonoBehaviour:
   attack_data: {fileID: 2083787033}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1 &2103822284
 GameObject:
   m_ObjectHideFlags: 0
@@ -69551,7 +69538,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2109114627
@@ -69902,9 +69889,6 @@ MonoBehaviour:
   attack_data: {fileID: 2138069206}
   attack_cooldown: 1
   attack_range: 1
-  sprite_renderer: {fileID: 0}
-  horizontal_sprites: []
-  vertical_sprites: []
 --- !u!1001 &2812564116127172346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70002,6 +69986,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98c6691909d8574fb291fb75e2b10a4, type: 3}
+--- !u!1001 &5826043166894169900
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1579084901150691755, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_Name
+      value: HordeSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6412031213817088122, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: player_center
+      value: 
+      objectReference: {fileID: 1280551102}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603957181551109159, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3fbe0cc7fcf2262149a864cf0454894f, type: 3}
 --- !u!1001 &8935826253943010629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70124,3 +70169,5 @@ SceneRoots:
   - {fileID: 433240890}
   - {fileID: 310931785}
   - {fileID: 1093104924}
+  - {fileID: 5826043166894169900}
+  - {fileID: 688994772}

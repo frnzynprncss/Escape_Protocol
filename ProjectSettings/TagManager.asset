@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Wall
   - CollectibleItem
+  - EnemySpawnLocation
   layers:
   - Default
   - TransparentFX
