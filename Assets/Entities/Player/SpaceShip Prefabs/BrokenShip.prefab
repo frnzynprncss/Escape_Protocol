@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6203711537614260286}
   - component: {fileID: 2052974675465948211}
   - component: {fileID: 1017096392521627202}
+  - component: {fileID: 9087638756939531758}
   m_Layer: 0
   m_Name: BrokenShip
   m_TagString: Untagged
@@ -359,3 +360,18 @@ PolygonCollider2D:
       - {x: -0.47, y: 1.01}
       - {x: -0.48999998, y: 1.06}
   m_UseDelaunayMesh: 0
+--- !u!114 &9087638756939531758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8356119325189163561}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa68d31c83e6cf45b0ba0a87dd0f66b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player_1: {fileID: 4489435502703571764, guid: ce1116a1166938ccdac07295645d817c, type: 3}
+  Player_2: {fileID: -5709509417102217398, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+  CompleteShip: {fileID: 2064117297958696271, guid: ab494e0730397834bb4856fd07f3b529, type: 3}

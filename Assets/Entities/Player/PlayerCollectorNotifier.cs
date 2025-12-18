@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCollectorNotifier : MonoBehaviour
 {
     public SpaceShipInteraction managerScript;
+    public PlayerInventory playerInventory;
     private void Start()
     {
         // Find the SpaceShipInteraction in the scene automatically
@@ -18,6 +19,6 @@ public class PlayerCollectorNotifier : MonoBehaviour
     {
         if (!other.CompareTag("CollectibleItem")) return;
 
-        managerScript.CollectItemFromNotifier(other.gameObject);
+        managerScript.CollectItemFromNotifier(other.gameObject, playerInventory);
     }
 }

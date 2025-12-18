@@ -5,12 +5,13 @@ using TMPro;
 
 public class SpaceShipInteraction : MonoBehaviour
 {
-    // --- NEW REFERENCE ADDED ---
+    [Header("References")]
     public GameManager gameManager;
-    // ---------------------------
 
-    public PlayerInventory playerInventory;
+    public PlayerInventory P1;
+    public PlayerInventory P2;
 
+    [Header("Spaceship Requirements")]
     public string fuelItemName = "Fuel";
     public int fuelCapacity = 3;
 
@@ -20,23 +21,32 @@ public class SpaceShipInteraction : MonoBehaviour
 
     public string accessCardName = "AccessCard";
 
+    [Header("Collectible Definitions")]
     public Collectible fuelDefinition;
     public Collectible spacePart1Definition;
     public Collectible spacePart2Definition;
     public Collectible spacePart3Definition;
     public Collectible accessCardDefinition;
 
-    public GameObject completedSpaceshipVisual;  // Prefab for completed ship
-
+    [Header("Visuals")]
+    public GameObject completedSpaceshipVisual;  // Prefab or visual for completed ship
     [HideInInspector] public GameObject partsVisualInstance;       // Assigned by generator
     [HideInInspector] public GameObject completeVisualInstance;    // Assigned by generator
 
+    [Header("UI")]
     public TextMeshProUGUI returnIndicatorText;
 
     private int currentFuel = 0;
-    private bool allGoalItemsCollected = false;
     private bool allPartsAttached = false;
     private bool isRepaired = false;
+
+    private void Awake()
+    {
+        // Auto-find references if not assigned
+        if (P1 == null) P1 = GameObject.Find("Player1")?.GetComponent<PlayerInventory>();
+        if (P2 == null) P2 = GameObject.Find("Player2")?.GetComponent<PlayerInventory>();
+        if (gameManager == null) gameManager = FindObjectOfType<GameManager>();
+    }
 
     private void Start()
     {
@@ -53,10 +63,15 @@ public class SpaceShipInteraction : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("CollectibleItem")) return;
-        CollectItemFromNotifier(other.gameObject);
+
+        // Determine which player collected it
+        PlayerInventory player = other.GetComponentInParent<PlayerInventory>();
+        if (player == null) player = P1; // fallback
+
+        CollectItemFromNotifier(other.gameObject, player);
     }
 
-    public void CollectItemFromNotifier(GameObject collectibleObject)
+    public void CollectItemFromNotifier(GameObject collectibleObject, PlayerInventory player)
     {
         string objectName = collectibleObject.name.Replace("(Clone)", "");
         Collectible itemToCollect = null;
@@ -68,116 +83,117 @@ public class SpaceShipInteraction : MonoBehaviour
         else if (objectName.Contains("AccessCard")) itemToCollect = accessCardDefinition;
 
         if (itemToCollect != null)
-            CollectItem(itemToCollect, collectibleObject);
+            CollectItem(itemToCollect, collectibleObject, player);
     }
 
-    private void CollectItem(Collectible definition, GameObject collectibleObject)
+    private void CollectItem(Collectible definition, GameObject collectibleObject, PlayerInventory player)
     {
-        playerInventory.add_item(definition.name, 1);
+        player.add_item(collectibleObject.name, 1);
         Destroy(collectibleObject);
-        Debug.Log($"Collected 1 x {definition.name}.");
+        Debug.Log($"Collected 1 x {collectibleObject.name} for {player.name}.");
     }
 
     private void Update()
     {
-        // CheckCompletionStatus is used to trigger the "Return" text, not the win state.
-        CheckCompletionStatus();
+        if (isRepaired) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !isRepaired)
+        // Handle each player's interaction
+        HandlePlayerInteraction(P1, KeyCode.E);
+        HandlePlayerInteraction(P2, KeyCode.Keypad1);
+
+        // Update return indicator
+        CheckReturnIndicator();
+    }
+
+    private void HandlePlayerInteraction(PlayerInventory player, KeyCode key)
+    {
+        if (player == null) return;
+
+        if (Input.GetKeyDown(key))
         {
-            // Priority 1: Add Fuel (if missing fuel and has fuel)
-            if (currentFuel < fuelCapacity && playerInventory.ContainsItem(fuelItemName))
-                AddFuel();
-            // Priority 2: Add Parts (if missing parts and has parts)
-            else if (!allPartsAttached && (playerInventory.ContainsItem(spacePart1Name) || playerInventory.ContainsItem(spacePart2Name) || playerInventory.ContainsItem(spacePart3Name)))
-                AddParts();
-            // Priority 3: Final step (only if everything is done and has the access card)
-            else if (currentFuel >= fuelCapacity && allPartsAttached && playerInventory.ContainsItem(accessCardName))
+            // Priority 1: Add Fuel
+            if (currentFuel < fuelCapacity && player.ContainsItem(fuelItemName))
+                AddFuel(player);
+            // Priority 2: Add Parts
+            else if (!allPartsAttached && (player.ContainsItem(spacePart1Name) ||
+                                           player.ContainsItem(spacePart2Name) ||
+                                           player.ContainsItem(spacePart3Name)))
+                AddParts(player);
+            // Priority 3: Final step
+            else if (currentFuel >= fuelCapacity && allPartsAttached && player.ContainsItem(accessCardName))
             {
-                playerInventory.remove_item(accessCardName, 1);
+                player.remove_item(accessCardName, 1);
                 FinishSpaceship();
             }
-            // Priority 4: Give feedback
+            // Priority 4: Feedback
             else
-                CheckStatusFeedback();
+                CheckStatusFeedback(player);
         }
     }
 
-    private void CheckCompletionStatus()
+    private void AddFuel(PlayerInventory player)
     {
-        if (allGoalItemsCollected || playerInventory == null) return;
-
-        // Check if player has *all* required items in inventory to signal return
-        if (playerInventory.ContainsItem(fuelItemName) && // NOTE: Assumes player needs at least 1 fuel to start return signal
-            playerInventory.ContainsItem(spacePart1Name) &&
-            playerInventory.ContainsItem(spacePart2Name) &&
-            playerInventory.ContainsItem(spacePart3Name) &&
-            playerInventory.ContainsItem(accessCardName))
-        {
-            allGoalItemsCollected = true;
-            if (returnIndicatorText != null)
-            {
-                returnIndicatorText.gameObject.SetActive(true);
-                returnIndicatorText.text = "Go back to your spawn point (Spaceship)!";
-            }
-            Debug.Log("All items collected! Return to the ship to repair.");
-        }
+        player.remove_item(fuelItemName, 1);
+        currentFuel++;
+        Debug.Log($"Fuel added by {player.name}. Current fuel: {currentFuel}/{fuelCapacity}.");
     }
 
-    private void AddFuel()
-    {
-        if (playerInventory.ContainsItem(fuelItemName))
-        {
-            playerInventory.remove_item(fuelItemName, 1);
-            currentFuel++;
-            Debug.Log($"Fuel added. Current: {currentFuel}/{fuelCapacity}.");
-        }
-    }
-
-    private void AddParts()
+    private void AddParts(PlayerInventory player)
     {
         bool partUsed = false;
 
-        if (playerInventory.ContainsItem(spacePart1Name))
+        if (player.ContainsItem(spacePart1Name))
         {
-            playerInventory.remove_item(spacePart1Name, 1);
-            Debug.Log("Attached SpacePart1");
+            player.remove_item(spacePart1Name, 1);
+            Debug.Log($"{player.name} attached SpacePart1");
             partUsed = true;
         }
-        else if (playerInventory.ContainsItem(spacePart2Name))
+        else if (player.ContainsItem(spacePart2Name))
         {
-            playerInventory.remove_item(spacePart2Name, 1);
-            Debug.Log("Attached SpacePart2");
+            player.remove_item(spacePart2Name, 1);
+            Debug.Log($"{player.name} attached SpacePart2");
             partUsed = true;
         }
-        else if (playerInventory.ContainsItem(spacePart3Name))
+        else if (player.ContainsItem(spacePart3Name))
         {
-            playerInventory.remove_item(spacePart3Name, 1);
-            Debug.Log("Attached SpacePart3");
+            player.remove_item(spacePart3Name, 1);
+            Debug.Log($"{player.name} attached SpacePart3");
             partUsed = true;
         }
 
-        // Check if all parts are now attached (meaning they are NOT in the inventory)
-        if (!playerInventory.ContainsItem(spacePart1Name) &&
-            !playerInventory.ContainsItem(spacePart2Name) &&
-            !playerInventory.ContainsItem(spacePart3Name))
-        {
-            allPartsAttached = true;
-            if (partUsed)
-                Debug.Log("All spaceship parts attached!");
-        }
+        // Check if all parts attached across both players
+        allPartsAttached = !(P1.ContainsItem(spacePart1Name) || P1.ContainsItem(spacePart2Name) || P1.ContainsItem(spacePart3Name) ||
+                             P2.ContainsItem(spacePart1Name) || P2.ContainsItem(spacePart2Name) || P2.ContainsItem(spacePart3Name));
+
+        if (allPartsAttached && partUsed)
+            Debug.Log("All spaceship parts attached!");
     }
 
-    private void CheckStatusFeedback()
+    private void CheckReturnIndicator()
+    {
+        if (returnIndicatorText == null) return;
+
+        bool allItemsCollected = (currentFuel > 0 || P1.ContainsItem(fuelItemName) || P2.ContainsItem(fuelItemName)) &&
+                                 (P1.ContainsItem(spacePart1Name) || P2.ContainsItem(spacePart1Name)) &&
+                                 (P1.ContainsItem(spacePart2Name) || P2.ContainsItem(spacePart2Name)) &&
+                                 (P1.ContainsItem(spacePart3Name) || P2.ContainsItem(spacePart3Name)) &&
+                                 (P1.ContainsItem(accessCardName) || P2.ContainsItem(accessCardName));
+
+        returnIndicatorText.gameObject.SetActive(allItemsCollected);
+        if (allItemsCollected)
+            returnIndicatorText.text = "Go back to your spawn point (Spaceship)!";
+    }
+
+    private void CheckStatusFeedback(PlayerInventory player)
     {
         if (!allPartsAttached)
-            Debug.Log("Spaceship needs remaining parts before fueling.");
+            Debug.Log($"{player.name}: Spaceship needs remaining parts before fueling.");
         else if (currentFuel < fuelCapacity)
-            Debug.Log($"Spaceship needs {fuelCapacity - currentFuel} more fuel units.");
-        else if (!playerInventory.ContainsItem(accessCardName))
-            Debug.Log("Spaceship is ready! Final step requires Access Card.");
+            Debug.Log($"{player.name}: Spaceship needs {fuelCapacity - currentFuel} more fuel units.");
+        else if (!player.ContainsItem(accessCardName))
+            Debug.Log($"{player.name}: Spaceship is ready! Final step requires Access Card.");
         else
-            Debug.Log("Spaceship is ready for launch. Press 'E' again to initiate!");
+            Debug.Log($"{player.name}: Spaceship is ready for launch. Press key again to initiate!");
     }
 
     private void FinishSpaceship()
@@ -195,7 +211,6 @@ public class SpaceShipInteraction : MonoBehaviour
 
         Debug.Log("Spaceship completed and activated! Calling WinGame...");
 
-        // --- FINAL CALL TO WIN GAME ---
         if (gameManager != null)
         {
             gameManager.WinGame();
@@ -204,6 +219,5 @@ public class SpaceShipInteraction : MonoBehaviour
         {
             Debug.LogError("GameManager reference is missing in SpaceShipInteraction!");
         }
-        // ------------------------------
     }
 }

@@ -5,8 +5,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    // Ensure this is assigned to the PlayerInventoryHolder component!
-    public PlayerInventory playerInventory;
+    public PlayerInventory P1;
+    public PlayerInventory P2;
 
     public TextMeshProUGUI returnIndicatorText;
     public GameObject WinPanel;
@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (P1 == null) P1 = GameObject.Find("Player1")?.GetComponent<PlayerInventory>();
+        if (P2 == null) P2 = GameObject.Find("Player2")?.GetComponent<PlayerInventory>();
+        
         // Set all UI panels and indicators to inactive at start
         if (WinPanel != null) WinPanel.SetActive(false);
         // --- REMOVED: if (LosePanel != null) LosePanel.SetActive(false); ---

@@ -607,6 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerScript: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!70 &65455790
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2914,24 +2915,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433240887}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ed3f262f5c19e64f9a030893d7af8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 433240889}
-  playerInventory: {fileID: 0}
+  P1: {fileID: 4489435502703571764, guid: ce1116a1166938ccdac07295645d817c, type: 3}
+  P2: {fileID: -5709509417102217398, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
   fuelItemName: Fuel
   fuelCapacity: 2
-  spacePart1Name: SP1
-  spacePart2Name: SP2
-  spacePart3Name: SP3
-  accessCardName: AccessCard
-  fuelDefinition: {fileID: 0}
-  spacePart1Definition: {fileID: 0}
-  spacePart2Definition: {fileID: 0}
-  spacePart3Definition: {fileID: 0}
-  accessCardDefinition: {fileID: 0}
+  spacePart1Name: SP_1
+  spacePart2Name: SP_2
+  spacePart3Name: SP_3
+  accessCardName: Access Card
+  fuelDefinition: {fileID: 3541947817507650597, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
+  spacePart1Definition: {fileID: 343018268685402912, guid: f76a165a44b04b547a7afbef2d050165, type: 3}
+  spacePart2Definition: {fileID: 4488332640636424882, guid: bc1cd4a27599eea41872b14aad47f123, type: 3}
+  spacePart3Definition: {fileID: 5943178469169781418, guid: fa5bde7521d83c14a8ee832ee9340a97, type: 3}
+  accessCardDefinition: {fileID: 8583937398784924136, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
   completedSpaceshipVisual: {fileID: 2064117297958696271, guid: ab494e0730397834bb4856fd07f3b529, type: 3}
   partsVisualInstance: {fileID: 0}
   completeVisualInstance: {fileID: 0}
@@ -2948,7 +2950,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b107d293347989488fab06af7a66b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 0}
+  P1: {fileID: 0}
+  P2: {fileID: 0}
   returnIndicatorText: {fileID: 0}
   WinPanel: {fileID: 267937257}
 --- !u!4 &433240890
@@ -17314,7 +17317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -123.36998}
+  m_AnchoredPosition: {x: 0, y: -2.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &700051789
@@ -19985,6 +19988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerScript: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!114 &1217559824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20633,7 +20637,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 536004163
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &1254696764
@@ -66630,7 +66634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 198.4, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1606642289
@@ -69206,6 +69210,7 @@ GameObject:
   - component: {fileID: 2103822285}
   - component: {fileID: 2103822287}
   - component: {fileID: 2103822286}
+  - component: {fileID: 2103822288}
   m_Layer: 0
   m_Name: BrokenShip
   m_TagString: Untagged
@@ -69554,6 +69559,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2103822288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103822284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa68d31c83e6cf45b0ba0a87dd0f66b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player_1: {fileID: 4489435502703571764, guid: ce1116a1166938ccdac07295645d817c, type: 3}
+  Player_2: {fileID: -5709509417102217398, guid: 8ba807091f91ad04db8fad820c5db419, type: 3}
+  CompleteShip: {fileID: 1633722346}
 --- !u!1 &2109114627
 GameObject:
   m_ObjectHideFlags: 0
