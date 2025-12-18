@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5764011789033241531}
   - component: {fileID: 3704997830935145067}
-  - component: {fileID: 6988877223940476493}
   - component: {fileID: 1543228643041625990}
+  - component: {fileID: 8583937398784924136}
+  - component: {fileID: -56237153730038533}
   m_Layer: 0
   m_Name: AccessCard
-  m_TagString: Untagged
+  m_TagString: CollectibleItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6988877223940476493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777946631156966208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: add96eb1f135a9723bdad9f59f9578d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 3c3ba5cf75deec14a9fffef520bcc638, type: 2}
-  amount: 1
 --- !u!61 &1543228643041625990
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -145,3 +132,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6769066, y: 0.96756744}
   m_EdgeRadius: 0
+--- !u!114 &8583937398784924136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777946631156966208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ccce3aef2a54046bc2625816262485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Access Card
+--- !u!114 &-56237153730038533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777946631156966208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044bbe1788fbe0e4aba9f95e44f0185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Access Card

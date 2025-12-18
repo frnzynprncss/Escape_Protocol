@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 653285251869388025}
   - component: {fileID: 2600009606469429876}
   - component: {fileID: 7318391928830823662}
-  - component: {fileID: -7497279460504937198}
+  - component: {fileID: 5943178469169781418}
+  - component: {fileID: 2879432393324120099}
   m_Layer: 0
   m_Name: SP3
   m_TagString: CollectibleItem
@@ -131,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8835602, y: 0.6208935}
   m_EdgeRadius: 0
---- !u!114 &-7497279460504937198
+--- !u!114 &5943178469169781418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,8 +141,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7718085398620346769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: add96eb1f135a9723bdad9f59f9578d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 06ccce3aef2a54046bc2625816262485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 2f4f16103a36dcd459a985afacf2532b, type: 2}
-  amount: 1
+  itemName: SP_3
+--- !u!114 &2879432393324120099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718085398620346769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044bbe1788fbe0e4aba9f95e44f0185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: SP_3

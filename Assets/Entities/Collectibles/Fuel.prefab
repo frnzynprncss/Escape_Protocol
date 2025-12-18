@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5224501950164243903}
   - component: {fileID: 6394304869624350408}
-  - component: {fileID: -323300651584263393}
   - component: {fileID: 3378837075480093599}
+  - component: {fileID: 3541947817507650597}
+  - component: {fileID: -8886498369727627386}
   m_Layer: 0
   m_Name: Fuel
-  m_TagString: Untagged
+  m_TagString: CollectibleItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-323300651584263393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5694955517181414242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: add96eb1f135a9723bdad9f59f9578d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 26376192978b6dd4193ee9b3c663deea, type: 2}
-  amount: 1
 --- !u!61 &3378837075480093599
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -145,3 +132,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3541947817507650597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5694955517181414242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ccce3aef2a54046bc2625816262485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Fuel
+--- !u!114 &-8886498369727627386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5694955517181414242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044bbe1788fbe0e4aba9f95e44f0185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Fuel

@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 653285251869388025}
   - component: {fileID: 2600009606469429876}
   - component: {fileID: 4326724663267378116}
-  - component: {fileID: 7936247010281687395}
+  - component: {fileID: 343018268685402912}
+  - component: {fileID: 2794932802045031453}
   m_Layer: 0
   m_Name: SP1
   m_TagString: CollectibleItem
@@ -140,7 +141,7 @@ PolygonCollider2D:
       - {x: 0.044999998, y: 0.39}
       - {x: -0.06507598, y: 0.21017623}
   m_UseDelaunayMesh: 0
---- !u!114 &7936247010281687395
+--- !u!114 &343018268685402912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,8 +150,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7718085398620346769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: add96eb1f135a9723bdad9f59f9578d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 06ccce3aef2a54046bc2625816262485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 261d555ffc6dacf4a880595401b56e44, type: 2}
-  amount: 1
+  itemName: SP_1
+--- !u!114 &2794932802045031453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718085398620346769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044bbe1788fbe0e4aba9f95e44f0185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: SP_1

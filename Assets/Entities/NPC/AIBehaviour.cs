@@ -23,11 +23,18 @@ public class AIBehaviour : MonoBehaviour
     public float attack_range = 1f;
     public bool is_attacking { get; private set; } = false;
 
+    [Header("Animations")]
+    public SpriteRenderer sprite_renderer;
+    public Sprite[] horizontal_sprites; // Add 2 images here
+    public Sprite[] vertical_sprites;   // Add 2 images here
+    private float animation_timer;
+    private int sprite_index = 0;
+
     private void FixedUpdate()
     {
         switch (current_state)
         {
-            case AIState.ATTACKING: 
+            case AIState.ATTACKING:
                 if (is_attacking) return;
                 StartCoroutine(attack_target()); break;
             case AIState.CHASING: move_towards_target(); break;
@@ -71,7 +78,44 @@ public class AIBehaviour : MonoBehaviour
         if (Vector2.Distance(transform.position, target.position) > search_radius) current_state = AIState.IDLE;
         if (near_target()) current_state = AIState.ATTACKING;
 
+        // ANIMATION LOGIC START
+        handle_animations();
+        // ANIMATION LOGIC END
+
         transform.parent.position = Vector3.MoveTowards(transform.position, target.position, move_speed * Time.deltaTime);
+    }
+
+    private void handle_animations()
+    {
+        if (target == null || sprite_renderer == null) return;
+
+        // Calculate direction to the target
+        Vector2 direction = (target.position - transform.position).normalized;
+
+        // Update timer
+        animation_timer += Time.deltaTime;
+        if (animation_timer >= 0.3f)
+        {
+            animation_timer = 0;
+            sprite_index = (sprite_index + 1) % 2; // Toggles between 0 and 1
+        }
+
+        // Determine if movement is more Horizontal or Vertical
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            // Move Left/Right
+            if (horizontal_sprites.Length >= 2)
+                sprite_renderer.sprite = horizontal_sprites[sprite_index];
+
+            // Optional: Flip sprite based on X direction
+            sprite_renderer.flipX = direction.x < 0;
+        }
+        else
+        {
+            // Move Up/Down
+            if (vertical_sprites.Length >= 2)
+                sprite_renderer.sprite = vertical_sprites[sprite_index];
+        }
     }
 
     private bool near_target()

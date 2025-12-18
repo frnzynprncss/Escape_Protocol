@@ -354,6 +354,13 @@ MonoBehaviour:
   attack_data: {fileID: 8160214171195092623}
   attack_cooldown: 1
   attack_range: 1
+  sprite_renderer: {fileID: 7378853346224737955}
+  horizontal_sprites:
+  - {fileID: 21300000, guid: 89a156c8f8d268f4bb7b02ffdf2c8f81, type: 3}
+  - {fileID: 21300000, guid: 22259e8f1a224e0439270538ecf4fc8a, type: 3}
+  vertical_sprites:
+  - {fileID: 21300000, guid: 5fee7fcc2d0dfd548aabe590b9ba4dca, type: 3}
+  - {fileID: 21300000, guid: 23b4194c582ca354697367efb90d53ef, type: 3}
 --- !u!114 &8160214171195092623
 MonoBehaviour:
   m_ObjectHideFlags: 0

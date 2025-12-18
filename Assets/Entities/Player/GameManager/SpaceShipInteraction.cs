@@ -20,11 +20,11 @@ public class SpaceShipInteraction : MonoBehaviour
 
     public string accessCardName = "AccessCard";
 
-    public ItemComponent fuelDefinition;
-    public ItemComponent spacePart1Definition;
-    public ItemComponent spacePart2Definition;
-    public ItemComponent spacePart3Definition;
-    public ItemComponent accessCardDefinition;
+    public Collectible fuelDefinition;
+    public Collectible spacePart1Definition;
+    public Collectible spacePart2Definition;
+    public Collectible spacePart3Definition;
+    public Collectible accessCardDefinition;
 
     public GameObject completedSpaceshipVisual;  // Prefab for completed ship
 
@@ -59,7 +59,7 @@ public class SpaceShipInteraction : MonoBehaviour
     public void CollectItemFromNotifier(GameObject collectibleObject)
     {
         string objectName = collectibleObject.name.Replace("(Clone)", "");
-        ItemComponent itemToCollect = null;
+        Collectible itemToCollect = null;
 
         if (objectName.Contains("Fuel")) itemToCollect = fuelDefinition;
         else if (objectName.Contains("SpacePart1")) itemToCollect = spacePart1Definition;
@@ -71,11 +71,11 @@ public class SpaceShipInteraction : MonoBehaviour
             CollectItem(itemToCollect, collectibleObject);
     }
 
-    private void CollectItem(ItemComponent definition, GameObject collectibleObject)
+    private void CollectItem(Collectible definition, GameObject collectibleObject)
     {
-        playerInventory.add_item(definition, 1);
+        playerInventory.add_item(definition.name, 1);
         Destroy(collectibleObject);
-        Debug.Log($"Collected 1 x {definition.item_name}.");
+        Debug.Log($"Collected 1 x {definition.name}.");
     }
 
     private void Update()
