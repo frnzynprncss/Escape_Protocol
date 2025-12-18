@@ -61,3 +61,6 @@ TagManager:
   - name: Healthbar
     uniqueID: 4060227395
     locked: 0
+  - name: UI_TOP
+    uniqueID: 657885489
+    locked: 0
