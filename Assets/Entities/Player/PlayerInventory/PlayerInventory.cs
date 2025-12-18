@@ -1,58 +1,53 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "Inventory", menuName = "Resources/Inventory")]
-public class PlayerInventory : ScriptableObject
+public class PlayerInventory : MonoBehaviour
 {
-    public UnityEvent<ItemComponent> item_added;
-    public UnityEvent<ItemComponent> item_removed;
+    public List<string> inventoryItems = new List<string>();
 
-    public Dictionary<string, ItemComponent> inventory = new Dictionary<string, ItemComponent>();
+    [Header("Settings")]
+    public int maxItems = 3;
 
-    public void print_items()
+    public InventoryUI myUI;
+
+    // Must be 'public bool' to fix the CS0029 error in your image
+    public bool add_item(string itemName, int amount)
     {
-        foreach (var item in inventory)
+        if (inventoryItems.Count >= maxItems)
         {
-            Debug.Log(item.Key + " " + item.Value.amount);
+            Debug.LogWarning("Inventory Full!");
+            return false; // Tells the collectible NOT to destroy itself
         }
+
+        for (int i = 0; i < amount; i++)
+        {
+            if (inventoryItems.Count < maxItems)
+            {
+                inventoryItems.Add(itemName);
+            }
+        }
+
+        if (myUI != null)
+        {
+            myUI.playerInventory = this;
+            myUI.RefreshAllSlots();
+        }
+
+        return true; // Tells the collectible it's okay to destroy itself
     }
 
-    public void add_item(ItemComponent item, int amount)
+    public bool ContainsItem(string itemName)
     {
-        if (inventory.ContainsKey(item.item_name))
-        {
-            inventory[item.item_name].amount += amount;
-        }
-        else
-        {
-            
-            ItemComponent newItem = ScriptableObject.CreateInstance<ItemComponent>();
-            newItem.set_name(item.item_name)
-                   .set_sprite(item.image)
-                   .set_amount(amount);
-
-            inventory.Add(item.item_name, newItem);
-        }
-
-        item_added.Invoke(inventory[item.item_name]);
+        return inventoryItems.Contains(itemName);
     }
 
-    public void remove_item(string item_name, int amount)
+    public void remove_item(string itemName, int amount)
     {
-        if (!inventory.ContainsKey(item_name)) return;
-
-        inventory[item_name].amount -= amount;
-        item_removed.Invoke(inventory[item_name]);
-
-        if (inventory[item_name].amount <= 0)
+        for (int i = 0; i < amount; i++)
         {
-            inventory.Remove(item_name);
+            if (inventoryItems.Contains(itemName))
+                inventoryItems.Remove(itemName);
         }
-    }
-
-    public void clear_items()
-    {
-        inventory.Clear();
+        if (myUI != null) myUI.RefreshAllSlots();
     }
 }

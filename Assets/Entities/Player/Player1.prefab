@@ -46,12 +46,12 @@ GameObject:
   - component: {fileID: 2898543483902687762}
   - component: {fileID: 550026251616848792}
   - component: {fileID: 988073915838303092}
-  - component: {fileID: -3369961879626993822}
   - component: {fileID: -2872142596200147749}
   - component: {fileID: 6510737306342359438}
   - component: {fileID: 3697992864353720638}
   - component: {fileID: 8934606307403977974}
   - component: {fileID: -374215332457850411}
+  - component: {fileID: 4489435502703571764}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -311,19 +311,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-3369961879626993822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5427048564078456942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd52a3a5a676e84999a4b4e03a0433b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
 --- !u!114 &-2872142596200147749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +420,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 8
   cooldown: 0.15
+--- !u!114 &4489435502703571764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427048564078456942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf00a2be30b757429d7515f89abaf25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryItems: []
+  myUI: {fileID: 8089797062088835267, guid: 99e04163f5c80714c919eb2c4aa9af6a, type: 3}
 --- !u!1001 &6698838581614862373
 PrefabInstance:
   m_ObjectHideFlags: 0

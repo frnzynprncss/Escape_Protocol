@@ -47,6 +47,10 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private Transform _spawnedP1;
     private Transform _spawnedP2;
 
+    [Header("UI References")]
+    public InventoryUI player1UI; // Drag P1 UI Panel here in Inspector
+    public InventoryUI player2UI; // Drag P2 UI Panel here in Inspector
+
     public static event Action<Transform, Transform> OnPlayersSpawned;
 
     private SpaceShipInteraction spaceshipManager;
@@ -150,38 +154,50 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             return;
         }
 
-        GameObject spawnedObject = null;
-
         int hiddenPartIndex = 0;
 
         foreach (Room room in cachedRooms)
         {
             Vector2 roomCenterWorld = (Vector2)room.RoomCenterPos + new Vector2(0.5f, 0.5f);
-            spawnedObject = null;
+            GameObject spawnedObject = null;
 
             switch (room.Type)
             {
                 case RoomType.Spawn:
-                    // Spawn the Base exactly in the center
-                    var baseObj = Instantiate(escapeBasePrefab, roomCenterWorld, Quaternion.identity);
-                    baseObj.transform.SetParent(dungeonContainer.transform);
+                    Instantiate(escapeBasePrefab, roomCenterWorld, Quaternion.identity, dungeonContainer.transform);
 
-                    // Spawn Players slightly to the left and right
-                    var p1Obj = Instantiate(player1Prefab, roomCenterWorld + Vector2.left * 2, Quaternion.identity);
+                    // --- SPAWN PLAYER 1 ---
+                    var p1Obj = Instantiate(player1Prefab, roomCenterWorld + Vector2.left * 2, Quaternion.identity, dungeonContainer.transform);
                     p1Obj.name = "Player1";
-                    p1Obj.transform.SetParent(dungeonContainer.transform);
                     _spawnedP1 = p1Obj.transform;
 
-                    var p2Obj = Instantiate(player2Prefab, roomCenterWorld + Vector2.right * 2, Quaternion.identity);
+                    // LINK P1 TO UI 1
+                    var p1Inv = p1Obj.GetComponent<PlayerInventory>();
+                    if (p1Inv != null && player1UI != null)
+                    {
+                        p1Inv.myUI = player1UI;
+                        player1UI.playerInventory = p1Inv;
+                        player1UI.RefreshAllSlots();
+                    }
+
+                    // --- SPAWN PLAYER 2 ---
+                    var p2Obj = Instantiate(player2Prefab, roomCenterWorld + Vector2.right * 2, Quaternion.identity, dungeonContainer.transform);
                     p2Obj.name = "Player2";
-                    p2Obj.transform.SetParent(dungeonContainer.transform);
                     _spawnedP2 = p2Obj.transform;
 
-                    // Spawn the spaceship at the spawn room
+                    // LINK P2 TO UI 2
+                    var p2Inv = p2Obj.GetComponent<PlayerInventory>();
+                    if (p2Inv != null && player2UI != null)
+                    {
+                        p2Inv.myUI = player2UI;
+                        player2UI.playerInventory = p2Inv;
+                        player2UI.RefreshAllSlots();
+                    }
+
+                    // Spawn the spaceship
                     if (spaceshipPrefab != null)
                     {
                         spawnedObject = Instantiate(spaceshipPrefab, roomCenterWorld, Quaternion.identity, dungeonContainer.transform);
-
                         spaceshipManager = spawnedObject.GetComponent<SpaceShipInteraction>();
                         if (spaceshipManager != null)
                         {
@@ -198,11 +214,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                     break;
 
                 case RoomType.Hidden:
-                    if (hiddenPartIndex < spaceshipPartPrefabs.Length)
-                        spawnedObject = Instantiate(spaceshipPartPrefabs[hiddenPartIndex], roomCenterWorld, Quaternion.identity);
-                    else
-                        spawnedObject = Instantiate(spaceshipPartPrefabs[spaceshipPartPrefabs.Length - 1], roomCenterWorld, Quaternion.identity);
-
+                    int idx = Mathf.Clamp(hiddenPartIndex, 0, spaceshipPartPrefabs.Length - 1);
+                    spawnedObject = Instantiate(spaceshipPartPrefabs[idx], roomCenterWorld, Quaternion.identity);
                     hiddenPartIndex++;
                     break;
 
@@ -220,16 +233,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         if (_spawnedP1 != null && _spawnedP2 != null)
             OnPlayersSpawned?.Invoke(_spawnedP1, _spawnedP2);
-
-        if (_spawnedP1 != null && InventoryUI.Instance != null)
-        {
-            var holder = _spawnedP1.GetComponent<PlayerInventoryHolder>();
-            if (holder != null)
-            {
-                InventoryUI.Instance.playerInventory = holder.inventory;
-                InventoryUI.Instance.RefreshAllSlots();
-            }
-        }
     }
 
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)

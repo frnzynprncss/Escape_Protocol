@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 653285251869388025}
   - component: {fileID: 2600009606469429876}
-  - component: {fileID: 7318391928830823662}
-  - component: {fileID: 5943178469169781418}
-  - component: {fileID: 2879432393324120099}
+  - component: {fileID: 4326724663267378116}
+  - component: {fileID: 343018268685402912}
+  - component: {fileID: 2794932802045031453}
   m_Layer: 0
-  m_Name: SP3
+  m_Name: SP1
   m_TagString: CollectibleItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1288656880, guid: 963c25b97faf35f42a3016780395ba39, type: 3}
+  m_Sprite: {fileID: -513341681, guid: 963c25b97faf35f42a3016780395ba39, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,8 +87,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7318391928830823662
-BoxCollider2D:
+--- !u!60 &4326724663267378116
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,20 +119,29 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.017608643, y: -0.11685276}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.97, y: 1.29}
+    oldSize: {x: 0.67, y: 1.22}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8835602, y: 0.6208935}
-  m_EdgeRadius: 0
---- !u!114 &5943178469169781418
+  m_Points:
+    m_Paths:
+    - - {x: -0.23392974, y: -0.008655161}
+      - {x: -0.235, y: -0.19999999}
+      - {x: -0.015, y: -0.44}
+      - {x: 0.035, y: -0.48}
+      - {x: 0.24499999, y: -0.48}
+      - {x: 0.315, y: -0.45999998}
+      - {x: 0.315, y: 0.39}
+      - {x: 0.044999998, y: 0.39}
+      - {x: -0.06507598, y: 0.21017623}
+  m_UseDelaunayMesh: 0
+--- !u!114 &343018268685402912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ccce3aef2a54046bc2625816262485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: SP_3
---- !u!114 &2879432393324120099
+  itemName: SP_1
+--- !u!114 &2794932802045031453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,4 +166,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044bbe1788fbe0e4aba9f95e44f0185b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: SP_3
+  itemName: SP_1
