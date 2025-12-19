@@ -90,9 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 221
-    m_Right: 1409
-    m_Top: 86
+    m_Left: 119
+    m_Right: 1408
+    m_Top: 89
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 167.6
@@ -120,12 +120,12 @@ MonoBehaviour:
   container: {fileID: 6511209058429376771}
   itemDatabase:
   - itemName: Fuel
-    itemSprite: {fileID: 1206274623, guid: 59a0bdd7248e8a6479c2903c22aecef0, type: 3}
+    itemSprite: {fileID: 21300000, guid: d052c5fd4aa149e4bb4f48b25af8526e, type: 3}
   - itemName: Access Card
-    itemSprite: {fileID: 166545709, guid: 59a0bdd7248e8a6479c2903c22aecef0, type: 3}
+    itemSprite: {fileID: 21300000, guid: 28cb42d5af9675e4c86f341b7159effd, type: 3}
   - itemName: SP_1
-    itemSprite: {fileID: -513341681, guid: 963c25b97faf35f42a3016780395ba39, type: 3}
+    itemSprite: {fileID: 21300000, guid: 6c6b30f68b6081b499d4c572032880c6, type: 3}
   - itemName: SP_2
-    itemSprite: {fileID: -1803566418, guid: 963c25b97faf35f42a3016780395ba39, type: 3}
+    itemSprite: {fileID: 21300000, guid: 273252e9a6d47ec42a2de8c1e091a5a7, type: 3}
   - itemName: SP_3
-    itemSprite: {fileID: 1288656880, guid: 963c25b97faf35f42a3016780395ba39, type: 3}
+    itemSprite: {fileID: 21300000, guid: 6ba426ed3f21132429e87a3ba4caa7b3, type: 3}

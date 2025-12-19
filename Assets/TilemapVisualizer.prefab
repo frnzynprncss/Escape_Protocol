@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorTilemap: {fileID: 0}
   wallTilemap: {fileID: 0}
-  floorTile: {fileID: 11400000, guid: 043fb93efdbca2d48a6178064feffe38, type: 2}
+  floorTile: {fileID: 11400000, guid: 9d96e3615d6ca764080fdcdbdbc9c9a1, type: 2}
   wallTop: {fileID: 11400000, guid: 3f403b61bc7d5154089e212723310af0, type: 2}
   wallSideRight: {fileID: 11400000, guid: 4469dc73fed65bd4f9ecdca63529f890, type: 2}
   wallSideLeft: {fileID: 11400000, guid: bf4cc43fe74a6634c8adac8c3d7b5c0f, type: 2}

@@ -21,6 +21,11 @@ public class InventoryUI : MonoBehaviour
     [Header("Item Sprites")]
     public List<ItemSpriteMapping> itemDatabase;
 
+    void Update()
+    {
+        RefreshAllSlots();
+    }
+
     public void RefreshAllSlots()
     {
         if (playerInventory == null) return;
