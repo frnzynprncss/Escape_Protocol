@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerScript: {fileID: 0}
+  playerInventory: {fileID: 4489435502703571764}
 --- !u!114 &6510737306342359438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItems: []
+  maxItems: 3
   myUI: {fileID: 8089797062088835267, guid: 99e04163f5c80714c919eb2c4aa9af6a, type: 3}
 --- !u!1001 &6698838581614862373
 PrefabInstance:

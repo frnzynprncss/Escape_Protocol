@@ -304,9 +304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 47205444812889056}
   SFXSource: {fileID: 1195516998590195499}
-  mainmenu_music: {fileID: 8300000, guid: 90ed6236bcc923b4884a3cf0779b027a, type: 3}
-  ingame_music: {fileID: 8300000, guid: 964f25434355403418f02cfac4332378, type: 3}
-  buttonselect: {fileID: 0}
-  healthcollect: {fileID: 0}
+  mainmenu_music: {fileID: 8300000, guid: f190a6cfa3d5b6443b089952a6714847, type: 3}
+  ingame_music: {fileID: 8300000, guid: 765b76736231f58469a020adbb4326a4, type: 3}
+  buttonselect: {fileID: 8300000, guid: 2d2a9df4a93db9744917800e13c36792, type: 3}
   itemcollect: {fileID: 0}
-  shoot: {fileID: 0}
+  shoot: {fileID: 8300000, guid: 635dad383b9de504084d108c6de1cd22, type: 3}
