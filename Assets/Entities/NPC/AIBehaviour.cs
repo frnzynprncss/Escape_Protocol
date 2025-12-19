@@ -31,21 +31,18 @@ public class AIBehaviour : MonoBehaviour
     {
         switch (current_state)
         {
-            case AIState.ATTACKING:
-
-                if (is_attacking) return;
-
-                StartCoroutine(attack_target()); break;
-
-            case AIState.CHASING: move_towards_target(); break;
-
             case AIState.IDLE: search_players(); break;
+            case AIState.CHASING: move_towards_target(); break;
+            case AIState.ATTACKING:
+                if (!is_attacking) StartCoroutine(attack_target()); break;
         }
     }
 
 
     private IEnumerator attack_target()
     {
+        if (target == null) current_state = AIState.IDLE;
+
         is_attacking = true;
         target.GetComponent<HealthComponent>()?.take_damage(attack_data);
 

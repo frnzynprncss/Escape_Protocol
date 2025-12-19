@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,8 @@ public class HealthBarScript : MonoBehaviour
 
     public void update_health(int health)
     {
-        health_slider.value = health;
+        DOTween.To(() => health_slider.value, x => health_slider.value = x, health, 0.3f)
+        .SetEase(Ease.OutCubic)
+        .SetLink(gameObject);
     }
 }
