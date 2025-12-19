@@ -34,7 +34,12 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private GameObject spaceshipPrefab;
 
     [Header("Spawn Settings")]
-    [Range(0, 1)][SerializeField] private float enemySpawnChance = 0.5f;
+    [Tooltip("Minimum enemies in rooms closest to player")]
+    [SerializeField] private int minEnemiesPerRoom = 0;
+    [Tooltip("Maximum enemies in rooms furthest from player")]
+    [SerializeField] private int maxEnemiesPerRoom = 5;
+    [Tooltip("Extra enemies to add specifically in Item/Hidden rooms")]
+    [SerializeField] private int bonusEnemiesInItemRooms = 2;
     [SerializeField] private int exactFuelCount = 3;
 
     [Header("Dungeon Parent")]
@@ -75,6 +80,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         if (tilemapVisualizer != null) tilemapVisualizer.Clear();
         cachedRooms.Clear();
         corridorPositions.Clear();
+
+
 
         var roomsListBounds = ProceduralGenerationAlgorithms.BinarySpacePartitioning(
             new BoundsInt((Vector3Int)startPosition, new Vector3Int(dungeonWidth, dungeonHeight, 0)),
@@ -150,8 +157,19 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             return;
         }
 
-        GameObject spawnedObject = null;
+        // 1. Find the spawn room to calculate distances
+        Room spawnRoom = cachedRooms.FirstOrDefault(r => r.Type == RoomType.Spawn);
+        Vector2 spawnRoomCenter = spawnRoom != null ? (Vector2)spawnRoom.RoomCenterPos : Vector2.zero;
 
+        // 2. Calculate the maximum distance in the dungeon for normalization (0.0 to 1.0)
+        float maxDistance = 0f;
+        foreach (var room in cachedRooms)
+        {
+            float dist = Vector2.Distance(room.RoomCenterPos, spawnRoomCenter);
+            if (dist > maxDistance) maxDistance = dist;
+        }
+
+        GameObject spawnedObject = null;
         int hiddenPartIndex = 0;
 
         foreach (Room room in cachedRooms)
@@ -159,14 +177,33 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             Vector2 roomCenterWorld = (Vector2)room.RoomCenterPos + new Vector2(0.5f, 0.5f);
             spawnedObject = null;
 
+            // --- MOB CALCULATION LOGIC ---
+            // Calculate how far this room is (0.0 = Start, 1.0 = Furthest point)
+            float currentDist = Vector2.Distance(room.RoomCenterPos, spawnRoomCenter);
+            float difficultyRatio = (maxDistance > 0) ? currentDist / maxDistance : 0;
+
+            // Lerp between min and max enemies based on distance
+            int enemiesToSpawn = Mathf.RoundToInt(Mathf.Lerp(minEnemiesPerRoom, maxEnemiesPerRoom, difficultyRatio));
+
+            // Increase mob count for "High Value" rooms (Hidden/Boss/Fuel)
+            bool isHighValueRoom = room.Type == RoomType.Hidden || room.Type == RoomType.Boss || dedicatedFuelRooms.Contains(room);
+
+            if (isHighValueRoom)
+            {
+                // Items rooms get harder enemies
+                enemiesToSpawn = maxEnemiesPerRoom + bonusEnemiesInItemRooms;
+            }
+
+            // --- END MOB CALCULATION ---
+
             switch (room.Type)
             {
                 case RoomType.Spawn:
-                    // Spawn the Base exactly in the center
+                    // Spawn Base
                     var baseObj = Instantiate(escapeBasePrefab, roomCenterWorld, Quaternion.identity);
                     baseObj.transform.SetParent(dungeonContainer.transform);
 
-                    // Spawn Players slightly to the left and right
+                    // Spawn Players
                     var p1Obj = Instantiate(player1Prefab, roomCenterWorld + Vector2.left * 2, Quaternion.identity);
                     p1Obj.name = "Player1";
                     p1Obj.transform.SetParent(dungeonContainer.transform);
@@ -177,11 +214,10 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                     p2Obj.transform.SetParent(dungeonContainer.transform);
                     _spawnedP2 = p2Obj.transform;
 
-                    // Spawn the spaceship at the spawn room
+                    // Spawn Spaceship
                     if (spaceshipPrefab != null)
                     {
                         spawnedObject = Instantiate(spaceshipPrefab, roomCenterWorld, Quaternion.identity, dungeonContainer.transform);
-
                         spaceshipManager = spawnedObject.GetComponent<SpaceShipInteraction>();
                         if (spaceshipManager != null)
                         {
@@ -191,6 +227,9 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                                 spaceshipManager.completeVisualInstance.SetActive(false);
                         }
                     }
+
+                    // IMPORTANT: No enemies in spawn room
+                    enemiesToSpawn = 0;
                     break;
 
                 case RoomType.Boss:
@@ -208,14 +247,21 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
                 case RoomType.Normal:
                     if (dedicatedFuelRooms.Contains(room))
+                    {
                         spawnedObject = Instantiate(fuelItemPrefab, roomCenterWorld, Quaternion.identity);
-                    else if (Random.value < enemySpawnChance)
-                        spawnedObject = Instantiate(enemyPrefab, roomCenterWorld, Quaternion.identity);
+                        // Fuel rooms are Normal type but in the fuel list, they retain the high enemy count calculated above
+                    }
                     break;
             }
 
             if (spawnedObject != null)
                 spawnedObject.transform.SetParent(dungeonContainer.transform);
+
+            // --- SPAWN ENEMIES ---
+            if (enemiesToSpawn > 0 && enemyPrefab != null)
+            {
+                SpawnEnemiesInRoom(room, enemiesToSpawn, roomCenterWorld);
+            }
         }
 
         if (_spawnedP1 != null && _spawnedP2 != null)
@@ -231,6 +277,32 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
         }
     }
+
+    private void SpawnEnemiesInRoom(Room room, int count, Vector2 centerToAvoid)
+    {
+        // Get all valid floor positions for this room
+        List<Vector2Int> floorPositions = room.FloorTiles.ToList();
+
+        // Shuffle the list to pick random spots
+        floorPositions = floorPositions.OrderBy(x => Random.value).ToList();
+
+        int spawnedCount = 0;
+        foreach (var pos in floorPositions)
+        {
+            if (spawnedCount >= count) break;
+
+            Vector2 spawnPos = new Vector2(pos.x + 0.5f, pos.y + 0.5f);
+
+            // Optional: Simple check to avoid spawning directly on top of the central item
+            if (Vector2.Distance(spawnPos, centerToAvoid) < 1.0f) continue;
+
+            var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            enemy.transform.SetParent(dungeonContainer.transform);
+            spawnedCount++;
+        }
+    }
+
+    // ... [Rest of the file: CreateRoomsRandomly, CreateSimpleRooms, ConnectRooms, etc. remains unchanged] ...
 
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)
     {

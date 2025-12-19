@@ -431,7 +431,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 100
+  playerID: 1
 --- !u!212 &65455787
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -905,7 +907,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &178030499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1412,9 @@ MonoBehaviour:
   accessCardPrefab: {fileID: 7777946631156966208, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
   fuelItemPrefab: {fileID: 5694955517181414242, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
   spaceshipPrefab: {fileID: 2938143223505291926, guid: ede5db378e038074cae45223d6f21f6c, type: 3}
-  enemySpawnChance: 1
+  minEnemiesPerRoom: 2
+  maxEnemiesPerRoom: 5
+  bonusEnemiesInItemRooms: 10
   exactFuelCount: 3
   dungeonParent: {fileID: 274450589}
 --- !u!4 &274450589
@@ -14861,7 +14867,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &550503318
 GameObject:
   m_ObjectHideFlags: 0
@@ -15469,7 +15477,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &616984918
 GameObject:
   m_ObjectHideFlags: 0
@@ -16113,7 +16123,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &747131675
 GameObject:
   m_ObjectHideFlags: 0
@@ -16160,11 +16172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477968f832e3708469a175ff6aa18a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelText: {fileID: 1327190545}
-  partsText: {fileID: 1922605917}
-  cardCheckmark: {fileID: 1836581334}
-  requiredFuel: 3
-  requiredParts: 3
 --- !u!61 &747131678
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16691,7 +16698,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &844392412
 GameObject:
   m_ObjectHideFlags: 0
@@ -17293,7 +17302,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &1100778084
 GameObject:
   m_ObjectHideFlags: 0
@@ -18260,7 +18271,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 100
+  playerID: 1
 --- !u!212 &1217559821
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -64576,7 +64589,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &1633722346
 GameObject:
   m_ObjectHideFlags: 0
@@ -65788,7 +65803,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &1954203513
 GameObject:
   m_ObjectHideFlags: 0
@@ -66733,7 +66750,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &2120410462
 GameObject:
   m_ObjectHideFlags: 0
@@ -66802,7 +66821,9 @@ MonoBehaviour:
   on_health_changed:
     m_PersistentCalls:
       m_Calls: []
+  health_bar_fill: {fileID: 0}
   max_health: 1
+  playerID: 1
 --- !u!1 &2138069204
 GameObject:
   m_ObjectHideFlags: 0
