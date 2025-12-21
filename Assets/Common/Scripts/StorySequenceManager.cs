@@ -12,13 +12,13 @@ public class StorySequenceManager : MonoBehaviour
     public float videoFadeDuration = 1.0f;
 
     [Header("2. Text & Moving Content")]
-    public RectTransform scrollingText;      // Drag your "ScrollingContent" container here
+    public RectTransform scrollingText;
     public float scrollSpeed = 50f;
     public float stopPositionOffset = 200f;
     public CanvasGroup textCanvasGroup;
 
     [Header("3. Static Content (New)")]
-    public CanvasGroup staticContentCanvasGroup; // Drag your Static Images Group here!
+    public CanvasGroup staticContentCanvasGroup;
 
     [Header("4. Background & Final Transition")]
     public CanvasGroup blackBackgroundPanel;
@@ -26,7 +26,6 @@ public class StorySequenceManager : MonoBehaviour
     public float imageDisplayDuration = 3.0f;
     public string mainMenuScene = "MainMenu";
 
-    // Internal State
     private bool isVideoPlaying = true;
     private bool isScrolling = false;
     private bool isFinishing = false;
@@ -34,18 +33,19 @@ public class StorySequenceManager : MonoBehaviour
 
     void Start()
     {
-        // 1. Setup Video
         if (introVideo != null)
         {
-            introVideo.Play();
+            introVideo.playOnAwake = false;
+            introVideo.prepareCompleted += OnVideoPrepared;
             introVideo.loopPointReached += OnVideoFinished;
+            introVideo.Prepare();
         }
         else
         {
+            isVideoPlaying = false;
             StartTextScroll();
         }
 
-        // 2. Setup Text Position (Forcing layout rebuild for accuracy)
         if (scrollingText != null)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(scrollingText);
@@ -53,21 +53,24 @@ public class StorySequenceManager : MonoBehaviour
             scrollingText.gameObject.SetActive(introVideo == null);
         }
 
-        // 3. Ensure Backgrounds/Static items are Visible initially
         if (blackBackgroundPanel != null) blackBackgroundPanel.alpha = 1f;
         if (staticContentCanvasGroup != null) staticContentCanvasGroup.alpha = 1f;
     }
 
+    void OnVideoPrepared(VideoPlayer vp)
+    {
+        vp.prepareCompleted -= OnVideoPrepared;
+        vp.Play();
+    }
+
     void Update()
     {
-        // SKIP BUTTON
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isVideoPlaying) SkipVideo();
             else if (isScrolling) StartCoroutine(FinishSequence());
         }
 
-        // SCROLLING LOGIC
         if (isScrolling && scrollingText != null && !isFinishing)
         {
             scrollingText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
@@ -79,7 +82,10 @@ public class StorySequenceManager : MonoBehaviour
         }
     }
 
-    void OnVideoFinished(VideoPlayer vp) { SkipVideo(); }
+    void OnVideoFinished(VideoPlayer vp)
+    {
+        SkipVideo();
+    }
 
     void SkipVideo()
     {
@@ -115,31 +121,25 @@ public class StorySequenceManager : MonoBehaviour
         float startAlphaStatic = (staticContentCanvasGroup != null) ? staticContentCanvasGroup.alpha : 1f;
         float time = 0;
 
-        // FADE LOOP
         while (time < panelFadeDuration)
         {
             time += Time.deltaTime;
             float progress = time / panelFadeDuration;
 
-            // Fade the Black Panel
             if (blackBackgroundPanel != null)
                 blackBackgroundPanel.alpha = Mathf.Lerp(startAlphaPanel, 0, progress);
 
-            // Fade the Static Images (At the same time!)
             if (staticContentCanvasGroup != null)
                 staticContentCanvasGroup.alpha = Mathf.Lerp(startAlphaStatic, 0, progress);
 
             yield return null;
         }
 
-        // Ensure they are fully invisible
         if (blackBackgroundPanel != null) blackBackgroundPanel.alpha = 0;
         if (staticContentCanvasGroup != null) staticContentCanvasGroup.alpha = 0;
 
-        // Wait to show revealed images
         yield return new WaitForSeconds(imageDisplayDuration);
 
-        // Load Menu
         SceneManager.LoadScene(mainMenuScene);
     }
 }

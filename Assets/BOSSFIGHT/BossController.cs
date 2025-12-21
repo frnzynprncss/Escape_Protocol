@@ -22,6 +22,7 @@ public class BossController : MonoBehaviour
     public GameObject[] alienPrefabs;
     public int swarmCount = 10;
     public float spawnRadius = 3f;
+    public float spawnDelay = 5f; // seconds before respawn
 
     [Header("Hover Motion")]
     public float boxSpeed = 0.8f;
@@ -34,12 +35,14 @@ public class BossController : MonoBehaviour
     public HealthComponent healthComponent;
 
     [Header("UI")]
-    public GameObject winPanel;   // ASSIGN IN INSPECTOR
+    public GameObject winPanel;
 
     private List<GameObject> activeAliens = new List<GameObject>();
     private Coroutine damageEffectRoutine;
+    private Coroutine respawnRoutine;
     private Collider2D bossCollider;
     private bool bossDead = false;
+    private bool respawnScheduled = false;
 
     void Start()
     {
@@ -58,11 +61,11 @@ public class BossController : MonoBehaviour
         if (winPanel != null)
             winPanel.SetActive(false);
 
-        // ✅ CORRECT DEATH HOOK (NO POLLING)
         healthComponent.on_death.AddListener(OnBossDeath);
 
         StartCoroutine(BossAnimationRoutine());
-        SpawnSwarm();
+
+        SpawnSwarm(); // FIRST SPAWN
         UpdateDamageState();
     }
 
@@ -84,8 +87,15 @@ public class BossController : MonoBehaviour
 
         transform.position = startPosition + new Vector2(offsetX, offsetY);
 
-        // Remove dead minions
+        // CLEAN DEAD ALIENS
         activeAliens.RemoveAll(a => a == null);
+
+        // IF ALL DEAD → SCHEDULE RESPAWN
+        if (!respawnScheduled && activeAliens.Count == 0 && !bossDead)
+        {
+            respawnRoutine = StartCoroutine(DelayedRespawn());
+        }
+
         UpdateDamageState();
     }
 
@@ -109,6 +119,18 @@ public class BossController : MonoBehaviour
         }
     }
 
+    IEnumerator DelayedRespawn()
+    {
+        respawnScheduled = true;
+
+        yield return new WaitForSeconds(spawnDelay);
+
+        if (!bossDead)
+            SpawnSwarm();
+
+        respawnScheduled = false;
+    }
+
     void SpawnSwarm()
     {
         activeAliens.Clear();
@@ -119,8 +141,11 @@ public class BossController : MonoBehaviour
                 (Vector2)transform.position +
                 Random.insideUnitCircle.normalized * spawnRadius;
 
-            GameObject prefab = alienPrefabs[Random.Range(0, alienPrefabs.Length)];
-            GameObject alien = Instantiate(prefab, spawnPos, Quaternion.identity);
+            GameObject prefab =
+                alienPrefabs[Random.Range(0, alienPrefabs.Length)];
+
+            GameObject alien =
+                Instantiate(prefab, spawnPos, Quaternion.identity);
 
             AlienAI ai = alien.GetComponent<AlienAI>();
             if (ai != null)
@@ -128,6 +153,8 @@ public class BossController : MonoBehaviour
 
             activeAliens.Add(alien);
         }
+
+        UpdateDamageState();
     }
 
     void UpdateDamageState()
@@ -143,9 +170,6 @@ public class BossController : MonoBehaviour
         if (bossDead || activeAliens.Count > 0)
             return;
 
-        if (healthComponent == null)
-            return;
-
         healthComponent.take_damage(attack);
 
         if (damageEffectRoutine != null)
@@ -154,12 +178,8 @@ public class BossController : MonoBehaviour
         damageEffectRoutine = StartCoroutine(FlashRed());
     }
 
-    // ✅ CALLED BY HealthComponent.on_death
     void OnBossDeath()
     {
-        if (bossDead)
-            return;
-
         bossDead = true;
 
         if (bossCollider != null)

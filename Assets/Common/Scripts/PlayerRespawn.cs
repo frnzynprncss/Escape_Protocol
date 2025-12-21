@@ -1,73 +1,71 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic; // <--- THIS WAS MISSING
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using UnityEngine.UI;
+
+// =========================
+// RESPAWN RESET INTERFACE
+// =========================
+public interface IRespawnReset
+{
+    void OnRespawn();
+}
 
 public class PlayerRespawn : MonoBehaviour
 {
-    // Leave this empty in the inspector. The code will find it.
     public GameObject gameOverPanel;
 
     [Header("Respawn Settings")]
     public float respawnTime = 15f;
     public float spawnRadius = 3f;
 
+    [Header("Spawn Validation")]
+    public int maxSpawnAttempts = 20;
+
     private Vector3 initialSpawnPoint;
     private HealthComponent myHealth;
+    private Transform cachedTransform;
 
-    // Components
-    private Collider myCollider;
-    private Rigidbody myRb;
-    private CharacterController myCharController;
-    private Renderer[] myRenderers;
+    private static RespawnRunner runner;
+
+    private void Awake()
+    {
+        cachedTransform = transform;
+
+        if (runner == null)
+        {
+            GameObject go = new GameObject("RespawnRunner");
+            runner = go.AddComponent<RespawnRunner>();
+            DontDestroyOnLoad(go);
+        }
+    }
 
     private void Start()
     {
-        initialSpawnPoint = transform.position;
+        initialSpawnPoint = cachedTransform.position;
         myHealth = GetComponent<HealthComponent>();
 
-        // --- THE NUCLEAR OPTION: FIND BY TYPE ---
-        // This ignores names and looks for ANY Canvas in the scene
         if (gameOverPanel == null)
         {
-            Canvas[] allCanvases = FindObjectsOfType<Canvas>();
-
-            foreach (Canvas c in allCanvases)
+            Canvas[] canvases = FindObjectsOfType<Canvas>();
+            foreach (Canvas c in canvases)
             {
-                // Look for a child named "LosePanel" inside this canvas
-                // (We use 'true' to search inside hidden children too)
-                Transform panelTrans = c.transform.Find("LosePanel");
-
-                if (panelTrans != null)
+                Transform t = c.transform.Find("LosePanel");
+                if (t != null)
                 {
-                    gameOverPanel = panelTrans.gameObject;
-                    Debug.Log("SUCCESS: Found LosePanel inside " + c.name);
-                    break; // Stop looking, we found it
+                    gameOverPanel = t.gameObject;
+                    break;
                 }
             }
         }
 
-        // Final check
         if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false); // Hide it immediately
-        }
-        else
-        {
-            Debug.LogError("STILL FAILING: 1. Is the panel named 'LosePanel' exactly? 2. Is it inside a Canvas?");
-        }
-        // ---------------------------------
-
-        myCollider = GetComponent<Collider>();
-        myRb = GetComponent<Rigidbody>();
-        myCharController = GetComponent<CharacterController>();
-        myRenderers = GetComponentsInChildren<Renderer>();
+            gameOverPanel.SetActive(false);
     }
 
     public void StartRespawnProcess()
     {
-        SetPlayerActive(false);
+        cachedTransform.gameObject.SetActive(false);
 
         if (AreAllPlayersDead())
         {
@@ -75,85 +73,111 @@ public class PlayerRespawn : MonoBehaviour
         }
         else
         {
-            StartCoroutine(RespawnRoutine());
+            runner.StartCoroutine(
+                RespawnRoutine(
+                    cachedTransform,
+                    myHealth,
+                    initialSpawnPoint
+                )
+            );
         }
+    }
+
+    private IEnumerator RespawnRoutine(
+        Transform targetTransform,
+        HealthComponent health,
+        Vector3 fallbackPos
+    )
+    {
+        yield return new WaitForSeconds(respawnTime);
+
+        if (AreAllPlayersDead())
+            yield break;
+
+        Vector3 spawnPos = GetSafeSpawnPositionNearTeammate(
+            targetTransform,
+            fallbackPos
+        );
+
+        // REPOSITION & REACTIVATE
+        targetTransform.position = spawnPos;
+        targetTransform.gameObject.SetActive(true);
+
+        // =========================
+        // CRITICAL FIX:
+        // RESET ALL COMBAT / INPUT LOGIC
+        // =========================
+        IRespawnReset[] resetters =
+            targetTransform.GetComponentsInChildren<IRespawnReset>(true);
+
+        foreach (var r in resetters)
+            r.OnRespawn();
+
+        health.Revive();
     }
 
     private bool AreAllPlayersDead()
     {
-        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach (GameObject p in allPlayers)
+        foreach (GameObject p in players)
         {
-            if (p != this.gameObject)
-            {
-                HealthComponent hp = p.GetComponent<HealthComponent>();
-                if (hp != null && hp.health > 0) return false;
-            }
+            HealthComponent hp = p.GetComponent<HealthComponent>();
+            if (hp != null && hp.health > 0)
+                return false;
         }
+
         return true;
     }
 
     private void GameOver()
     {
-        Debug.Log("GAME OVER!");
         if (gameOverPanel != null)
-        {
             gameOverPanel.SetActive(true);
-        }
     }
 
-    private IEnumerator RespawnRoutine()
+    // =========================
+    // SAFE FLOOR-AWARE SPAWN
+    // =========================
+    private Vector3 GetSafeSpawnPositionNearTeammate(
+        Transform self,
+        Vector3 fallback
+    )
     {
-        Debug.Log($"Player {myHealth.playerID} died. Waiting...");
+        if (RoomFirstDungeonGenerator.Instance == null)
+            return fallback;
 
-        yield return new WaitForSeconds(respawnTime);
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        if (AreAllPlayersDead()) yield break;
-
-        Vector3 spawnPos = GetSpawnPositionNearTeammate();
-
-        if (myCharController != null) myCharController.enabled = false;
-        transform.position = spawnPos;
-        if (myCharController != null) myCharController.enabled = true;
-
-        SetPlayerActive(true);
-        myHealth.Revive();
-
-        Debug.Log("Player Respawned!");
-    }
-
-    private Vector3 GetSpawnPositionNearTeammate()
-    {
-        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-        List<GameObject> teammates = new List<GameObject>();
-
-        foreach (GameObject p in allPlayers)
+        foreach (GameObject p in players)
         {
-            if (p != this.gameObject && p.activeInHierarchy)
+            if (p.transform == self) continue;
+
+            HealthComponent hp = p.GetComponent<HealthComponent>();
+            if (hp == null || hp.health <= 0 || !p.activeInHierarchy)
+                continue;
+
+            Vector3 basePos = p.transform.position;
+
+            for (int i = 0; i < maxSpawnAttempts; i++)
             {
-                HealthComponent mateHealth = p.GetComponent<HealthComponent>();
-                if (mateHealth && mateHealth.health > 0)
-                {
-                    teammates.Add(p);
-                }
+                Vector2 offset = Random.insideUnitCircle * spawnRadius;
+                Vector3 candidate =
+                    basePos + new Vector3(offset.x, offset.y, 0f);
+
+                if (RoomFirstDungeonGenerator.Instance
+                    .IsPositionOnFloor(candidate))
+                    return candidate;
             }
+
+            return basePos;
         }
 
-        if (teammates.Count > 0)
-        {
-            GameObject target = teammates[Random.Range(0, teammates.Count)];
-            Vector2 randomCircle = Random.insideUnitCircle.normalized * spawnRadius;
-            return target.transform.position + new Vector3(randomCircle.x, 0, randomCircle.y);
-        }
-
-        return initialSpawnPoint;
-    }
-
-    private void SetPlayerActive(bool isActive)
-    {
-        if (myCollider) myCollider.enabled = isActive;
-        foreach (var rend in myRenderers) rend.enabled = isActive;
-        if (myRb) myRb.isKinematic = !isActive;
+        return fallback;
     }
 }
+
+// =========================
+// PERSISTENT COROUTINE HOST
+// =========================
+public class RespawnRunner : MonoBehaviour { }

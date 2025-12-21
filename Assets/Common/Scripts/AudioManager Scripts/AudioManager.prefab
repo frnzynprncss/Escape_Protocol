@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -174,7 +174,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.8
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -307,5 +307,5 @@ MonoBehaviour:
   mainmenu_music: {fileID: 8300000, guid: f190a6cfa3d5b6443b089952a6714847, type: 3}
   ingame_music: {fileID: 8300000, guid: 765b76736231f58469a020adbb4326a4, type: 3}
   buttonselect: {fileID: 8300000, guid: 2d2a9df4a93db9744917800e13c36792, type: 3}
-  itemcollect: {fileID: 0}
+  itemcollect: {fileID: 8300000, guid: 05ebb64c66261ce448f09b4da10ce115, type: 3}
   shoot: {fileID: 8300000, guid: 635dad383b9de504084d108c6de1cd22, type: 3}

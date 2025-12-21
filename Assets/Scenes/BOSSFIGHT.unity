@@ -603,8 +603,9 @@ MonoBehaviour:
   - {fileID: 1850559182919745010, guid: 95906683de8754f4b945d54a29fc79f1, type: 3}
   - {fileID: 1850559182919745010, guid: 149e92fab9f5b3a45bc030458f4e3bc2, type: 3}
   - {fileID: 1850559182919745010, guid: 3a90d21efbb9b3b45b1e100ad1adc130, type: 3}
-  swarmCount: 4
+  swarmCount: 10
   spawnRadius: 3
+  spawnDelay: 5
   boxSpeed: 1.3
   boxSize: 0.5
   healthComponent: {fileID: 44682582}
@@ -742,7 +743,7 @@ MonoBehaviour:
   health_bar_fill: {fileID: 181737367}
   bloodEffectPrefab: {fileID: 7065208528202726076, guid: cd5dd126cc8b0e14fb1212c5d3ad4314, type: 3}
   bloodSpawnOffset: {x: 0, y: 0, z: 0}
-  max_health: 1000
+  max_health: 4000
   playerID: 3
 --- !u!61 &44682583
 BoxCollider2D:
@@ -8125,7 +8126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: min_zoom
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: player1Tag
@@ -8137,11 +8138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: zoom_margin
-      value: 2
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: default_zoom
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
       propertyPath: follow_players
@@ -18658,13 +18659,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 629911961}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: GoToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
