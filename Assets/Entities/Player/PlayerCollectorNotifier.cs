@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerCollectorNotifier : MonoBehaviour
 {
     public SpaceShipInteraction managerScript;
+    public PlayerInventory playerInventory;
+
     private void Start()
     {
-        // Find the SpaceShipInteraction in the scene automatically
         managerScript = FindObjectOfType<SpaceShipInteraction>();
 
         if (managerScript == null)
@@ -18,6 +19,7 @@ public class PlayerCollectorNotifier : MonoBehaviour
     {
         if (!other.CompareTag("CollectibleItem")) return;
 
+        // FIX: call the existing overload with ONE argument
         managerScript.CollectItemFromNotifier(other.gameObject);
     }
 }

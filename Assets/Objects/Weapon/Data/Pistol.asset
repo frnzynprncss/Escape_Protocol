@@ -17,4 +17,4 @@ MonoBehaviour:
   weapon_spread: 3
   bullet_amount: 2
   max_ammo: 100
-  fire_rate: 0.5
+  fire_rate: 0.4

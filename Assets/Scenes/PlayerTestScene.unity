@@ -607,6 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerScript: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!70 &65455790
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -730,6 +731,22 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   shotgunSprites:
     walkFront:
     - {fileID: 0}
@@ -763,6 +780,22 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   rifleSprites:
     walkFront:
     - {fileID: 0}
@@ -793,6 +826,22 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -20209,6 +20258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerScript: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!114 &1217559824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20353,6 +20403,22 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   shotgunSprites:
     walkFront:
     - {fileID: 0}
@@ -20386,6 +20452,22 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   rifleSprites:
     walkFront:
     - {fileID: 0}
@@ -20416,6 +20498,22 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

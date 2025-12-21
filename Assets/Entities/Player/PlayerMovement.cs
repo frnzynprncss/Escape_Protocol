@@ -7,6 +7,12 @@ public class PlayerSpriteSet
     public Sprite[] walkBack = new Sprite[6];
     public Sprite[] walkLeft = new Sprite[8];
     public Sprite[] walkRight = new Sprite[8];
+
+    // New Idle Sprite Arrays
+    public Sprite[] idleFront = new Sprite[3];
+    public Sprite[] idleBack = new Sprite[3];
+    public Sprite[] idleLeft = new Sprite[3];
+    public Sprite[] idleRight = new Sprite[3];
 }
 
 public class PlayerMovement : MonoBehaviour
@@ -92,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (input != Vector2.zero)
         {
+            // MOVEMENT ANIMATION
             lastDirection = input;
 
             if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
@@ -102,49 +109,44 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentAnimation = (input.y > 0) ? activeSprites.walkBack : activeSprites.walkFront;
             }
-
-            if (currentAnimation == null || currentAnimation.Length == 0)
-                return;
-
-            if (currentAnimation != lastAnimation)
-            {
-                currentFrameIndex = 0;
-                frameTimer = 0f;
-                lastAnimation = currentAnimation;
-            }
-
-            float frameTime = 1f / animationSpeedFPS;
-            frameTimer -= Time.deltaTime;
-
-            if (frameTimer <= 0f)
-            {
-                currentFrameIndex++;
-                if (currentFrameIndex >= currentAnimation.Length)
-                    currentFrameIndex = 0;
-
-                frameTimer = frameTime;
-            }
-
-            spriteRenderer.sprite = currentAnimation[currentFrameIndex];
         }
         else
         {
-            // 🛑 IDLE
-            currentFrameIndex = 0;
-            frameTimer = 0f;
-            lastAnimation = null;
-
+            // IDLE ANIMATION
             if (Mathf.Abs(lastDirection.x) > Mathf.Abs(lastDirection.y))
             {
-                Sprite[] idleAnim = (lastDirection.x > 0) ? activeSprites.walkRight : activeSprites.walkLeft;
-                if (idleAnim.Length > 0) spriteRenderer.sprite = idleAnim[0];
+                currentAnimation = (lastDirection.x > 0) ? activeSprites.idleRight : activeSprites.idleLeft;
             }
             else
             {
-                Sprite[] idleAnim = (lastDirection.y > 0) ? activeSprites.walkBack : activeSprites.walkFront;
-                if (idleAnim.Length > 0) spriteRenderer.sprite = idleAnim[0];
+                currentAnimation = (lastDirection.y > 0) ? activeSprites.idleBack : activeSprites.idleFront;
             }
         }
+
+        // Logic to play the chosen animation (Walking or Idle)
+        if (currentAnimation == null || currentAnimation.Length == 0)
+            return;
+
+        if (currentAnimation != lastAnimation)
+        {
+            currentFrameIndex = 0;
+            frameTimer = 0f;
+            lastAnimation = currentAnimation;
+        }
+
+        float frameTime = 1f / animationSpeedFPS;
+        frameTimer -= Time.deltaTime;
+
+        if (frameTimer <= 0f)
+        {
+            currentFrameIndex++;
+            if (currentFrameIndex >= currentAnimation.Length)
+                currentFrameIndex = 0;
+
+            frameTimer = frameTime;
+        }
+
+        spriteRenderer.sprite = currentAnimation[currentFrameIndex];
     }
 
     public enum WeaponType

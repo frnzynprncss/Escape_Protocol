@@ -44,13 +44,13 @@ GameObject:
   - component: {fileID: 7611744526087961460}
   - component: {fileID: 177642872109323784}
   - component: {fileID: 2898543483902687762}
-  - component: {fileID: 4625752065695307117}
   - component: {fileID: 3886363586202615038}
   - component: {fileID: -2066584345214511201}
   - component: {fileID: -3838268401280364074}
   - component: {fileID: 5626131663760736221}
   - component: {fileID: -6677598519730249487}
   - component: {fileID: -4056980751423066846}
+  - component: {fileID: 835928174734208004}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -122,6 +122,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0b8d5f85cb3d199499a7b72c529e3840, type: 3}
     - {fileID: 21300000, guid: a80c9bb78ddafa648a5f30161823fdfc, type: 3}
     - {fileID: 21300000, guid: fbcf07bbc4c954f46a8e7221765d717b, type: 3}
+    idleFront:
+    - {fileID: 21300000, guid: a5df4a45e38cb4d438c034417b5c4bdb, type: 3}
+    idleBack:
+    - {fileID: 21300000, guid: 11b20e7c16f78c949b7605e88fe6c729, type: 3}
+    idleLeft:
+    - {fileID: 21300000, guid: 63b6e163370d8754a86f351a58bbb511, type: 3}
+    idleRight:
+    - {fileID: 21300000, guid: 51ffdc57517f2df409353b0f4fb83c4c, type: 3}
   shotgunSprites:
     walkFront:
     - {fileID: 21300000, guid: c1b1b2b74ad6c9944bb89a904126a375, type: 3}
@@ -155,6 +163,22 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 15cea5c7d72d42f4184cff04c8d45d40, type: 3}
     - {fileID: 21300000, guid: e754ba4da2ed29a4bbe3619c03c9a7c3, type: 3}
     - {fileID: 21300000, guid: 44cc31d052d66ed4bbcb7f9b3545762f, type: 3}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   rifleSprites:
     walkFront:
     - {fileID: 21300000, guid: 5db11ed0475acbd478ca2acebf7028a1, type: 3}
@@ -188,6 +212,22 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 4063abaddc73cc741bf0a7a1bb4ca3ea, type: 3}
     - {fileID: 21300000, guid: 1b9b31166d05e394e8e6039a95a0127b, type: 3}
     - {fileID: 21300000, guid: 516f84779e2862f499f556980f2592a3, type: 3}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   animationSpeedFPS: 12
 --- !u!114 &177642872109323784
 MonoBehaviour:
@@ -255,19 +295,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4625752065695307117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5427048564078456942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd52a3a5a676e84999a4b4e03a0433b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
 --- !u!70 &3886363586202615038
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -316,6 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerScript: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!114 &-3838268401280364074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,9 +426,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 0}
   respawnTime: 20
   spawnRadius: 3
-  scriptsToDisable:
-  - {fileID: 7611744526087961460}
-  - {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
 --- !u!114 &-4056980751423066846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +440,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 8
   cooldown: 0.15
+--- !u!114 &835928174734208004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427048564078456942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd52a3a5a676e84999a4b4e03a0433b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
 --- !u!1001 &6698838581614862373
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -76,13 +76,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         RunProceduralGeneration();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RunProceduralGeneration();
-        }
-    }
+    // --- REMOVED: Update() method for Spacebar debugging was here ---
 
     protected override void RunProceduralGeneration()
     {

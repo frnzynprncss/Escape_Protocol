@@ -46,12 +46,12 @@ GameObject:
   - component: {fileID: 2898543483902687762}
   - component: {fileID: 550026251616848792}
   - component: {fileID: 988073915838303092}
-  - component: {fileID: -3369961879626993822}
   - component: {fileID: -2872142596200147749}
   - component: {fileID: 6510737306342359438}
   - component: {fileID: 3697992864353720638}
   - component: {fileID: 8934606307403977974}
   - component: {fileID: -374215332457850411}
+  - component: {fileID: 900172960070141122}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -123,6 +123,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b8a0f0c9a1999814080203bbe0b3ad6d, type: 3}
     - {fileID: 21300000, guid: 67443af43470fd144a9b2395e43abaff, type: 3}
     - {fileID: 21300000, guid: 1560cb8c313aa5346a26b1065d094a76, type: 3}
+    idleFront:
+    - {fileID: 21300000, guid: b780b786a8043a44f80ce877520c21fb, type: 3}
+    idleBack:
+    - {fileID: 21300000, guid: e8d65980696bc0a42b217e50a4e1f61b, type: 3}
+    idleLeft:
+    - {fileID: 21300000, guid: 8e9845e0f8d3da54cbbfc43cf3c2a64a, type: 3}
+    idleRight:
+    - {fileID: 21300000, guid: 341e39adcc4b83f47bebef2b41889ee7, type: 3}
   shotgunSprites:
     walkFront:
     - {fileID: 21300000, guid: bc3ec2033d1ae5c47aa669d1c7c9ea6b, type: 3}
@@ -156,6 +164,22 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 8af67819b283172448acfccedbe66242, type: 3}
     - {fileID: 21300000, guid: 8cbe533a41629e947a7b55928f41517e, type: 3}
     - {fileID: 21300000, guid: 69abaa439ac778845acb650bd97b8b61, type: 3}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   rifleSprites:
     walkFront:
     - {fileID: 21300000, guid: 9c8d85acf053ff04e879368a7efeadd4, type: 3}
@@ -188,6 +212,22 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 8831ef30b6a4448498fb574ccd2ae2c3, type: 3}
     - {fileID: 21300000, guid: 6c1ac5aa39c2ca3488a864d64ea470a7, type: 3}
     - {fileID: 21300000, guid: 4f4be71178cd6ee448b200c75d1bb7a9, type: 3}
+    idleFront:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleBack:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleLeft:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    idleRight:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   animationSpeedFPS: 12
 --- !u!114 &177642872109323784
 MonoBehaviour:
@@ -311,19 +351,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-3369961879626993822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5427048564078456942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd52a3a5a676e84999a4b4e03a0433b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
 --- !u!114 &-2872142596200147749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerScript: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!114 &6510737306342359438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,9 +447,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 0}
   respawnTime: 20
   spawnRadius: 3
-  scriptsToDisable:
-  - {fileID: 7611744526087961460}
-  - {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
 --- !u!114 &-374215332457850411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +461,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 8
   cooldown: 0.15
+--- !u!114 &900172960070141122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427048564078456942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd52a3a5a676e84999a4b4e03a0433b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
 --- !u!1001 &6698838581614862373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,6 +530,10 @@ PrefabInstance:
       propertyPath: shoot_input
       value: 
       objectReference: {fileID: 11400000, guid: bf9ef459803dc37f68372b928a6dac41, type: 2}
+    - target: {fileID: 8075089658088013550, guid: cf76e7a4093be7904b5e93301dd34c05, type: 3}
+      propertyPath: weapon_data
+      value: 
+      objectReference: {fileID: 11400000, guid: f81f7c97c67391547be93ee444079a71, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
