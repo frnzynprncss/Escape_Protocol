@@ -5,35 +5,72 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Inventory & Player")]
     // Ensure this is assigned to the PlayerInventoryHolder component!
     public PlayerInventory playerInventory;
 
+    [Header("UI References")]
     public TextMeshProUGUI returnIndicatorText;
+    public TextMeshProUGUI timerText; // Drag your Timer Text (TMP) here
     public GameObject WinPanel;
-    // --- REMOVED: public GameObject LosePanel; ---
+    public GameObject LosePanel;      // Drag your Game Over Panel here
 
-    // This list is now only used for initial collection check if needed, 
-    // but the main goal check is moved to SpaceShipInteraction.
-    // public string[] requiredItemNames = { "Fuel", "Wheel", "EnginePart", "Screen" }; 
-
-    private bool goalAchieved = false;
+    [Header("Timer Settings")]
+    public float timeRemaining = 300f; // 300 seconds = 5 minutes
+    private bool timerIsRunning = false;
+    private bool gameEnded = false;    // Replaces 'goalAchieved' for general game state
 
     private void Start()
     {
-        // Set all UI panels and indicators to inactive at start
+        // 1. Initialize UI Panels
         if (WinPanel != null) WinPanel.SetActive(false);
-        // --- REMOVED: if (LosePanel != null) LosePanel.SetActive(false); ---
+        if (LosePanel != null) LosePanel.SetActive(false);
+
         if (returnIndicatorText != null)
             returnIndicatorText.gameObject.SetActive(false);
+
+        // 2. Start the Timer
+        timerIsRunning = true;
     }
 
-    // NOTE: CheckCompletionStatus is no longer called/needed here.
+    private void Update()
+    {
+        // Only run the timer if the game hasn't ended
+        if (timerIsRunning && !gameEnded)
+        {
+            if (timeRemaining > 0)
+            {
+                // Subtract time
+                timeRemaining -= Time.deltaTime;
+                UpdateTimerDisplay(timeRemaining);
+            }
+            else
+            {
+                // Time reached 0
+                timeRemaining = 0;
+                LoseGame();
+            }
+        }
+    }
+
+    // Formats the float time into 00:00 format
+    void UpdateTimerDisplay(float timeToDisplay)
+    {
+        if (timerText == null) return; // Safety check
+
+        timeToDisplay += 1; // Visual fix so it doesn't show 00:00 for a whole second before stopping
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 
     public void WinGame()
     {
-        if (goalAchieved) return;
+        if (gameEnded) return;
 
-        goalAchieved = true;
+        gameEnded = true;
+        timerIsRunning = false; // Stop the timer since we won
 
         if (WinPanel != null)
         {
@@ -42,7 +79,34 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Congratulations! You won the game!");
 
-        // Optional: Stop time or disable player movement here
-        // Time.timeScale = 0f;
+        // Optional: Pause the game
+        Time.timeScale = 0f;
+        UnlockCursor();
+    }
+
+    public void LoseGame()
+    {
+        if (gameEnded) return;
+
+        gameEnded = true;
+        timerIsRunning = false;
+
+        Debug.Log("Time is up! Game Over.");
+
+        if (LosePanel != null)
+        {
+            LosePanel.SetActive(true);
+        }
+
+        // Optional: Pause the game
+        Time.timeScale = 0f;
+        UnlockCursor();
+    }
+
+    // Helper to make sure the mouse is visible when a panel opens
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

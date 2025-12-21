@@ -1,33 +1,45 @@
+using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
 
+    [Header("Dependencies")]
+    [Tooltip("You MUST drag the Player object here!")]
     public PlayerInventory playerInventory;
+
+    [Tooltip("Drag all your Slot GameObjects here")]
     public InventorySlot[] slots;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance != null && Instance != this) Destroy(gameObject);
+        else Instance = this;
+    }
+
+    // Use IEnumerator Start to wait 1 frame for PlayerInventory to initialize
+    private IEnumerator Start()
+    {
+        // Safety Check
+        if (playerInventory == null)
         {
-            Destroy(gameObject);
+            Debug.LogError("CRITICAL ERROR: 'Player Inventory' is missing in InventoryUI! Drag your Player object to this field.");
+            yield break;
         }
-        else
-        {
-            Instance = this;
-        }
+
+        // Wait for other scripts to load
+        yield return null;
+        RefreshAllSlots();
     }
 
     private void OnEnable()
     {
         if (playerInventory != null)
         {
-            playerInventory.item_added.AddListener(UpdateInventoryUI); 
-            playerInventory.item_removed.AddListener(RemoveItemFromUI); 
+            playerInventory.item_added.AddListener(UpdateInventoryUI);
+            playerInventory.item_removed.AddListener(RemoveItemFromUI);
         }
     }
 
@@ -40,45 +52,37 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        RefreshAllSlots(); 
-    }
-
     public void UpdateInventoryUI(ItemComponent item)
     {
+        // 1. Try to stack first
         foreach (var slot in slots)
         {
             if (!slot.IsEmpty() && slot.CanStack(item))
             {
-                slot.SetAmount(item.amount); 
+                slot.SetAmount(item.amount);
                 return;
             }
         }
 
-        if (item.amount > 0)
+        // 2. Find empty slot
+        foreach (var slot in slots)
         {
-            foreach (var slot in slots)
+            if (slot.IsEmpty())
             {
-                if (slot.IsEmpty())
-                {
-                    ItemComponent clone = ScriptableObject.CreateInstance<ItemComponent>();
-                    clone.set_name(item.item_name)
-                        .set_sprite(item.image)
-                        .set_amount(item.amount);
-
-                    slot.SetItem(clone);
-                    return;
-                }
+                // Fix: Pass the item directly, do not create a clone
+                slot.SetItem(item);
+                return;
             }
         }
+
+        Debug.Log("Inventory Full! Could not display item.");
     }
 
     public void RemoveItemFromUI(ItemComponent item)
     {
         foreach (var slot in slots)
         {
-            if (!slot.IsEmpty() && slot.GetItemName() == item.item_name) 
+            if (!slot.IsEmpty() && slot.GetItemName() == item.item_name)
             {
                 slot.ClearSlot();
                 return;
@@ -88,12 +92,12 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshAllSlots()
     {
-        foreach (var slot in slots)
-            slot.ClearSlot();
+        foreach (var slot in slots) slot.ClearSlot();
 
-        if (playerInventory == null) return;
-
-        foreach (var invItem in playerInventory.inventory.Values)
-            UpdateInventoryUI(invItem);
+        if (playerInventory != null && playerInventory.inventory != null)
+        {
+            foreach (var invItem in playerInventory.inventory.Values)
+                UpdateInventoryUI(invItem);
+        }
     }
 }

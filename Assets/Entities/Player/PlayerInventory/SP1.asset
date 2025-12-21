@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae31e4bbf294a9bea594e0c8dbf9ea4, type: 3}
   m_Name: SP1
   m_EditorClassIdentifier: 
-  image: {fileID: -513341681, guid: 963c25b97faf35f42a3016780395ba39, type: 3}
+  image: {fileID: 21300000, guid: 1d6b99a27d1e7d34c83f4392a7193081, type: 3}
   item_name: SP1
   amount: 1

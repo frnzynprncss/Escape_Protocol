@@ -4,77 +4,98 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
+    [Header("UI References")]
     public Image icon;
     public TMP_Text amountText;
+    public Sprite placeholderSprite; // Assign your empty slot background here
 
-    public Sprite placeholderSprite; // Assign in inspector (empty slot background)
+    [Header("Debug / Testing")]
+    [Tooltip("Drag an Item from Project Window here to test the UI")]
+    [SerializeField] private ItemComponent testItem;
 
-    private ItemComponent item;
+    private ItemComponent _currentItem;
+
+    // This runs immediately when you change something in the Inspector
+    private void OnValidate()
+    {
+        if (icon == null) return;
+
+        // Allows you to preview items by dragging them into 'Test Item'
+        if (testItem != null)
+        {
+            icon.sprite = testItem.image;
+            icon.enabled = true;
+            if (amountText != null)
+                amountText.text = testItem.amount > 1 ? testItem.amount.ToString() : "";
+        }
+        else
+        {
+            // Revert to placeholder if test item is removed
+            if (placeholderSprite != null) icon.sprite = placeholderSprite;
+            if (amountText != null) amountText.text = "";
+        }
+    }
 
     private void Awake()
     {
-        if (icon != null && placeholderSprite != null)
-            icon.sprite = placeholderSprite; // Always show placeholder at start
+        // If you left a test item in, load it when game starts
+        if (testItem != null)
+        {
+            SetItem(testItem);
+        }
+        else
+        {
+            ClearSlot();
+        }
     }
 
     public void SetItem(ItemComponent newItem)
     {
-        item = newItem;
-        if (item != null)
+        _currentItem = newItem;
+
+        if (_currentItem != null)
         {
-            icon.sprite = item.image;
-            amountText.text = item.amount > 1 ? item.amount.ToString() : "";
+            icon.sprite = _currentItem.image;
+            icon.enabled = true;
+            amountText.text = _currentItem.amount > 1 ? _currentItem.amount.ToString() : "";
         }
         else
         {
-            icon.sprite = placeholderSprite; // Show placeholder if no item
-            amountText.text = "";
+            ClearSlot();
         }
     }
 
     public void ClearSlot()
     {
-        item = null;
-        icon.sprite = placeholderSprite; // Keep image visible
-        amountText.text = "";
+        _currentItem = null;
+        testItem = null; // Clear debug item
+
+        if (placeholderSprite != null)
+        {
+            icon.sprite = placeholderSprite;
+            icon.enabled = true;
+        }
+        else
+        {
+            icon.enabled = false; // Hide white square if no placeholder
+        }
+
+        if (amountText != null) amountText.text = "";
     }
 
-    public bool IsEmpty() => item == null;
-
-    public bool CanStack(ItemComponent newItem) => item != null && item.item_name == newItem.item_name;
-
-    public void AddAmount(int amount)
-    {
-        if (item == null) return;
-        item.amount += amount;
-        amountText.text = item.amount > 1 ? item.amount.ToString() : "";
-    }
-
-    /// <summary>
-    /// Called by InventoryUI to update the visual stack count (handles both increase/decrease).
-    /// </summary>
     public void SetAmount(int amount)
     {
-        if (item == null) return;
-        item.amount = amount;
-        amountText.text = item.amount > 1 ? item.amount.ToString() : "";
-    }
-    
-    // --- FIX: Method required by InventoryUI.RemoveItemFromUI ---
-    /// <summary>
-    /// Returns the name of the item held in the slot.
-    /// </summary>
-    public string GetItemName()
-    {
-        return item != null ? item.item_name : string.Empty;
+        if (_currentItem == null) return;
+        _currentItem.amount = amount;
+        if (amountText != null)
+            amountText.text = _currentItem.amount > 1 ? _currentItem.amount.ToString() : "";
     }
 
-    // --- OPTIONAL: Alternative Public Property for Item Name ---
-    /// <summary>
-    /// Idiomatic C# read-only property for the item name.
-    /// </summary>
-    public string ItemName 
-    {
-        get { return item != null ? item.item_name : string.Empty; }
-    }
+    public bool IsEmpty() => _currentItem == null;
+
+    public bool CanStack(ItemComponent newItem) =>
+        _currentItem != null && _currentItem.item_name == newItem.item_name;
+
+    public string GetItemName() =>
+        _currentItem != null ? _currentItem.item_name : string.Empty;
 }
