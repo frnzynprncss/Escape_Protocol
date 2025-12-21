@@ -1,43 +1,40 @@
 using UnityEngine;
-using UnityEngine.UI; // Needed for Image component for color tinting
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro; // Needed if your button text is TextMeshPro
+using TMPro;
 
-// New Interfaces: IPointerDownHandler & IPointerUpHandler for click effects
 public class SmoothButtonAnimation : MonoBehaviour,
                                      IPointerEnterHandler,
                                      IPointerExitHandler,
                                      IPointerDownHandler,
                                      IPointerUpHandler
 {
-    // --- VARIABLES ---
-
     [Header("Scaling & Speed")]
-    public Vector3 hoverScale = new Vector3(1.5f, 1.5f, 1.5f);
-    public float scaleSpeed = 10f; // Controls how quickly it moves to the target scale
+    public float hoverScaleMultiplier = 1.1f;
+    public float scaleSpeed = 10f;
 
     [Header("Color Tinting")]
-    public Color hoverColor = new Color(0.8f, 0.8f, 0.8f, 1f); // Slightly lighter gray
-    public Color normalColor = Color.white; // Starting color
-    public float colorSpeed = 5f; // Controls how quickly the color changes
+    public Color hoverColor = new Color(0.8f, 0.8f, 0.8f, 1f);
+    public Color normalColor = Color.white;
+    public float colorSpeed = 5f;
 
     [Header("Click Animation")]
-    public Vector3 pressSquish = new Vector3(1.5f, 1.5f, 1.5f); // Scale when pressed down
+    public float pressSquishMultiplier = 0.9f;
 
     [Header("Audio Feedback")]
     public AudioClip hoverSound;
     public AudioClip clickSound;
 
-    private Vector3 initialScale; // To store the scale set in the Inspector
+    private Vector3 initialScale;
     private Vector3 targetScale;
+    private Vector3 hoverScaleVector;
+    private Vector3 pressSquishVector;
     private Color targetColor;
     private Image buttonImage;
-    private AudioSource audioSource; // Optional: If you want sound effects
+    private AudioSource audioSource;
 
-    // --- INITIALIZATION ---
     void Awake()
     {
-        // Get the Image component for color changes
         buttonImage = GetComponent<Image>();
         if (buttonImage != null)
         {
@@ -45,7 +42,6 @@ public class SmoothButtonAnimation : MonoBehaviour,
             targetColor = normalColor;
         }
 
-        // Try to find an AudioSource on the button or its parent
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
@@ -55,29 +51,25 @@ public class SmoothButtonAnimation : MonoBehaviour,
 
         initialScale = transform.localScale;
 
-        // Initialize the target scale to the starting scale
+        hoverScaleVector = initialScale * hoverScaleMultiplier;
+        pressSquishVector = initialScale * pressSquishMultiplier;
+
         targetScale = initialScale;
     }
 
-    // --- GAME LOOP (For smooth transitions) ---
     void Update()
     {
-        // 1. Smoothly Transition Scale (Runs on unscaled time)
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.unscaledDeltaTime * scaleSpeed);
 
-        // 2. Smoothly Transition Color (Runs on unscaled time)
         if (buttonImage != null)
         {
             buttonImage.color = Color.Lerp(buttonImage.color, targetColor, Time.unscaledDeltaTime * colorSpeed);
         }
     }
 
-    // --- POINTER EVENT HANDLERS ---
-
-    // Mouse enters the button area
     public void OnPointerEnter(PointerEventData eventData)
     {
-        targetScale = hoverScale;
+        targetScale = hoverScaleVector;
         targetColor = hoverColor;
 
         if (audioSource != null && hoverSound != null)
@@ -86,32 +78,27 @@ public class SmoothButtonAnimation : MonoBehaviour,
         }
     }
 
-    // Mouse leaves the button area
     public void OnPointerExit(PointerEventData eventData)
     {
         targetScale = initialScale;
-        targetColor = normalColor; // Back to normal color
+        targetColor = normalColor;
     }
 
-    // Mouse button is pressed DOWN on the button
     public void OnPointerDown(PointerEventData eventData)
     {
-        targetScale = pressSquish; // Squish the button
-        targetColor = hoverColor * 0.8f; // Darken the color slightly
+        targetScale = pressSquishVector;
+        targetColor = hoverColor * 0.8f;
     }
 
-    // Mouse button is released UP on the button
     public void OnPointerUp(PointerEventData eventData)
     {
-        // If the pointer is still over the button, go back to the hover state
         if (eventData.hovered.Contains(gameObject))
         {
-            targetScale = hoverScale;
+            targetScale = hoverScaleVector;
             targetColor = hoverColor;
         }
         else
         {
-            // Otherwise, go back to the normal state
             targetScale = initialScale;
             targetColor = normalColor;
         }

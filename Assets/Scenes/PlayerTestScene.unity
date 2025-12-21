@@ -1846,12 +1846,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25d2c3bf4217614e8e4c1dd088b6d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 1.5, y: 1.5, z: 1.5}
+  hoverScaleMultiplier: 1.1
   scaleSpeed: 10
-  hoverColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  hoverColor: {r: 0.07058824, g: 0.96862745, b: 0.77254903, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   colorSpeed: 5
-  pressSquish: {x: 1.5, y: 1.5, z: 1.5}
+  pressSquishMultiplier: 0.9
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
 --- !u!1 &229830450
@@ -3253,9 +3253,9 @@ MonoBehaviour:
   playerInventory: {fileID: 11400000, guid: cc2af934acaee474f81a7c33d0ea09dc, type: 2}
   returnIndicatorText: {fileID: 1239421607}
   timerText: {fileID: 1465235589}
-  WinPanel: {fileID: 267937257}
   LosePanel: {fileID: 1898829007}
   timeRemaining: 300
+  bossFightSceneName: BOSSFIGHT
 --- !u!4 &433240890
 Transform:
   m_ObjectHideFlags: 0
@@ -19181,6 +19181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuPanel: {fileID: 417689998}
   mainMenuSceneName: MainMenu
+  retrySceneName: Level1
   lockCursorDuringGameplay: 0
 --- !u!4 &1093104924
 Transform:
@@ -66934,12 +66935,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25d2c3bf4217614e8e4c1dd088b6d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 1.5, y: 1.5, z: 1.5}
+  hoverScaleMultiplier: 1.1
   scaleSpeed: 10
-  hoverColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  hoverColor: {r: 0.07058824, g: 0.9686275, b: 0.7725491, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   colorSpeed: 5
-  pressSquish: {x: 1.5, y: 1.5, z: 1.5}
+  pressSquishMultiplier: 0.9
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
 --- !u!1 &1606642287
@@ -68211,12 +68212,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25d2c3bf4217614e8e4c1dd088b6d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 1.5, y: 1.5, z: 1.5}
+  hoverScaleMultiplier: 1.1
   scaleSpeed: 10
-  hoverColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  hoverColor: {r: 0.07058824, g: 0.96862745, b: 0.77254903, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   colorSpeed: 5
-  pressSquish: {x: 1.5, y: 1.5, z: 1.5}
+  pressSquishMultiplier: 0.9
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
 --- !u!1 &1879725366
