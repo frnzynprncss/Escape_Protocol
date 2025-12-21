@@ -2145,7 +2145,9 @@ MonoBehaviour:
   accessCardPrefab: {fileID: 7777946631156966208, guid: b604c1cae6edfb54d9e0e3b6d74ed573, type: 3}
   fuelItemPrefab: {fileID: 5694955517181414242, guid: dbcaf946576e97a438398335cb68f7e2, type: 3}
   spaceshipPrefab: {fileID: 2938143223505291926, guid: ede5db378e038074cae45223d6f21f6c, type: 3}
-  enemySpawnChance: 1
+  minEnemiesPerRoom: 3
+  maxEnemiesPerRoom: 10
+  bonusEnemiesInItemRooms: 2
   exactFuelCount: 2
   dungeonParent: {fileID: 274450589}
 --- !u!4 &274450589

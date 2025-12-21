@@ -75,7 +75,7 @@ MonoBehaviour:
   health_bar_fill: {fileID: 0}
   bloodEffectPrefab: {fileID: 7065208528202726076, guid: cd5dd126cc8b0e14fb1212c5d3ad4314, type: 3}
   bloodSpawnOffset: {x: 0, y: 0, z: 0}
-  max_health: 500
+  max_health: 100
   playerID: 3
 --- !u!50 &3408049520590173207
 Rigidbody2D:

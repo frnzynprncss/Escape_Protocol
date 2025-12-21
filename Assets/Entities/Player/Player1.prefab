@@ -419,6 +419,9 @@ MonoBehaviour:
   gameOverPanel: {fileID: 0}
   respawnTime: 20
   spawnRadius: 3
+  scriptsToDisable:
+  - {fileID: 7611744526087961460}
+  - {fileID: 7244813198604347646, guid: b16b4f8134adb772cb835c3e5864c3ea, type: 3}
 --- !u!114 &-374215332457850411
 MonoBehaviour:
   m_ObjectHideFlags: 0
