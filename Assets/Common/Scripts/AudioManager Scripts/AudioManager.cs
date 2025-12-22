@@ -15,7 +15,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip mainmenu_music;
     public AudioClip ingame_music;
     public AudioClip buttonselect;
-    public AudioClip healthcollect;
     public AudioClip itemcollect;
     public AudioClip shoot;
 

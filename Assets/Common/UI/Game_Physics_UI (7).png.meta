@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,7 +95,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_0
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 783
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87d6e2dfc0a136242b0cea8b3a6c8fce
+      internalID: -654382947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_1
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 787
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c405ac8cfcaf3754984b90cbe4b70796
+      internalID: -1333090648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_2
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 748
+        width: 826
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f0462c502f8724da6df368896f35c0
+      internalID: -1616118573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_3
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 540
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a306636060e44469a9d7e180940296
+      internalID: 708979302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_4
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 543
+        width: 207
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd7634258c8e0994fa5e516944bde65a
+      internalID: 1697031924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_5
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 448
+        width: 833
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 332a4152202a1a74499cb02a486b2b94
+      internalID: -1912413371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_6
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 296
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c9ed77f2fef370418ff5fc93adcf6e3
+      internalID: 2090222705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_7
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 185
+        width: 833
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2aa80a6a5e7b55449a61fd552b7437e
+      internalID: -62026675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game_Physics_UI (7)_8
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 52
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbbcdab6c5c82b94a83ea7c5f5968725
+      internalID: 1524096720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +295,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Game_Physics_UI (7)_0: -654382947
+      Game_Physics_UI (7)_1: -1333090648
+      Game_Physics_UI (7)_2: -1616118573
+      Game_Physics_UI (7)_3: 708979302
+      Game_Physics_UI (7)_4: 1697031924
+      Game_Physics_UI (7)_5: -1912413371
+      Game_Physics_UI (7)_6: 2090222705
+      Game_Physics_UI (7)_7: -62026675
+      Game_Physics_UI (7)_8: 1524096720
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

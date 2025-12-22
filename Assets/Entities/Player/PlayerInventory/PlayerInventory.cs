@@ -1,23 +1,49 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "Inventory", menuName = "Resources/Inventory")]
-public class PlayerInventory : ScriptableObject
+public class PlayerInventory : MonoBehaviour
 {
+<<<<<<< HEAD
     public UnityEvent<ItemComponent> item_added;
     public UnityEvent<ItemComponent> item_removed;
 
     public Dictionary<string, ItemComponent> inventory = new Dictionary<string, ItemComponent>();
+=======
+    public List<string> inventoryItems = new List<string>();
 
-    public void print_items()
+    [Header("Settings")]
+    public int maxItems = 3;
+>>>>>>> origin/NoError
+
+    public InventoryUI myUI;
+
+    // Must be 'public bool' to fix the CS0029 error in your image
+    public bool add_item(string itemName, int amount)
     {
-        foreach (var item in inventory)
+        if (inventoryItems.Count >= maxItems)
         {
-            Debug.Log(item.Key + " " + item.Value.amount);
+            Debug.LogWarning("Inventory Full!");
+            return false; // Tells the collectible NOT to destroy itself
         }
+
+        for (int i = 0; i < amount; i++)
+        {
+            if (inventoryItems.Count < maxItems)
+            {
+                inventoryItems.Add(itemName);
+            }
+        }
+
+        if (myUI != null)
+        {
+            myUI.playerInventory = this;
+            myUI.RefreshAllSlots();
+        }
+
+        return true; // Tells the collectible it's okay to destroy itself
     }
 
+<<<<<<< HEAD
     public void add_item(ItemComponent item, int amount)
     {
         if (inventory.ContainsKey(item.item_name))
@@ -48,11 +74,28 @@ public class PlayerInventory : ScriptableObject
         if (inventory[item_name].amount <= 0)
         {
             inventory.Remove(item_name);
-        }
+=======
+    public bool ContainsItem(string itemName)
+    {
+        return inventoryItems.Contains(itemName);
     }
+
+    public void remove_item(string itemName, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            if (inventoryItems.Contains(itemName))
+                inventoryItems.Remove(itemName);
+>>>>>>> origin/NoError
+        }
+        if (myUI != null) myUI.RefreshAllSlots();
+    }
+<<<<<<< HEAD
 
     public void clear_items()
     {
         inventory.Clear();
     }
+=======
+>>>>>>> origin/NoError
 }
